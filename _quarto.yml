@@ -1,0 +1,32 @@
+project: 
+  type: website
+  output-dir: docs
+
+website: 
+  title: Real-Time Analytics
+  navbar:
+    left: 
+          - href: index.qmd
+            text: Home
+          - href: lecture1.qmd
+            text: Lecture 1
+          - href: lecture2.qmd
+            text: Lecture 2
+          - href: lecture3.qmd
+            text: Lecture 3
+          - href: lecture4.qmd
+            text: Lecture 4
+          - href: sylabus.qmd
+            text: Syllabus
+          - href: info.qmd
+            text: Tools
+          - href: books.qmd
+            text: Books
+          
+
+format:
+  html:
+    light: cosmo
+    css: style.css
+    toc: true
+    self-contained-math: true

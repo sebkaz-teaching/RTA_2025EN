@@ -1,0 +1,156 @@
+---
+title: "Lecture 3 - Microservices architecture"
+---
+
+## Time in real-time data analysis
+
+In the case of batch processing, we process historical data and the start time of the processing process has nothing to do
+with the time of occurrence of the analyzed events.
+
+For streaming data, we have two time concepts:
+
+1. `event time` - time in which the event happened.
+2. `processing time` - time during which the system processes the event.
+
+In an ideal situation:
+</br>
+<img src = "img/rys2_1.png" class="center" />
+
+In fact, data processing always takes place with a certain delay, which is represented by the points appearing below the function for the ideal situation (below the diagonal).
+
+</br>
+<img src = "img/rys2_2.png" class="center" />
+
+In stream processing applications, the differences between the time of the occurrence of an event and its processing prove to be important.
+The most common causes of delay are data transmission over the network or lack of communication between the device and the network.
+A simple example is driving a car through a tunnel and tracking the position via a GPS application.
+
+Of course, you can count the number of such missed events and trigger an alarm if there are too many such rejects.
+
+The second (probably more often) used method is the use of the so-called correction `watermarking`.
+
+The real-time event processing process can be represented as a step function, represented in the figure:
+<img src="img/rys2_3.png" class="center" />
+
+As can be seen, not all events contribute to the analysis and processing.
+The implementation of the processing process along with additional time for the occurrence of events (watermarking) can be presented
+as a process covering all events above the dashed line.
+The extra time allowed for additional events to be processed, but there may still be points that will not be taken into account.
+<img src="img/rys2_4.png" class="center"  />
+
+
+The situations presented in the graphs clearly indicate why the concept of time is an important factor and requires precise definition already at the level of defining business needs.
+Timestamping data (events) is a difficult task.
+
+## time-windows
+
+**Tumbling window** is a fixed-length window.
+Its characteristic feature is that each event belongs to only one window.
+</br>
+<img src="img/rys2_5.png" class="center"  />
+
+**Sliding window** includes all events occurring in a certain length among themselves.
+</br>
+<img src="img/rys2_6.png" class="center"  />
+
+**disjoint window** has a fixed length, but allows one window to overlap another.
+Typically used to smooth data.
+<img src="img/rys2_7.png"  class="center" />
+
+# Microservices architecture
+
+The concept of microservices is essential to understand when working on architectures. Although there are other ways to architecture software projects, `microservices` are famous for a good reason. They help teams be flexible and effective and help to keep software loose and structured. 
+
+The idea behind microservices is in the name: of software is represented as many small services that operate individually. 
+When looking at the overall architecture, each of the microservices is inside a small black box with clearly defined inputs and outputs.
+
+An often-chosen solution is to use Application Programming Interfaces ( **API**) to allow different microservices to communicate
+
+### Communication through API
+
+A central component in microservice architectures is the use of APIs. An API is a part that allows you to connect two microservices. APIs are much like websites. Like a website, the server sends You the code that represents the website. Your internet browser then interprets this code and shows you a web page. 
+
+Let's take a business case with the ML model as a service. Let’s assume you work for a company that sells apartments in Boston.
+We want to increase our sales and offer better quality services to our customers with a new mobile application which can be used even by 1 000 000 people simultaneously. 
+We can realize this by serving a prediction of house value when the user requests for pricing over the web.
+
+#### Serving a Model 
+
+- Training a good ML model is ONLY the first part:
+You do need to make your model available to your end-users
+You do this by either providing access to the model on your server.
+- When serving ML Model You need: a model, an interpreter, input data.
+- Important Metrics:
+
+1. Latency,
+2. Cost,
+3. Throughput (number of requests served per unit time)
+
+> Sharing data between two or more systems has always been a fundamental requirement of software development – DevOps vs MLOps.
+
+When you call an API, the API will receive your request. The request triggers your code to be run on the server and generates a response sent back to you. If something goes wrong, you may not receive any reply or receive an error code as an HTTP status code. 
+
+> Client-Server: Client (system A) requests to a URL hosted by system B, which returns a response. 
+It’s identical to how a web browser works. 
+A browser requests for a specific URL. 
+The request is routed to a web server that returns an HTML (text) page.
+
+> Stateless: The client request should contain all the information necessary to respond.
+
+You can call APIs with a lot of different tools. 
+Sometimes, you can even use your web browser. 
+Otherwise, tools such as CURL do the job on the command line. 
+You can use tools such as Postman for calling APIs with the user interface.
+
+> All communication is covered in fixed rules and practices, which are called the HTTP protocol.
+
+#### Request
+
+1.  An Endpoint URL a domain, port, path, query string - http://mydomain:8000/getapi?&val1=43&val2=3
+2.  The HTTP methods - GET, POST
+3.  HTTP headers contain authentication information, cookies metadata
+        - Content-Type: application/json, text ... Accept: application/json, Authorization: Basic abase64string, Tokens etc
+4.  Request body
+
+The most common format for interaction between services is the `JavaScript Object Notation` format.
+it is a data type that very strongly resembles the dictionary format in Python - key-value object.  
+
+```json
+{
+"RAD": 1,
+"PTRATIO": 15.3, "INDUS": 2.31, "B": 396.9,
+"ZN": 18,
+"DIS": 4.09, "CRIM": 0.00632, "RM": 6.575, "AGE": 65.2, "CHAS": 0, "NOX": 0.538, "TAX": 296, "LSTAT": 4.98
+}
+```
+
+#### Response
+
+1. The response payload is defined in the response header: 
+```bash
+200 OK
+Content-Encoding: gzip
+Content-Type: text/html; charset=utf-8
+Date: Mon, 18 Jul 2016 16:06:00 GMT Server: Apache
+Path=/;
+```
+
+2. Header example: "Content-Type" => "application/json; charset=utf-8", "Server" => "Genie/Julia/1.8.5
+
+3. Body example: 
+```json
+{":input":{"RAD":1,"PTRATIO":15.3,"INDUS":2.31,.....}}, {":prediction":[29.919737211857683]}
+```
+4. HTTP status code:
+• 200 OK is used for successful requests,
+• 40X Access Denied
+• 50X Internal server error
+
+#### REST API
+
+The Representational State Transfer (REST) API works just like other APIs, but it follows a certain set of style rules that make it reconizable as a REST API: 
+- Client-server architecture
+- Statelessnes
+- Cacheability
+- Layered system 
+- Uniform Interface

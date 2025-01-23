@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Real-Time Analytics - Lecture 2 - Time to Stream</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Real-Time Analytics</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture1.html">
+ <span class="menu-text">Lecture 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./lecture2.html" aria-current="page">
+ <span class="menu-text">Lecture 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture3.html">
+ <span class="menu-text">Lecture 3</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture4.html">
+ <span class="menu-text">Lecture 4</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./sylabus.html">
+ <span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./info.html">
+ <span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./books.html">
+ <span class="menu-text">Books</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#batch-vs-stream-processing" id="toc-batch-vs-stream-processing" class="nav-link active" data-scroll-target="#batch-vs-stream-processing">Batch vs Stream Processing</a>
+  <ul class="collapse">
+  <li><a href="#data-processing-types" id="toc-data-processing-types" class="nav-link" data-scroll-target="#data-processing-types">Data Processing Types</a></li>
+  <li><a href="#processing-start-time" id="toc-processing-start-time" class="nav-link" data-scroll-target="#processing-start-time">Processing start time</a></li>
+  <li><a href="#reprocessing" id="toc-reprocessing" class="nav-link" data-scroll-target="#reprocessing">Reprocessing</a></li>
+  <li><a href="#etl" id="toc-etl" class="nav-link" data-scroll-target="#etl">ETL</a></li>
+  </ul></li>
+  <li><a href="#big-data" id="toc-big-data" class="nav-link" data-scroll-target="#big-data">Big Data</a>
+  <ul class="collapse">
+  <li><a href="#elt-process" id="toc-elt-process" class="nav-link" data-scroll-target="#elt-process">ELT process</a></li>
+  <li><a href="#data-extraction-techniques" id="toc-data-extraction-techniques" class="nav-link" data-scroll-target="#data-extraction-techniques">Data Extraction Techniques</a></li>
+  <li><a href="#data-transformation-techniques" id="toc-data-transformation-techniques" class="nav-link" data-scroll-target="#data-transformation-techniques">Data Transformation Techniques</a></li>
+  <li><a href="#data-load-techniques" id="toc-data-load-techniques" class="nav-link" data-scroll-target="#data-load-techniques">Data Load Techniques</a></li>
+  </ul></li>
+  <li><a href="#hadoop-map-reduce" id="toc-hadoop-map-reduce" class="nav-link" data-scroll-target="#hadoop-map-reduce">Hadoop Map-Reduce</a>
+  <ul class="collapse">
+  <li><a href="#apache-spark" id="toc-apache-spark" class="nav-link" data-scroll-target="#apache-spark">APACHE SPARK</a></li>
+  </ul></li>
+  <li><a href="#stream-of-data" id="toc-stream-of-data" class="nav-link" data-scroll-target="#stream-of-data">Stream of Data</a>
+  <ul class="collapse">
+  <li><a href="#data-streams---definitions" id="toc-data-streams---definitions" class="nav-link" data-scroll-target="#data-streams---definitions">Data Streams - Definitions</a></li>
+  <li><a href="#event-driven-apps" id="toc-event-driven-apps" class="nav-link" data-scroll-target="#event-driven-apps">Event-driven apps</a></li>
+  <li><a href="#data-pipelines" id="toc-data-pipelines" class="nav-link" data-scroll-target="#data-pipelines">Data Pipelines</a></li>
+  <li><a href="#data-analytics-applications-streaming-analytics" id="toc-data-analytics-applications-streaming-analytics" class="nav-link" data-scroll-target="#data-analytics-applications-streaming-analytics">Data analytics applications (streaming analytics)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lecture 2 - Time to Stream</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="batch-vs-stream-processing" class="level2">
+<h2 class="anchored" data-anchor-id="batch-vs-stream-processing">Batch vs Stream Processing</h2>
+<p>Expectations vs Reality</p>
+<!-- <img alt="Batch Processing" src="img/batch00.png" class="center" /> -->
+<p><img src="img/batch00.png" class="center img-fluid"></p>
+<p>When to take a business decision?</p>
+<!-- <img alt="Batch Processing" src="img/batch0.png" class="center" /> -->
+<p><img src="img/batch0.png" class="center img-fluid"></p>
+<section id="data-processing-types" class="level3">
+<h3 class="anchored" data-anchor-id="data-processing-types">Data Processing Types</h3>
+<ol type="1">
+<li>Batch = Big, historical datasets</li>
+<li>Stream = stream data, online, generated and send continuously</li>
+</ol>
+</section>
+<section id="processing-start-time" class="level3">
+<h3 class="anchored" data-anchor-id="processing-start-time">Processing start time</h3>
+<ol type="1">
+<li>Batch = minutes, hours, days (Data warehouses)</li>
+<li>Stream = Real-time/near-real-time</li>
+</ol>
+</section>
+<section id="reprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="reprocessing">Reprocessing</h3>
+<ol type="1">
+<li>Batch = possible and used very often</li>
+<li>Stream = ,,impossible’’</li>
+</ol>
+<p><img alt="Batch Processing" src="img/batch1.png" class="center"></p>
+</section>
+<section id="etl" class="level3">
+<h3 class="anchored" data-anchor-id="etl">ETL</h3>
+<p>Extract, Transform, Load is a basic pattern for data processing, commonly known in data warehousing. It’s all about <em>extracting</em> data from a source, <em>transforming</em> the data (business rules) and at the end <em>writing/loading</em> everything to a target (Hadoop, Relational Database, Data Warehouse etc.)</p>
+</section>
+</section>
+<section id="big-data" class="level2">
+<h2 class="anchored" data-anchor-id="big-data">Big Data</h2>
+<p>Big Data system can be a part of (source of) data warehouses (ex. Data Lake, Enterprise Data Hub)</p>
+<p>But Data Warehouses are not Big Data Systems!</p>
+<ol type="1">
+<li>Data warehouses</li>
+</ol>
+<ul>
+<li>highly structured data retention</li>
+<li>focused on the analysis and reporting process</li>
+<li>100 % accuracy</li>
+</ul>
+<ol start="2" type="1">
+<li>Big Data</li>
+</ol>
+<ul>
+<li>data of any structure</li>
+<li>serves a variety of data-driven purposes (analytics, data science …)</li>
+<li>less than 100 % accuracy</li>
+</ul>
+<p><img alt="Batch Processing" src="img/batch2.png" class="center"></p>
+<section id="elt-process" class="level3">
+<h3 class="anchored" data-anchor-id="elt-process">ELT process</h3>
+<p>ELT process is similar to ETL and has the same stages involved, but the order of performing ETL stages is different. Extract data from one or many sources and Load it to the destination system for example “data lake”. After that, You can Transform Your data a more dynamically on demand.</p>
+<p>Use Case: - Demanding scalability requirements of Big Data - Streaming analytics - Integration of highly distributed data sources - Multiple data products from the same sources</p>
+<p>ELT is an emerging trend: - Big Data -&gt; Cloud computing - ELT separates the data pipeline from processing - More flexibility - No information loss (by transformations)</p>
+<p>Difference between ETL and ELT</p>
+<ul>
+<li>Transformations for ETL happen within the data pipeline</li>
+<li>Transformations for ELT happen in the destination environment</li>
+<li>ETL is rigid - pipelines are engineered to user specifications</li>
+<li>ELT is flexible - end users build their transformations</li>
+<li>Organizations use ETL for relational data, on-premise - scalability is difficult</li>
+<li>ELT solves scalability problems, handling both structured and unstructured Big Data in the cloud</li>
+<li>ETL workflows take time to specify and develop</li>
+<li>ELT supports self-serve, interactive analytics in real time</li>
+</ul>
+<p>ELT is the evolution of ETL! - increasing demand for access to raw data.</p>
+<p>ETL still has its place for many applications: - Lengthy time-to-insight - Challenges imposed by Big Data - Demand for access to siloed information</p>
+</section>
+<section id="data-extraction-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="data-extraction-techniques">Data Extraction Techniques</h3>
+<p>Examples of raw data sources: - Paper documents - Web pages - Analog audio/video - Survey, statistics, economics - Transactional data - Social media - Weather station networks - IoT - Medical records - Human genomes</p>
+<p>Data extraction techniques include: - OCR - ADC sampling, CCD sampling - Mail, phone, or in-person surveys and polls - Cookies, user logs - Web scraping - API’s - Database querying - Edge computing - Biomedical devices</p>
+</section>
+<section id="data-transformation-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="data-transformation-techniques">Data Transformation Techniques</h3>
+<p>can involve various operations, such as: - Data typing - Data structuring - Anonymizing, encrypting - Cleaning: duplicate records, missing values - Normalizing: converting data to common units - Filtering, sorting, aggregating, binning - Joining data sources</p>
+<section id="schema-on-write" class="level4">
+<h4 class="anchored" data-anchor-id="schema-on-write">Schema-on-write</h4>
+<p>is the conventional ETL approach: - Consistency and efficiency - Limited versatility</p>
+</section>
+<section id="schema-on-read" class="level4">
+<h4 class="anchored" data-anchor-id="schema-on-read">Schema-on-read</h4>
+<p>applies to the modern ELT approach: - Versatility - Enhanced storage flexibility = more data</p>
+<p>Transformed data could be loss information. - data compression - filtering - aggregation - Edge computing devices</p>
+</section>
+</section>
+<section id="data-load-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="data-load-techniques">Data Load Techniques</h3>
+<ul>
+<li>Full</li>
+<li>Incremental</li>
+<li>Scheduled</li>
+<li>ON-demand</li>
+<li>Batch and stream</li>
+<li>push and pull</li>
+<li>parallel and serial</li>
+</ul>
+</section>
+</section>
+<section id="hadoop-map-reduce" class="level2">
+<h2 class="anchored" data-anchor-id="hadoop-map-reduce">Hadoop Map-Reduce</h2>
+<p><img alt="Batch Processing" src="img/batch3.png" class="center"></p>
+<blockquote class="blockquote">
+<p>Find a simple map-reduce algorithm in any programming language and run it.</p>
+</blockquote>
+<p><img alt="Batch Processing" src="img/batch4.png" class="center"></p>
+<p>How to improve?</p>
+<section id="apache-spark" class="level3">
+<h3 class="anchored" data-anchor-id="apache-spark">APACHE SPARK</h3>
+<p><img alt="Batch Processing" src="img/batch5.png" class="center"></p>
+<p><br> <img alt="Batch Processing" src="img/batch6.png" class="center"></p>
+</section>
+</section>
+<section id="stream-of-data" class="level1">
+<h1>Stream of Data</h1>
+<blockquote class="blockquote">
+<p>Check Your knowledge with <a href="https://medium.com/cuelogic-technologies/analyzing-data-streaming-using-spark-vs-kafka-bcfdc33ac828">streaming data</a></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Definition - <em>Event</em> is everything that we can observe at a certain moment in time (pure physics). Define - In the case of data, <em>event</em> is understood as an <strong>unchangeable</strong> record in the data stream encoded as JSON, XML, CSV or binary.</p>
+</blockquote>
+<p>Which of the following statements do not represent events?</p>
+<ol type="1">
+<li>It was a warm day.</li>
+<li>The API client did not work.</li>
+<li>The API client stopped working at midnight.</li>
+<li>The car was black.</li>
+<li>Murzynek was tasty.</li>
+<li>In 2013, the NASDAQ exchange opened at 9:30 am every day.</li>
+</ol>
+<blockquote class="blockquote">
+<p>Definition - A continuous stream of events is an infinite set of individual events arranged in time, e.g.&nbsp;logs from a device.</p>
+</blockquote>
+<p>Systems for continuous streams of events:</p>
+<ul>
+<li>Transaction systems - e.g.&nbsp;purchase/sale</li>
+<li>Data warehouses - store the history of events for later analysis (Fact Table).</li>
+<li>Data from sensors: Monitoring systems, IoT, any API (Twitter), queuing systems (Kafka),</li>
+<li>Location tracking</li>
+<li>User interaction: what are your site visitors doing?</li>
+<li>Mobile devices</li>
+<li>Cloud applications</li>
+<li>web browsers</li>
+</ul>
+<p><img alt="Batch Processing" src="img/stream1.png" class="center"></p>
+<ul>
+<li>Web server logs</li>
+<li>Recommendation systems (personalization)</li>
+</ul>
+<p>Streaming analytics allows you to quickly catch trends and stay ahead of the competition that uses only batch processing. Reacting to sudden events on the stock market or in social networks to prevent or minimize losses.</p>
+<ul>
+<li>which vehicle of the company’s fleet is almost empty and - where to send the driver for refuelling.</li>
+<li>Which vehicle in your fleet consumes the most fuel and why?</li>
+<li>Which equipment in the plant or the factory may fail in the coming days?</li>
+<li>What spare parts will you need to replace and on which machines in shortly?</li>
+<li>How many customers are currently shopping in the store and can you offer them something?</li>
+<li>Is the customer calling to terminate the contract?</li>
+<li>and many others.</li>
+</ul>
+<p><strong>An enterprise is an organization that generates and responds to a continuous stream of events</strong>.</p>
+<section id="data-streams---definitions" class="level3">
+<h3 class="anchored" data-anchor-id="data-streams---definitions">Data Streams - Definitions</h3>
+<blockquote class="blockquote">
+<p>Definition - Data stream is data created incrementally over time, generated from static data (database, reading lines from a file) or dynamically (logs, sensors, functions).</p>
+</blockquote>
+<p>Streaming analytics is also called event stream processing - processing large amounts of data already at the stage of their generation.</p>
+<p>They are generated as a direct result of an action.</p>
+<p>Regardless of the technology used, all data is created as a continuous stream of events (user actions on the website, system logs and measurements from sensors).</p>
+<blockquote class="blockquote">
+<p>Find a process that creates an entire data table at once.</p>
+</blockquote>
+<p>The application that processes the stream of events should enable the processing and saving of the event and access (at the same time) other data so that it can process the event (perform any conversion on it) and save it as a local state. This state can be saved in many places, eg program variables, local files, ext, and ext of the database. One of the most famous applications of this type is Apache Kafka, which can be combined with e.g.&nbsp;Apache Spark or Apache Flink.</p>
+<blockquote class="blockquote">
+<p>Find info on how to log processing systems work.</p>
+</blockquote>
+<p>These types of applications are used in three classes of applications:</p>
+<ol type="1">
+<li>event-driven applications</li>
+<li>data pipeline applications</li>
+<li>data analytics applications</li>
+</ol>
+<blockquote class="blockquote">
+<p>Real implementations most often use several classes in one application.</p>
+</blockquote>
+</section>
+<section id="event-driven-apps" class="level3">
+<h3 class="anchored" data-anchor-id="event-driven-apps">Event-driven apps</h3>
+<p>All Event-driven applications process data as Stateful stream processing, processing events with a certain set (mostly business) logic. These applications can trigger actions in response to the analyzed events, e.g.&nbsp;send an alarm in the form of a text message or email, save and forward the appropriate event (e.g.&nbsp;fraud) to the output application (consumer).</p>
+<p>Standard applications for this type of application are:</p>
+<ol type="1">
+<li>Real-time recommendations - e.g.&nbsp;while browsing websites</li>
+<li>Pattern detection or complex analysis, eg fraud detection in credit card transactions.</li>
+<li>Anomaly detection - detection of intrusions in a computer network</li>
+</ol>
+<p>Applications of this type are treated as a natural evolution of microservices. They communicate with each other using REST requests (be sure to check where you are using them !!!) with the use of straightforward data. They also use data in the form of JSON.</p>
+<blockquote class="blockquote">
+<p>What is REST?</p>
+</blockquote>
+<p>Log communication (usually asynchronous) distinguishes the sending application (producer) and the consuming application (consumer).</p>
+<blockquote class="blockquote">
+<p>What is asynchronous communication?</p>
+</blockquote>
+</section>
+<section id="data-pipelines" class="level3">
+<h3 class="anchored" data-anchor-id="data-pipelines">Data Pipelines</h3>
+<p>The data generated by companies are most often stored in many different formats and data structures, which is related to the use of various systems e.g.&nbsp;relational and non-relational databases, event logging, file systems (e.g.&nbsp;Hadoop), storage in memory etc. Recording the same data in different systems increases their availability and ease of processing.</p>
+<p>However, this approach requires that these systems are always synchronized with each other (containing the same data).</p>
+<p>The traditional approach to data synchronization is to perform ETL tasks periodically. However, they very often do not meet the performance and quality assumptions (processing time). Alternatively, you can use the information distributed in the event logs. In this situation, data aggregation or normalization can be performed only during the processing of a given event.</p>
+<p>We call these types of applications, which allow achieving very high performance (low latency), <code>data pipelines</code>. In general, these are applications that read a lot of data from various input applications and process everything in a very short time (e.g.&nbsp;Kafka, Apache Flink).</p>
+</section>
+<section id="data-analytics-applications-streaming-analytics" class="level3">
+<h3 class="anchored" data-anchor-id="data-analytics-applications-streaming-analytics">Data analytics applications (streaming analytics)</h3>
+<p>ETL jobs periodically (and periodically over time) import data into the database, with the data being processed by scheduled queries. Regardless of the data warehouse architecture (or components such as Hadoop), this processing is ‘batch’. Analytical processes (OLAP) are performed in the warehouse, which is supplemented as described above. Although periodic data completion (i.e.&nbsp;the entire ETL process) is a kind of ‘art’, it introduces considerable delays in the analytical process. Depending on the data upload schedule, the next data point may appear after an hour or even several days. Even in the case of continuous replenishment of the warehouse (data pipeline app), there is still a significant delay in the analytical polling of such a database. While such delays were acceptable in the past, today’s applications must collect, process and analyze data in real-time (personalizing user behaviour on websites or dynamically changing conditions in mobile games).</p>
+<p>Instead of waiting for periodic triggers, the streaming application continuously downloads event streams and updates the results to include the latest events with low latency. Streaming applications store their results in an external datastore that supports efficient updates (high-performance database or key-value database). Streaming application performance refreshed life can feed into various types of graphs (shown live).</p>
+<p><img alt="OLAP system" src="img/baza3.png" class="center"></p>
+<p>Streaming Analytics Applications are used in:</p>
+<ol type="1">
+<li>Monitoring the quality of telephone networks</li>
+<li>Behavioral analysis of mobile application users</li>
+<li>…</li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

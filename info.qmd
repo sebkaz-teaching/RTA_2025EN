@@ -1,0 +1,213 @@
+
+---
+title: "All tools"
+---
+
+
+## Python env with Jupyter LAB
+
+For our first a few laboratories we will use just python codes. 
+Check what is Your Python3 environment. 
+
+In the terminal try first:
+```bash
+python
+# and
+python3
+```
+
+I have python3 (You shouldn't use python 2.7 version) so i create a new and a clear python environment.
+
+
+The easiest way how to run a JupyterLab with your new python env. 
+For _<name of Your env>_ You can choose what You want. 
+
+```bash
+python3 -m venv <name of Your env>
+
+source <name of your env>/bin/activate
+# . env/bin/activate
+pip install --no-cache --upgrade pip setuptools
+
+pip install jupyterlab numpy pandas matplotlib scipy
+# or
+pip install -r requirements.txt
+
+jupyterlab
+```
+go to web browser: _localhost:8888_
+
+If You want rerun jupyterlab (after computer reset) just go to Your folder and run: 
+
+```bash
+source <name of your env>/bin/activate
+jupyterlab
+```
+
+
+## Python env with JupyterLAB Docker Version
+
+### Cookiecutter project 
+From [GitHub](https://github.com/sebkaz/jupyterlab-project) repository You can
+find how to use a cookiecutter for any data science project or other kind of programs. 
+
+To run and build full dockerfile project:
+Create python env and install cookiecutter library.
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip --no-cache install --upgrade pip setuptools
+pip install cookiecutter
+```
+and run:
+```bash
+cookiecutter https://github.com/sebkaz/jupyterlab-project
+```
+You can run a cookiecutter project directly from GitHub repo.
+
+Answer questions: 
+```bash
+cd jupyterlab
+docker-compose up -d --build
+```
+To stop: 
+```bash
+docker-compose down
+```
+
+### Cookiecutter with config yaml file
+
+1. [Python, Julia, R](https://github.com/sebkaz/docker-jupyterlab)
+2. [All + Apache Spark](https://github.com/sebkaz/docker-spark-jupyterlab)
+
+Clone repo and run:
+```bash 
+python3 -m cookiecutter https://github.com/sebkaz/jupyterlab-project --no-input --config-file=spark_template.yml --overwrite-if-exists
+```
+
+
+## Start with GitHub
+
+Text from [web site](http://pbiecek.github.io/Przewodnik/Programowanie/jak_korzystac_z_serwisu_github_i_waffle.html)
+
+
+
+When You working on a project, e.g. a master's thesis, (alone or in a team) you often need to check what changes, when and by whom were introduced to the project.
+The "version control system" or [GIT](https://git-scm.com) works great for this task.
+
+You can download and install Git like a regular program on any computer.
+However, most often (small projects) you use websites with some kind of git system.
+One of the most recognized is [GitHub] (www.github.com) which allows you to use the git system without installing it on your computer.
+
+In the free version of the `GitHub` website, you can store your files in public (everyone has access) repositories.
+We will only focus on the free version of GitHub:
+
+```bash
+git --version
+```
+
+## GitHub
+
+At the highest level, there are individual accounts (eg. [http://github.com/sebkaz](http://github.com/sebkaz) or those set up by organizations.
+Individual users can create ** repositories ** public (`public`) or private (` private`).
+
+One file should not exceed 100 MB.
+
+**Repo** (shortcut to repository) is created with `Create a new repository`.
+ Each repo should have an individual name.
+
+### Branches
+
+The main (created by default) branch of the repository is named `master`.
+
+
+### Most important commends
+
+* _clone of Your repository_
+
+```bash
+git clone https://adres_repo.git
+```
+
+> In github case, you can download the repository as a 'zip' file.
+
+* _Repository for local directory_
+
+```bash
+# new directory
+mkdir datamining
+cd datamining
+# init repo
+git init
+# there sould be a .git new directory
+# add file
+echo "Info " >> README.md
+```
+
+* local and web version connection 
+
+```bash
+git remote add origin https://github.com/<twojGit>/nazwa.git
+```
+
+* 3 steps
+
+```bash
+# status check
+git status
+# 1. add all changes
+git add .
+# 2. commit all changes with message
+git commit -m " message "
+# 3. and
+git push origin master
+```
+You can watch [Youtube course](https://www.youtube.com/watch?v=HVsySz-h9r4).
+
+
+
+
+All the necessary programs will be delivered in the form of docker containers.
+
+## Start with Docker
+
+In order to download the docer software to your system, go to [ the page](https://docs.docker.com/get-docker/).
+
+If everything is installed correctly, follow these instructions:
+
+1. Check the installed version
+```bash
+docker --version
+```
+
+2. Download and run the image `Hello World` and
+```bash
+docker run hello-world
+```
+3. Overview of downloaded images:
+```bash
+docker image ls
+
+docker images
+```
+4. Overview of running containers:
+```bash
+docker ps 
+
+docker ps -all
+```
+5. Stopping a running container:
+```bash
+docker stop <CONTAINER ID>
+```
+6. Container removal
+```bash
+docker rm -f <CONTAINER ID>
+```
+
+I also recommend [short intro](https://medium.com/codingthesmartway-com-blog/docker-beginners-guide-part-1-images-containers-6f3507fffc98)
+
+
+## Docker as an application continuation tool
+
+[Docker with jupyter notebook](https://hub.docker.com/repository/docker/sebkaz/docker-data-science)

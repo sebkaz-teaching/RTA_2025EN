@@ -4,71 +4,36 @@ title: "Info"
 
 ## Real Time Analytics 
 
-Kod: 222891-D
+Code: 222891-D
 
-Winter semester 2022/2023,
-SGH Warsaw School of Economics
+Semester: 2024/2025
+University: SGH Warsaw School of Economics
 
+Basic course information can be found in the [sylabus](/sylabus).
 
-Basics information about this course can be found in the [syllabus](/sylabus).
+Recommended reading is available in the [books](/books) section.
 
-List of [books](/books)! I recommend.
-
-If You don't know what Python is go [here](/info).
 
 ## Schedule
 
-#### Lectures
+### Lectures
+The lectures are conducted in a hybrid mode.
+Attendance is optional, and in-person sessions take place in Aula VI, Building G.
 
-The lecture is carried out in hybrid mode.
-It is OPTIONAL and takes place in Aula I building G
+1. 18-02-2025 (Tuesday) 11:40-13:20 - Lecture 1
+2. 25-02-2025 (Tuesday) 11:40-13:20 - Lecture 2
+3. 04-03-2025 (Tuesday) 11:40-13:20 - Lecture 3
+4. 11-03-2025 (Tuesday) 11:40-13:20 - Lecture 4
+5. 18-03-2025 (Tuesday) 11:40-13:20 - Lecture 5
 
-1. <del>20-02-2023 (Monday) 08:00-9:30 - Lecture 1</del>
-    Completed topics:
-    - structured and unstructured data, 
-    - introduction to Big Data
-    - data generation processes
-    - OLAP and OLTP data processing models.
 
-2. <del>27-02-2023 (Monday) 08:00-9:30 - Lecture 2</del>
-    Completed topics:
-    - batch processing vs data stream processing
-    - ETL
-    - the MapReduce pattern
-    - business requirements for the data stream
-    - definitions of: event, event stream processing, event analysis,
-    - batch apps and streaming apps
-3. <del>06-03-2023 (Monday) 08:00-9:30 - Lecture 3</del>
-    Completed topics:
-    - Time in streaming data processing
-    - Operation of the client-server system: REST API
-4. <del>13-03-2023 (Monday) 08:00-9:30 - Lecture 4</del>
-    Completed topics: 
-    - Lambda and Kappa architectures
-    - pub/sub communication for Apache Kafka
+The lecture 5 concludes with a TEST.
 
-Lectures end with a TEST: 10 questions - 20 minutes.
-The test is conducted via MS Teams.
+Format: 20 questions | 30 minutes
+Platform: MS Teams
 
-#### Labs
 
-1. <del>21-03-2023 (tuesday) 08:00-11:30 - C4D 2 groups</del>
-2. <del>28-03-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy</del>
-3. <del>04-04-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-4. <del>18-04-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-5. <del>25-04-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-6. <del> 09-05-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-7. <del> 16-05-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-8. <del> 23-05-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy </del>
-9. 30-05-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy
-10. 06-06-2023 (tuesday) 08:00-11:30 - C4D, 2 grupy 
-
-#### Place
-
-Lectures 1-4: G-Aula I
-Labs 1-10: C-4D
-
-#### Exam
+### Exam
 
 Lectures will end with a test (last class).
 Positive evaluation of the test (above 13 points) entitles you to carry out the exercises.

@@ -8,8 +8,8 @@ website:
     left: 
           - href: index.qmd
             text: Home
-          # - href: lecture1.qmd
-          #   text: Lecture 1
+          - href: lecture1.qmd
+            text: Lecture 1
           # - href: lecture2.qmd
           #   text: Lecture 2
           # - href: lecture3.qmd

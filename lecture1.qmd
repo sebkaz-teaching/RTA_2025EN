@@ -1,181 +1,343 @@
 ---
-title: "Lecture 1 Small data"
+title:  Lecture 1
+
+format:
+  html:
+    code-fold: true
+jupyter: python3
 ---
+⏳ Duration: 1.5h
 
-The stream processing technology is becoming more and more popular with  big and small companies because it provides superior solutions for many established use cases such as data analytics, ETL, transactional apps, software architectures, and business opportunities.
-We try to describe why stateful stream processing is becoming so popular and assess its potential.
+*🎯 Lecture Goal*
 
-But first, we start by reviewing classical **data** app architectures and point out their limitations.
+Introducing students to the fundamentals of real-time analytics, the differences between data processing modes (batch, streaming, real-time), as well as key applications and challenges.
+
+## What is Real-Time Data Analytics?
+
+### Definition and Key Concepts
+
+Real-Time Data Analytics is the **process** of processing and analyzing data **immediately** after it is generated, without the need for storage and later processing. 
+The goal is to obtain instant insights and responses to changing conditions in business, technology, and scientific systems.
+
+### Key Features of Real-Time Data Analytics:
+
+1.	Low latency – data is analyzed within milliseconds or seconds of being generated.
+2.	Streaming vs. Batch Processing – data analysis can occur continuously (streaming) or at predefined intervals (batch).
+3.	Integration with IoT, AI, and ML – real-time analytics often works in conjunction with the Internet of Things (IoT) and artificial intelligence algorithms.
+4.	Real-time decision-making – e.g., instant fraud detection in banking transactions.
+
+## Business Applications of Real-Time Data Analytics
+
+### Finance and Banking
+
+-	**Fraud Detection** – real-time transaction analysis helps identify anomalies indicating fraud.
+-	**Automated Trading** – HFT (High-Frequency Trading) systems analyze millions of data points in fractions of a second.
+-	**Dynamic Credit Scoring** – instant risk assessment of a customer’s creditworthiness.
+
+### E-Commerce and Digital Marketing
+
+-	**Real-Time Offer Personalization** – dynamic product recommendations based on users’ current behavior.
+-	**Dynamic Pricing** – companies like Uber, Amazon, and hotels adjust prices in real time based on demand.
+-	**Social Media Monitoring** – sentiment analysis of customer feedback and immediate response to negative comments.
+
+### Telecommunications and IoT
+
+-	**Network Infrastructure Monitoring** – real-time log analysis helps detect failures before they occur.
+-	**Smart Cities** – real-time traffic analysis optimizes traffic light systems dynamically.
+-	**IoT Analytics** – IoT devices generate data streams that can be analyzed in real time (e.g., smart energy meters).
+
+### Healthcare
+
+-	**Patient Monitoring** – real-time analysis of medical device signals to detect life-threatening conditions instantly.
+-	**Epidemiological Analytics** – tracking disease outbreaks based on real-time data.
+
+Real-time data analytics is a key component of modern IT systems, enabling businesses to make faster and more precise decisions. It is widely used across industries—from finance and e-commerce to healthcare and IoT.
+
+## Differences Between Batch Processing, Near Real-Time Analytics, and Real-Time Analytics  
+
+There are three main approaches to data processing:  
+
+1. **Batch Processing**  
+2. **Near Real-Time Analytics**  
+3. **Real-Time Analytics**  
+
+Each differs in processing speed, technological requirements, and business applications.  
+
+### **Batch Processing**  
+
+📌 **Definition:**  
+
+Batch Processing involves collecting large amounts of data and processing them at scheduled intervals (e.g., hourly, daily, or weekly).  
+
+📌 **Characteristics:**  
+
+- ✅ High efficiency for large datasets  
+- ✅ Processes data after it has been collected  
+- ✅ Does not require immediate analysis  
+- ✅ Typically cheaper than real-time processing  
+- ❌ Delays – results are available only after processing is complete  
+
+📌 **Use Cases:**  
+
+- Generating financial reports at the end of a day/month  
+- Analyzing sales trends based on historical data  
+- Creating offline machine learning models  
+
+📌 **Example Technologies:**  
+
+- Hadoop MapReduce  
+- Apache Spark (in batch mode)  
+- Google BigQuery  
+
+``` python
+import pandas as pd  
+df = pd.read_csv("transactions.csv")  
+
+df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+df['month'] = df['transaction_date'].dt.to_period('M')  # Ekstrakcja miesiąca
+
+# Agregacja danych - miesięczne sumy transakcji
+monthly_sales = df.groupby(['month'])['amount'].sum()
+
+# Zapis wyników do pliku (np. raportu)
+monthly_sales.to_csv("monthly_report.csv")  
+
+print("Raport zapisany!")
+```
+
+If you wanted to create data for an example.
+
+``` python
+import pandas as pd
+import numpy as np
+
+np.random.seed(42)
+data = {
+    'transaction_id': [f'TX{str(i).zfill(4)}' for i in range(1, 1001)],
+    'amount': np.random.uniform(10, 10000, 1000), 
+    'transaction_date': pd.date_range(start="2025-01-01", periods=1000, freq='h'), 
+    'merchant': np.random.choice(['Merchant_A', 'Merchant_B', 'Merchant_C', 'Merchant_D'], 1000),
+    'card_type': np.random.choice(['Visa', 'MasterCard', 'AmEx'], 1000)
+}
+
+df = pd.DataFrame(data)
+csv_file = 'transactions.csv'
+df.to_csv(csv_file, index=False)
+```
+
+## Near Real-Time Analytics – Analysis Nearly in Real Time  
+
+📌 **Definition:**  
+
+Near Real-Time Analytics refers to data analysis that occurs with minimal delay (typically from a few seconds to a few minutes). It is used in scenarios where full real-time analysis is not necessary, but excessive delays could impact business operations.  
+
+📌 **Characteristics:**  
+
+1. ✅ Processes data in short intervals (a few seconds to minutes)  
+2. ✅ Enables quick decision-making but does not require millisecond-level reactions  
+3. ✅ Optimal balance between cost and speed  
+4. ❌ Not suitable for systems requiring immediate response  
+
+📌 **Use Cases:**  
+
+- Monitoring banking transactions and detecting fraud (e.g., analysis within 30 seconds)  
+- Dynamically adjusting online ads based on user behavior  
+- Analyzing server and network logs to detect anomalies  
+
+📌 **Example Technologies:**  
+
+- Apache Kafka + Spark Streaming  
+- Elasticsearch + Kibana (e.g., IT log analysis)  
+- Amazon Kinesis  
+
+Example of a data producer sending transactions to an Apache Kafka system.  
+
+``` python
+from kafka import KafkaProducer
+import json
+import random
+import time
+from datetime import datetime
+
+# Ustawienia dla producenta
+bootstrap_servers = 'localhost:9092'
+topic = 'transactions' 
+
+# Funkcja generująca przykładowe dane transakcji
+def generate_transaction():
+    transaction = {
+        'transaction_id': f'TX{random.randint(1000, 9999)}',
+        'amount': round(random.uniform(10, 10000), 2),  # Kwota między 10 a 10 000
+        'transaction_date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'merchant': random.choice(['Merchant_A', 'Merchant_B', 'Merchant_C', 'Merchant_D']),
+        'card_type': random.choice(['Visa', 'MasterCard', 'AmEx']),
+    }
+    return transaction
+
+producer = KafkaProducer(
+    bootstrap_servers=bootstrap_servers,
+    value_serializer=lambda v: json.dumps(v).encode('utf-8') 
+)
 
 
-##  Data. From data file to data lake
+for _ in range(1000):  
+    transaction = generate_transaction()
+    producer.send(topic, value=transaction) 
+    print(f"Sent: {transaction}")
+    time.sleep(1) 
 
-The development of information technology has resulted in access to unimaginable amounts of a new resources which are **structured** and **unstructured** data.
+# Zakończenie działania producenta
+producer.flush()
+producer.close()
+```
 
+Consument example
 
-Data has contributed to the development of thousands of new tools for `generating`, `collecting`, `storing` and `processing` information on an unprecedented scale.
+``` python
+from kafka import KafkaConsumer
+import json  
 
-![](img/main.jpeg){.center}
+# Konsumer do pobierania danych z Kafka
+consumer = KafkaConsumer(
+    'transactions',
+    bootstrap_servers='localhost:9092',
+    auto_offset_reset='earliest',
+    value_deserializer=lambda x: json.loads(x.decode('utf-8'))
+)
 
+# Pobieranie transakcji w niemal real-time i analiza
+for message in consumer:
+    transaction = message.value
+    if transaction["amount"] > 8000:
+        print(f"🚨 Wykryto dużą transakcję: {transaction}")
+```
 
-The emergence of new scientific or business challenges becomes possible thanks to the construction of systems based on `open software`, and the use of home computers to support the processing of huge amounts of data.
+Example of the DataSet
 
-The new kind of business and scientific challenges include:
+``` python
+{
+    "transaction_id": "TX1234",
+    "amount": 523.47,
+    "transaction_date": "2025-02-11 08:10:45",
+    "merchant": "Merchant_A",
+    "card_type": "Visa"
+}
+```
 
-- intelligent advertising of thousands of products for millions of customers,
-- processing of data about genes, RNA or proteins [genus](http://genus.fuw.edu.pl),
-- intelligent detection of various methods of fraud among hundreds of billions of credit card transactions,
-- stock market simulations based on thousands of financial instruments,
-- ...
-The data age presents us with newer and newer challenges related not only to the quantity but also to the time of data processing.
+### **Real-Time Analytics**  
 
-All machine learning algorithms require **structured data** written in a tabular form.
-They are organized in columns of characteristics that characterize each observation (rows).
-An example may be such features as __sex__, __growth__ or __the number of owned cars__, of which it can be predicted whether the customer will repay the loan or not.
-This prediction is also collected as a feature.
-Thanks to the tables of features obtained in this way, we can use XGBoost or logistic regression algorithms to determine the appropriate combination of variables affecting the probability of a good or bad customer.
+📌 **Definition:**  
 
-**Unstructured data** is data that is not arranged in a tabular form.
-Examples include sound, images and text.
-In the process of processing, they are always converted into some vector form.
-However, individual letters, frequencies or pixels do not convey any information.
-They do not create separate features, which is crucial to distinguish them from structured data.
+Real-Time Analytics refers to the immediate analysis of data and decision-making within fractions of a second (milliseconds to one second). It is used in systems requiring real-time responses, such as stock market transactions, IoT systems, and cybersecurity.  
 
-> Give an example of structured and unstructured data. Load sample data in jupyter notebook.
+📌 **Characteristics:**  
 
-> Knows the types of structured and unstructured data (K2A_W02, K2A_W04, O2_W04, O2_W07)
+1. ✅ Extremely low latency (milliseconds to seconds)  
+2. ✅ Enables instant system response  
+3. ✅ Requires high computational power and scalable architecture  
+4. ❌ More expensive and technologically complex than batch processing  
 
+📌 **Use Cases:**  
 
-## Data sources
+- **High-Frequency Trading (HFT)** – making stock market transaction decisions within milliseconds  
+- **Autonomous Vehicles** – real-time analysis of data streams from cameras and sensors  
+- **Cybersecurity** – detecting network attacks in fractions of a second  
+- **IoT Analytics** – instant anomaly detection in industrial sensor data  
 
-The three largest data `generators` are:
+📌 **Example Technologies:**  
 
-- social data in the form of texts (tweets, entries in social networks, comments), photos or videos.
-    These data are very important due to their wide possibilities of consumer behaviour and sentiment analysis in marketing analyses.
-- data from all kinds of sensors or logs of the operation of devices and users (e.g. on a website).
-    These data are related to IoT (Internet of Things) technology, which is currently one of the most developing areas in data processing, but also in the business direction.
-- Transaction data, which is generally what is always generated as transactions appearing both online and offline.
-    Currently, this type of data is processed for the purpose of performing transactions and rich analytics supporting virtually every area of ​​everyday life.
+- Apache Flink  
+- Apache Storm  
+- Google Dataflow  
 
-## Actual data generation process
+🔎 **Comparison:**  
 
-The data that is in reality appears as a result of the continuous operation of the systems.
-You have generated a lot of data on your phone today (and even on these devices!)
-Will it not generate them early or tomorrow?
-Batch processing splits the data into a time-length chunk and runs granular processes at a user-specified time
-. However, the timestamp is not always appropriate.
+| Feature | Batch Processing | Near Real-Time Analytics | Real-Time Analytics |
+|--------------------|------------------|------------------|------------------|
+| **Latency** | Minutes – hours – days | Seconds – minutes | Milliseconds – seconds |
+| **Processing Type** | Batch (offline) | Streaming (but not fully immediate) | Streaming (true real-time) |
+| **Infrastructure Cost** | 📉 Low | 📈 Medium | 📈📈 High |
+| **Implementation Complexity** | 📉 Simple | 📈 Medium | 📈📈 Difficult |
+| **Use Cases** | Reports, offline ML, historical analysis | Transaction monitoring, dynamic ads | HFT, IoT, real-time fraud detection |  
 
-With many systems that handle the data streams that you already have.
-They are e.g.:
-- data warehouses
-- devices monitoring systems (IoT)
-- transaction systems
-- website analytics systems
-- Internet advertising
-- social media
-- operating systems
-- ....
+📌 **When to Use Batch Processing?**  
 
-> a company is an organization that works and responds to a constant stream of data.
+1. ✅ When immediate analysis is not required  
+2. ✅ When handling large volumes of data processed periodically  
+3. ✅ When aiming to reduce costs  
 
-The input to the orchard source (but also the result of the evaluation) of the data is the **file**.
-It is written once and can be referred to (multiple functions - tasks can run on it).
-The name of the file to identify the record set.
+📌 **When to Use Near Real-Time Analytics?**  
 
-In the case of the stream of change, it is only once through the so-called _manufacturer_ (also referred to as the sender or supplier).
-They can be formed by many so-called _consumers_ (recipients).
-Streaming events are grouped into so-called **topic** (eng. **topic**).
+1. ✅ When analysis is needed within a short time (seconds – minutes)  
+2. ✅ When fresher data is required but not full real-time processing  
+3. ✅ When seeking a balance between performance and cost  
 
-## not to Big Data
+📌 **When to Use Real-Time Analytics?**  
 
-> _,,Big Data is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so every one claims they are doing it.''_ — Dan Ariely, Professor of Psychology and Behavioral Economics, Duke University
+1. ✅ When every millisecond matters (e.g., stock trading, autonomous vehicles)  
+2. ✅ When detecting fraud, anomalies, or incidents instantly  
+3. ✅ When a system must respond to events immediately  
 
-### one, two, ... four V
+Real-time analytics is not always necessary—often, near real-time is sufficient and more cost-effective. The key is to understand business requirements before choosing the right solution.  
 
-1. **Volume** - the size of the data produced worldwide is growing exponentially. Huge amounts of data are being generated every second - the email you send, Twitter, Facebook, or other social media, videos, pictures, SMS messages, call records and data from varied devices and sensors.
-2. **Velocity** - the speed of data production, the speed of their transfer and processing.
-3. **Variety** - we associate traditional data with an alphanumeric form composed of letters and numbers. Currently, we have images, sounds, videos and IoT data streams at our disposal
-4. **Veracity** - Is the data complete and correct? Do they objectively reflect reality? Are they the basis for making decisions?
-5. **Value** - The value that the data holds. In the end, it's all about cost and benefits.
+## **Why is Real-Time Analytics Important?**
 
-> _The purpose of calculations is not numbers, but understanding them_ R.W. Hamming 1962.  
+Real-time analytics is becoming increasingly crucial across various industries as it enables organizations to make immediate decisions based on up-to-date data. Here are some key reasons why real-time analytics matters:
 
+### **Faster Decision-Making**  
 
-As You can see data and data processing have been omnipresent in businesses for many decades.
-Over the years the collection and usage of data have grown consistently, and companies have designed and built infrastructures to manage that data.
+Real-time analytics allows businesses to react to changes and events instantly. This is essential in dynamic environments such as:  
 
-## Data processing models
+- **Marketing:** Ads can be adjusted in real time based on user behavior (e.g., personalized content recommendations).  
+- **Finance:** Fraud detection in real-time, where every minute counts in preventing financial losses.  
 
-The traditional architecture that most businesses implement distinguishes two types of data processing.
+### **Real-Time Monitoring**  
 
-Most of the data is stored in databases or data warehouses.
-By default, access to data comes down to the implementation of queries via applications.
-The method of using and implementing the database access process is called the **processing model**.
-Two implementations are most commonly used:
+Companies can continuously track key operational metrics. Examples:  
 
-### Traditional Model
+- **IoT (Internet of Things):** Monitoring the condition of machines and equipment in factories to detect failures and prevent downtime.  
+- **Healthtech:** Tracking patients' vital signs and detecting anomalies, which can save lives.  
 
-**Traditional model** - on-line transaction processing, OLTP (on-line transaction processing).
-It works great in the case of ongoing service, e.g. customer service, order register, sales service, etc.
-Companies use all kinds of applications for their day-to-day business activities, such as Enterprise Resource Planning (ERP) Systems, Customer Relationship Management (CRM) software, and web-based applications.
-These systems are typically designed with separate tiers for data processing and data storage (transactional database system).
+### **Improved Operational Efficiency**  
 
-<!-- <img alt="OLTP system" src="img/baza1.png" align="center" /> -->
-![](img/baza1.png){.center}
+Real-time analytics helps identify and address operational issues before they escalate. Examples:  
 
-Applications are usually connected to external services or face human users and continuously process incoming events such as orders, emails, or clicks on a website.
+- **Logistics:** Tracking shipments and monitoring transport status in real time to improve efficiency and reduce delays.  
+- **Retail:** Monitoring inventory levels in real-time and adjusting orders accordingly.  
 
-When **an event** is processed, an application reads its state or updates it by running transactions against the remote database system. Often, a database system serves multiple applications that sometimes access the same databases or tables.
+### **Competitive Advantage**  
 
-This model provides effective solutions for:
+Organizations leveraging real-time analytics gain an edge by responding faster to market changes, customer needs, and crises. With real-time insights:  
 
-- effective and safe data storage,
-- transactional data recovery after a failure,
-- data access optimization,
-- concurrency management,
-- event processing -> read -> write
+- Businesses can **make proactive decisions** ahead of competitors.  
+- Companies can **enhance customer relationships** by responding instantly to their needs (e.g., adjusting offerings dynamically).  
 
-And what if we are dealing with:
+### **Enhanced User Experience (Customer Experience)**  
 
-- aggregation of data from many systems (e.g. for many stores),
-- supporting data analysis,
-- data reporting and summaries,
-- optimization of complex queries,
-- supporting business decisions.
+Real-time data analysis enables personalized user interactions as they happen. Examples:  
 
-Research on such issues has led to the formulation of a new data processing model and a new type of database _(Data warehouse)_.
+- **E-commerce:** Analyzing shopping cart behavior in real time to offer discounts or remind users of abandoned items.  
+- **Streaming Services:** Optimizing video/streaming quality based on available bandwidth.  
 
-This application design can cause problems when applications need to evolve or scale. 
-Since multiple applications might work on the same data representation or share the same infrastructure,  changing the schema of a table or scaling a database system requires careful planning and a lot of effort. 
-Currently, many running applications (even in one area) are implemented as **microservices**, i.e. small and independent applications (LINUX programming philosophy - do little but right). 
-Because microservices are strictly decoupled from each other and only communicate over well-defined interfaces, each microservice can be implemented with a different technology stack including a programming language, libraries and data stores.
+### **Anomaly Detection and Threat Prevention**  
 
-This model provides effective solutions for:
+In today’s data-driven world, real-time anomaly detection is critical for security. Examples:  
 
-- effective and safe data storage,
-- transactional data recovery after a failure,
-- data access optimization,
-- concurrency management,
-- event processing -> read -> write
+- **Cybersecurity:** Detecting suspicious network activities and preventing attacks in real time (e.g., DDoS attacks, unauthorized logins).  
+- **Fraud Prevention:** Instant identification of suspicious transactions in banking and credit card systems.  
 
-And what if we are dealing with:
+### **Cost Optimization**  
 
-- aggregation of data from many systems (e.g. for many stores),
-- supporting data analysis,
-- data reporting and summaries,
-- optimization of complex queries,
-- supporting business decisions.
+Real-time analytics helps optimize resources and reduce costs. Examples:  
 
-Research on such issues has led to the formulation of a new data processing model and a new type of database _(Data warehouse)_.
+- **Energy Management:** Monitoring energy consumption in real time to optimize corporate energy expenses.  
+- **Supply Chain Optimization:** Tracking inventory and deliveries to reduce storage and transportation costs.  
 
-This application design can cause problems when applications need to evolve or scale. 
-Since multiple applications might work on the same data representation or share the same infrastructure, changing the schema of a table or scaling a database system requires careful planning and a lot of effort. 
-Currently, many running applications (even in one area) are implemented as microservices, i.e. small and independent applications (LINUX programming philosophy - do little but right). 
-Because microservices are strictly decoupled from each other and only communicate over well-defined interfaces, each microservice can be implemented with a different technology stack including a programming language, libraries and data stores.
+### **Predictive Capabilities**  
 
-Both are performed in batch mode. 
-Today they are strictly made using Hadoop technology.
+Real-time analytics supports predictive processes that anticipate future behaviors or problems and address them before they occur. Examples:  
 
-<!-- <img alt="OLAP system" src="img/baza2.png"/> -->
+- **Predictive Maintenance:** Combining real-time data with predictive models to foresee machine failures.  
+- **Demand Forecasting:** Adjusting production or stock levels based on live market trends.  
 
-![](img/baza2.png){.center}
+Real-time analytics is not just about data analysis—it is a crucial element of business strategy in a world that demands agility, flexibility, and rapid adaptation. Companies that implement these technologies can significantly enhance their financial performance, customer service, operational efficiency, and competitive advantage.  

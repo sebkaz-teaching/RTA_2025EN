@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lecture 1 Small data – Real-Time Analytics</title>
+<title>Lecture 1 – Real-Time Analytics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -93,6 +127,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link active" href="./lecture1.html" aria-current="page"> 
+<span class="menu-text">Lecture 1</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./sylabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
@@ -120,16 +158,36 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data.-from-data-file-to-data-lake" id="toc-data.-from-data-file-to-data-lake" class="nav-link active" data-scroll-target="#data.-from-data-file-to-data-lake">Data. From data file to data lake</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data sources</a></li>
-  <li><a href="#actual-data-generation-process" id="toc-actual-data-generation-process" class="nav-link" data-scroll-target="#actual-data-generation-process">Actual data generation process</a></li>
-  <li><a href="#not-to-big-data" id="toc-not-to-big-data" class="nav-link" data-scroll-target="#not-to-big-data">not to Big Data</a>
+  <li><a href="#what-is-real-time-data-analytics" id="toc-what-is-real-time-data-analytics" class="nav-link active" data-scroll-target="#what-is-real-time-data-analytics">What is Real-Time Data Analytics?</a>
   <ul class="collapse">
-  <li><a href="#one-two-four-v" id="toc-one-two-four-v" class="nav-link" data-scroll-target="#one-two-four-v">one, two, … four V</a></li>
+  <li><a href="#definition-and-key-concepts" id="toc-definition-and-key-concepts" class="nav-link" data-scroll-target="#definition-and-key-concepts">Definition and Key Concepts</a></li>
+  <li><a href="#key-features-of-real-time-data-analytics" id="toc-key-features-of-real-time-data-analytics" class="nav-link" data-scroll-target="#key-features-of-real-time-data-analytics">Key Features of Real-Time Data Analytics:</a></li>
   </ul></li>
-  <li><a href="#data-processing-models" id="toc-data-processing-models" class="nav-link" data-scroll-target="#data-processing-models">Data processing models</a>
+  <li><a href="#business-applications-of-real-time-data-analytics" id="toc-business-applications-of-real-time-data-analytics" class="nav-link" data-scroll-target="#business-applications-of-real-time-data-analytics">Business Applications of Real-Time Data Analytics</a>
   <ul class="collapse">
-  <li><a href="#traditional-model" id="toc-traditional-model" class="nav-link" data-scroll-target="#traditional-model">Traditional Model</a></li>
+  <li><a href="#finance-and-banking" id="toc-finance-and-banking" class="nav-link" data-scroll-target="#finance-and-banking">Finance and Banking</a></li>
+  <li><a href="#e-commerce-and-digital-marketing" id="toc-e-commerce-and-digital-marketing" class="nav-link" data-scroll-target="#e-commerce-and-digital-marketing">E-Commerce and Digital Marketing</a></li>
+  <li><a href="#telecommunications-and-iot" id="toc-telecommunications-and-iot" class="nav-link" data-scroll-target="#telecommunications-and-iot">Telecommunications and IoT</a></li>
+  <li><a href="#healthcare" id="toc-healthcare" class="nav-link" data-scroll-target="#healthcare">Healthcare</a></li>
+  </ul></li>
+  <li><a href="#differences-between-batch-processing-near-real-time-analytics-and-real-time-analytics" id="toc-differences-between-batch-processing-near-real-time-analytics-and-real-time-analytics" class="nav-link" data-scroll-target="#differences-between-batch-processing-near-real-time-analytics-and-real-time-analytics">Differences Between Batch Processing, Near Real-Time Analytics, and Real-Time Analytics</a>
+  <ul class="collapse">
+  <li><a href="#batch-processing" id="toc-batch-processing" class="nav-link" data-scroll-target="#batch-processing"><strong>Batch Processing</strong></a></li>
+  </ul></li>
+  <li><a href="#near-real-time-analytics-analysis-nearly-in-real-time" id="toc-near-real-time-analytics-analysis-nearly-in-real-time" class="nav-link" data-scroll-target="#near-real-time-analytics-analysis-nearly-in-real-time">Near Real-Time Analytics – Analysis Nearly in Real Time</a>
+  <ul class="collapse">
+  <li><a href="#real-time-analytics" id="toc-real-time-analytics" class="nav-link" data-scroll-target="#real-time-analytics"><strong>Real-Time Analytics</strong></a></li>
+  </ul></li>
+  <li><a href="#why-is-real-time-analytics-important" id="toc-why-is-real-time-analytics-important" class="nav-link" data-scroll-target="#why-is-real-time-analytics-important"><strong>Why is Real-Time Analytics Important?</strong></a>
+  <ul class="collapse">
+  <li><a href="#faster-decision-making" id="toc-faster-decision-making" class="nav-link" data-scroll-target="#faster-decision-making"><strong>Faster Decision-Making</strong></a></li>
+  <li><a href="#real-time-monitoring" id="toc-real-time-monitoring" class="nav-link" data-scroll-target="#real-time-monitoring"><strong>Real-Time Monitoring</strong></a></li>
+  <li><a href="#improved-operational-efficiency" id="toc-improved-operational-efficiency" class="nav-link" data-scroll-target="#improved-operational-efficiency"><strong>Improved Operational Efficiency</strong></a></li>
+  <li><a href="#competitive-advantage" id="toc-competitive-advantage" class="nav-link" data-scroll-target="#competitive-advantage"><strong>Competitive Advantage</strong></a></li>
+  <li><a href="#enhanced-user-experience-customer-experience" id="toc-enhanced-user-experience-customer-experience" class="nav-link" data-scroll-target="#enhanced-user-experience-customer-experience"><strong>Enhanced User Experience (Customer Experience)</strong></a></li>
+  <li><a href="#anomaly-detection-and-threat-prevention" id="toc-anomaly-detection-and-threat-prevention" class="nav-link" data-scroll-target="#anomaly-detection-and-threat-prevention"><strong>Anomaly Detection and Threat Prevention</strong></a></li>
+  <li><a href="#cost-optimization" id="toc-cost-optimization" class="nav-link" data-scroll-target="#cost-optimization"><strong>Cost Optimization</strong></a></li>
+  <li><a href="#predictive-capabilities" id="toc-predictive-capabilities" class="nav-link" data-scroll-target="#predictive-capabilities"><strong>Predictive Capabilities</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -139,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lecture 1 Small data</h1>
+<h1 class="title">Lecture 1</h1>
 </div>
 
 
@@ -156,120 +214,409 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The stream processing technology is becoming more and more popular with big and small companies because it provides superior solutions for many established use cases such as data analytics, ETL, transactional apps, software architectures, and business opportunities. We try to describe why stateful stream processing is becoming so popular and assess its potential.</p>
-<p>But first, we start by reviewing classical <strong>data</strong> app architectures and point out their limitations.</p>
-<section id="data.-from-data-file-to-data-lake" class="level2">
-<h2 class="anchored" data-anchor-id="data.-from-data-file-to-data-lake">Data. From data file to data lake</h2>
-<p>The development of information technology has resulted in access to unimaginable amounts of a new resources which are <strong>structured</strong> and <strong>unstructured</strong> data.</p>
-<p>Data has contributed to the development of thousands of new tools for <code>generating</code>, <code>collecting</code>, <code>storing</code> and <code>processing</code> information on an unprecedented scale.</p>
-<p><img src="img/main.jpeg" class="center img-fluid"></p>
-<p>The emergence of new scientific or business challenges becomes possible thanks to the construction of systems based on <code>open software</code>, and the use of home computers to support the processing of huge amounts of data.</p>
-<p>The new kind of business and scientific challenges include:</p>
-<ul>
-<li>intelligent advertising of thousands of products for millions of customers,</li>
-<li>processing of data about genes, RNA or proteins <a href="http://genus.fuw.edu.pl">genus</a>,</li>
-<li>intelligent detection of various methods of fraud among hundreds of billions of credit card transactions,</li>
-<li>stock market simulations based on thousands of financial instruments,</li>
-<li>… The data age presents us with newer and newer challenges related not only to the quantity but also to the time of data processing.</li>
-</ul>
-<p>All machine learning algorithms require <strong>structured data</strong> written in a tabular form. They are organized in columns of characteristics that characterize each observation (rows). An example may be such features as <strong>sex</strong>, <strong>growth</strong> or <strong>the number of owned cars</strong>, of which it can be predicted whether the customer will repay the loan or not. This prediction is also collected as a feature. Thanks to the tables of features obtained in this way, we can use XGBoost or logistic regression algorithms to determine the appropriate combination of variables affecting the probability of a good or bad customer.</p>
-<p><strong>Unstructured data</strong> is data that is not arranged in a tabular form. Examples include sound, images and text. In the process of processing, they are always converted into some vector form. However, individual letters, frequencies or pixels do not convey any information. They do not create separate features, which is crucial to distinguish them from structured data.</p>
-<blockquote class="blockquote">
-<p>Give an example of structured and unstructured data. Load sample data in jupyter notebook.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Knows the types of structured and unstructured data (K2A_W02, K2A_W04, O2_W04, O2_W07)</p>
-</blockquote>
+<p>⏳ Duration: 1.5h</p>
+<p><em>🎯 Lecture Goal</em></p>
+<p>Introducing students to the fundamentals of real-time analytics, the differences between data processing modes (batch, streaming, real-time), as well as key applications and challenges.</p>
+<section id="what-is-real-time-data-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-real-time-data-analytics">What is Real-Time Data Analytics?</h2>
+<section id="definition-and-key-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="definition-and-key-concepts">Definition and Key Concepts</h3>
+<p>Real-Time Data Analytics is the <strong>process</strong> of processing and analyzing data <strong>immediately</strong> after it is generated, without the need for storage and later processing. The goal is to obtain instant insights and responses to changing conditions in business, technology, and scientific systems.</p>
 </section>
-<section id="data-sources" class="level2">
-<h2 class="anchored" data-anchor-id="data-sources">Data sources</h2>
-<p>The three largest data <code>generators</code> are:</p>
-<ul>
-<li>social data in the form of texts (tweets, entries in social networks, comments), photos or videos. These data are very important due to their wide possibilities of consumer behaviour and sentiment analysis in marketing analyses.</li>
-<li>data from all kinds of sensors or logs of the operation of devices and users (e.g.&nbsp;on a website). These data are related to IoT (Internet of Things) technology, which is currently one of the most developing areas in data processing, but also in the business direction.</li>
-<li>Transaction data, which is generally what is always generated as transactions appearing both online and offline. Currently, this type of data is processed for the purpose of performing transactions and rich analytics supporting virtually every area of ​​everyday life.</li>
-</ul>
-</section>
-<section id="actual-data-generation-process" class="level2">
-<h2 class="anchored" data-anchor-id="actual-data-generation-process">Actual data generation process</h2>
-<p>The data that is in reality appears as a result of the continuous operation of the systems. You have generated a lot of data on your phone today (and even on these devices!) Will it not generate them early or tomorrow? Batch processing splits the data into a time-length chunk and runs granular processes at a user-specified time . However, the timestamp is not always appropriate.</p>
-<p>With many systems that handle the data streams that you already have. They are e.g.: - data warehouses - devices monitoring systems (IoT) - transaction systems - website analytics systems - Internet advertising - social media - operating systems - ….</p>
-<blockquote class="blockquote">
-<p>a company is an organization that works and responds to a constant stream of data.</p>
-</blockquote>
-<p>The input to the orchard source (but also the result of the evaluation) of the data is the <strong>file</strong>. It is written once and can be referred to (multiple functions - tasks can run on it). The name of the file to identify the record set.</p>
-<p>In the case of the stream of change, it is only once through the so-called <em>manufacturer</em> (also referred to as the sender or supplier). They can be formed by many so-called <em>consumers</em> (recipients). Streaming events are grouped into so-called <strong>topic</strong> (eng. <strong>topic</strong>).</p>
-</section>
-<section id="not-to-big-data" class="level2">
-<h2 class="anchored" data-anchor-id="not-to-big-data">not to Big Data</h2>
-<blockquote class="blockquote">
-<p><em>,,Big Data is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so every one claims they are doing it.’’</em> — Dan Ariely, Professor of Psychology and Behavioral Economics, Duke University</p>
-</blockquote>
-<section id="one-two-four-v" class="level3">
-<h3 class="anchored" data-anchor-id="one-two-four-v">one, two, … four V</h3>
+<section id="key-features-of-real-time-data-analytics" class="level3">
+<h3 class="anchored" data-anchor-id="key-features-of-real-time-data-analytics">Key Features of Real-Time Data Analytics:</h3>
 <ol type="1">
-<li><strong>Volume</strong> - the size of the data produced worldwide is growing exponentially. Huge amounts of data are being generated every second - the email you send, Twitter, Facebook, or other social media, videos, pictures, SMS messages, call records and data from varied devices and sensors.</li>
-<li><strong>Velocity</strong> - the speed of data production, the speed of their transfer and processing.</li>
-<li><strong>Variety</strong> - we associate traditional data with an alphanumeric form composed of letters and numbers. Currently, we have images, sounds, videos and IoT data streams at our disposal</li>
-<li><strong>Veracity</strong> - Is the data complete and correct? Do they objectively reflect reality? Are they the basis for making decisions?</li>
-<li><strong>Value</strong> - The value that the data holds. In the end, it’s all about cost and benefits.</li>
+<li>Low latency – data is analyzed within milliseconds or seconds of being generated.</li>
+<li>Streaming vs.&nbsp;Batch Processing – data analysis can occur continuously (streaming) or at predefined intervals (batch).</li>
+<li>Integration with IoT, AI, and ML – real-time analytics often works in conjunction with the Internet of Things (IoT) and artificial intelligence algorithms.</li>
+<li>Real-time decision-making – e.g., instant fraud detection in banking transactions.</li>
 </ol>
-<blockquote class="blockquote">
-<p><em>The purpose of calculations is not numbers, but understanding them</em> R.W. Hamming 1962.</p>
-</blockquote>
-<p>As You can see data and data processing have been omnipresent in businesses for many decades. Over the years the collection and usage of data have grown consistently, and companies have designed and built infrastructures to manage that data.</p>
 </section>
 </section>
-<section id="data-processing-models" class="level2">
-<h2 class="anchored" data-anchor-id="data-processing-models">Data processing models</h2>
-<p>The traditional architecture that most businesses implement distinguishes two types of data processing.</p>
-<p>Most of the data is stored in databases or data warehouses. By default, access to data comes down to the implementation of queries via applications. The method of using and implementing the database access process is called the <strong>processing model</strong>. Two implementations are most commonly used:</p>
-<section id="traditional-model" class="level3">
-<h3 class="anchored" data-anchor-id="traditional-model">Traditional Model</h3>
-<p><strong>Traditional model</strong> - on-line transaction processing, OLTP (on-line transaction processing). It works great in the case of ongoing service, e.g.&nbsp;customer service, order register, sales service, etc. Companies use all kinds of applications for their day-to-day business activities, such as Enterprise Resource Planning (ERP) Systems, Customer Relationship Management (CRM) software, and web-based applications. These systems are typically designed with separate tiers for data processing and data storage (transactional database system).</p>
-<!-- <img alt="OLTP system" src="img/baza1.png" align="center" /> -->
-<p><img src="img/baza1.png" class="center img-fluid"></p>
-<p>Applications are usually connected to external services or face human users and continuously process incoming events such as orders, emails, or clicks on a website.</p>
-<p>When <strong>an event</strong> is processed, an application reads its state or updates it by running transactions against the remote database system. Often, a database system serves multiple applications that sometimes access the same databases or tables.</p>
-<p>This model provides effective solutions for:</p>
+<section id="business-applications-of-real-time-data-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="business-applications-of-real-time-data-analytics">Business Applications of Real-Time Data Analytics</h2>
+<section id="finance-and-banking" class="level3">
+<h3 class="anchored" data-anchor-id="finance-and-banking">Finance and Banking</h3>
 <ul>
-<li>effective and safe data storage,</li>
-<li>transactional data recovery after a failure,</li>
-<li>data access optimization,</li>
-<li>concurrency management,</li>
-<li>event processing -&gt; read -&gt; write</li>
+<li><strong>Fraud Detection</strong> – real-time transaction analysis helps identify anomalies indicating fraud.</li>
+<li><strong>Automated Trading</strong> – HFT (High-Frequency Trading) systems analyze millions of data points in fractions of a second.</li>
+<li><strong>Dynamic Credit Scoring</strong> – instant risk assessment of a customer’s creditworthiness.</li>
 </ul>
-<p>And what if we are dealing with:</p>
+</section>
+<section id="e-commerce-and-digital-marketing" class="level3">
+<h3 class="anchored" data-anchor-id="e-commerce-and-digital-marketing">E-Commerce and Digital Marketing</h3>
 <ul>
-<li>aggregation of data from many systems (e.g.&nbsp;for many stores),</li>
-<li>supporting data analysis,</li>
-<li>data reporting and summaries,</li>
-<li>optimization of complex queries,</li>
-<li>supporting business decisions.</li>
+<li><strong>Real-Time Offer Personalization</strong> – dynamic product recommendations based on users’ current behavior.</li>
+<li><strong>Dynamic Pricing</strong> – companies like Uber, Amazon, and hotels adjust prices in real time based on demand.</li>
+<li><strong>Social Media Monitoring</strong> – sentiment analysis of customer feedback and immediate response to negative comments.</li>
 </ul>
-<p>Research on such issues has led to the formulation of a new data processing model and a new type of database <em>(Data warehouse)</em>.</p>
-<p>This application design can cause problems when applications need to evolve or scale. Since multiple applications might work on the same data representation or share the same infrastructure, changing the schema of a table or scaling a database system requires careful planning and a lot of effort. Currently, many running applications (even in one area) are implemented as <strong>microservices</strong>, i.e.&nbsp;small and independent applications (LINUX programming philosophy - do little but right). Because microservices are strictly decoupled from each other and only communicate over well-defined interfaces, each microservice can be implemented with a different technology stack including a programming language, libraries and data stores.</p>
-<p>This model provides effective solutions for:</p>
+</section>
+<section id="telecommunications-and-iot" class="level3">
+<h3 class="anchored" data-anchor-id="telecommunications-and-iot">Telecommunications and IoT</h3>
 <ul>
-<li>effective and safe data storage,</li>
-<li>transactional data recovery after a failure,</li>
-<li>data access optimization,</li>
-<li>concurrency management,</li>
-<li>event processing -&gt; read -&gt; write</li>
+<li><strong>Network Infrastructure Monitoring</strong> – real-time log analysis helps detect failures before they occur.</li>
+<li><strong>Smart Cities</strong> – real-time traffic analysis optimizes traffic light systems dynamically.</li>
+<li><strong>IoT Analytics</strong> – IoT devices generate data streams that can be analyzed in real time (e.g., smart energy meters).</li>
 </ul>
-<p>And what if we are dealing with:</p>
+</section>
+<section id="healthcare" class="level3">
+<h3 class="anchored" data-anchor-id="healthcare">Healthcare</h3>
 <ul>
-<li>aggregation of data from many systems (e.g.&nbsp;for many stores),</li>
-<li>supporting data analysis,</li>
-<li>data reporting and summaries,</li>
-<li>optimization of complex queries,</li>
-<li>supporting business decisions.</li>
+<li><strong>Patient Monitoring</strong> – real-time analysis of medical device signals to detect life-threatening conditions instantly.</li>
+<li><strong>Epidemiological Analytics</strong> – tracking disease outbreaks based on real-time data.</li>
 </ul>
-<p>Research on such issues has led to the formulation of a new data processing model and a new type of database <em>(Data warehouse)</em>.</p>
-<p>This application design can cause problems when applications need to evolve or scale. Since multiple applications might work on the same data representation or share the same infrastructure, changing the schema of a table or scaling a database system requires careful planning and a lot of effort. Currently, many running applications (even in one area) are implemented as microservices, i.e.&nbsp;small and independent applications (LINUX programming philosophy - do little but right). Because microservices are strictly decoupled from each other and only communicate over well-defined interfaces, each microservice can be implemented with a different technology stack including a programming language, libraries and data stores.</p>
-<p>Both are performed in batch mode. Today they are strictly made using Hadoop technology.</p>
-<!-- <img alt="OLAP system" src="img/baza2.png"/> -->
-<p><img src="img/baza2.png" class="center img-fluid"></p>
+<p>Real-time data analytics is a key component of modern IT systems, enabling businesses to make faster and more precise decisions. It is widely used across industries—from finance and e-commerce to healthcare and IoT.</p>
+</section>
+</section>
+<section id="differences-between-batch-processing-near-real-time-analytics-and-real-time-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="differences-between-batch-processing-near-real-time-analytics-and-real-time-analytics">Differences Between Batch Processing, Near Real-Time Analytics, and Real-Time Analytics</h2>
+<p>There are three main approaches to data processing:</p>
+<ol type="1">
+<li><strong>Batch Processing</strong><br>
+</li>
+<li><strong>Near Real-Time Analytics</strong><br>
+</li>
+<li><strong>Real-Time Analytics</strong></li>
+</ol>
+<p>Each differs in processing speed, technological requirements, and business applications.</p>
+<section id="batch-processing" class="level3">
+<h3 class="anchored" data-anchor-id="batch-processing"><strong>Batch Processing</strong></h3>
+<p>📌 <strong>Definition:</strong></p>
+<p>Batch Processing involves collecting large amounts of data and processing them at scheduled intervals (e.g., hourly, daily, or weekly).</p>
+<p>📌 <strong>Characteristics:</strong></p>
+<ul>
+<li>✅ High efficiency for large datasets<br>
+</li>
+<li>✅ Processes data after it has been collected<br>
+</li>
+<li>✅ Does not require immediate analysis<br>
+</li>
+<li>✅ Typically cheaper than real-time processing<br>
+</li>
+<li>❌ Delays – results are available only after processing is complete</li>
+</ul>
+<p>📌 <strong>Use Cases:</strong></p>
+<ul>
+<li>Generating financial reports at the end of a day/month<br>
+</li>
+<li>Analyzing sales trends based on historical data<br>
+</li>
+<li>Creating offline machine learning models</li>
+</ul>
+<p>📌 <strong>Example Technologies:</strong></p>
+<ul>
+<li>Hadoop MapReduce<br>
+</li>
+<li>Apache Spark (in batch mode)<br>
+</li>
+<li>Google BigQuery</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"transactions.csv"</span>)  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'transaction_date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'transaction_date'</span>])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df[<span class="st">'transaction_date'</span>].dt.to_period(<span class="st">'M'</span>)  <span class="co"># Ekstrakcja miesiąca</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregacja danych - miesięczne sumy transakcji</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>monthly_sales <span class="op">=</span> df.groupby([<span class="st">'month'</span>])[<span class="st">'amount'</span>].<span class="bu">sum</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Zapis wyników do pliku (np. raportu)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>monthly_sales.to_csv(<span class="st">"monthly_report.csv"</span>)  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Raport zapisany!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you wanted to create data for an example.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'transaction_id'</span>: [<span class="ss">f'TX</span><span class="sc">{</span><span class="bu">str</span>(i)<span class="sc">.</span>zfill(<span class="dv">4</span>)<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">1001</span>)],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'amount'</span>: np.random.uniform(<span class="dv">10</span>, <span class="dv">10000</span>, <span class="dv">1000</span>), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'transaction_date'</span>: pd.date_range(start<span class="op">=</span><span class="st">"2025-01-01"</span>, periods<span class="op">=</span><span class="dv">1000</span>, freq<span class="op">=</span><span class="st">'h'</span>), </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'merchant'</span>: np.random.choice([<span class="st">'Merchant_A'</span>, <span class="st">'Merchant_B'</span>, <span class="st">'Merchant_C'</span>, <span class="st">'Merchant_D'</span>], <span class="dv">1000</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'card_type'</span>: np.random.choice([<span class="st">'Visa'</span>, <span class="st">'MasterCard'</span>, <span class="st">'AmEx'</span>], <span class="dv">1000</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> <span class="st">'transactions.csv'</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>df.to_csv(csv_file, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="near-real-time-analytics-analysis-nearly-in-real-time" class="level2">
+<h2 class="anchored" data-anchor-id="near-real-time-analytics-analysis-nearly-in-real-time">Near Real-Time Analytics – Analysis Nearly in Real Time</h2>
+<p>📌 <strong>Definition:</strong></p>
+<p>Near Real-Time Analytics refers to data analysis that occurs with minimal delay (typically from a few seconds to a few minutes). It is used in scenarios where full real-time analysis is not necessary, but excessive delays could impact business operations.</p>
+<p>📌 <strong>Characteristics:</strong></p>
+<ol type="1">
+<li>✅ Processes data in short intervals (a few seconds to minutes)<br>
+</li>
+<li>✅ Enables quick decision-making but does not require millisecond-level reactions<br>
+</li>
+<li>✅ Optimal balance between cost and speed<br>
+</li>
+<li>❌ Not suitable for systems requiring immediate response</li>
+</ol>
+<p>📌 <strong>Use Cases:</strong></p>
+<ul>
+<li>Monitoring banking transactions and detecting fraud (e.g., analysis within 30 seconds)<br>
+</li>
+<li>Dynamically adjusting online ads based on user behavior<br>
+</li>
+<li>Analyzing server and network logs to detect anomalies</li>
+</ul>
+<p>📌 <strong>Example Technologies:</strong></p>
+<ul>
+<li>Apache Kafka + Spark Streaming<br>
+</li>
+<li>Elasticsearch + Kibana (e.g., IT log analysis)<br>
+</li>
+<li>Amazon Kinesis</li>
+</ul>
+<p>Example of a data producer sending transactions to an Apache Kafka system.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kafka <span class="im">import</span> KafkaProducer</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ustawienia dla producenta</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>bootstrap_servers <span class="op">=</span> <span class="st">'localhost:9092'</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>topic <span class="op">=</span> <span class="st">'transactions'</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Funkcja generująca przykładowe dane transakcji</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_transaction():</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    transaction <span class="op">=</span> {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'transaction_id'</span>: <span class="ss">f'TX</span><span class="sc">{</span>random<span class="sc">.</span>randint(<span class="dv">1000</span>, <span class="dv">9999</span>)<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'amount'</span>: <span class="bu">round</span>(random.uniform(<span class="dv">10</span>, <span class="dv">10000</span>), <span class="dv">2</span>),  <span class="co"># Kwota między 10 a 10 000</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">'transaction_date'</span>: datetime.now().strftime(<span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st"> %H:%M:%S'</span>),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'merchant'</span>: random.choice([<span class="st">'Merchant_A'</span>, <span class="st">'Merchant_B'</span>, <span class="st">'Merchant_C'</span>, <span class="st">'Merchant_D'</span>]),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'card_type'</span>: random.choice([<span class="st">'Visa'</span>, <span class="st">'MasterCard'</span>, <span class="st">'AmEx'</span>]),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transaction</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>producer <span class="op">=</span> KafkaProducer(</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    bootstrap_servers<span class="op">=</span>bootstrap_servers,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    value_serializer<span class="op">=</span><span class="kw">lambda</span> v: json.dumps(v).encode(<span class="st">'utf-8'</span>) </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):  </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    transaction <span class="op">=</span> generate_transaction()</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    producer.send(topic, value<span class="op">=</span>transaction) </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Sent: </span><span class="sc">{</span>transaction<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>) </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Zakończenie działania producenta</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>producer.flush()</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>producer.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Consument example</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kafka <span class="im">import</span> KafkaConsumer</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Konsumer do pobierania danych z Kafka</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>consumer <span class="op">=</span> KafkaConsumer(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'transactions'</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    bootstrap_servers<span class="op">=</span><span class="st">'localhost:9092'</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    auto_offset_reset<span class="op">=</span><span class="st">'earliest'</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    value_deserializer<span class="op">=</span><span class="kw">lambda</span> x: json.loads(x.decode(<span class="st">'utf-8'</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Pobieranie transakcji w niemal real-time i analiza</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> message <span class="kw">in</span> consumer:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    transaction <span class="op">=</span> message.value</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> transaction[<span class="st">"amount"</span>] <span class="op">&gt;</span> <span class="dv">8000</span>:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"🚨 Wykryto dużą transakcję: </span><span class="sc">{</span>transaction<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Example of the DataSet</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"transaction_id"</span>: <span class="st">"TX1234"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"amount"</span>: <span class="fl">523.47</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"transaction_date"</span>: <span class="st">"2025-02-11 08:10:45"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"merchant"</span>: <span class="st">"Merchant_A"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"card_type"</span>: <span class="st">"Visa"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="real-time-analytics" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-analytics"><strong>Real-Time Analytics</strong></h3>
+<p>📌 <strong>Definition:</strong></p>
+<p>Real-Time Analytics refers to the immediate analysis of data and decision-making within fractions of a second (milliseconds to one second). It is used in systems requiring real-time responses, such as stock market transactions, IoT systems, and cybersecurity.</p>
+<p>📌 <strong>Characteristics:</strong></p>
+<ol type="1">
+<li>✅ Extremely low latency (milliseconds to seconds)<br>
+</li>
+<li>✅ Enables instant system response<br>
+</li>
+<li>✅ Requires high computational power and scalable architecture<br>
+</li>
+<li>❌ More expensive and technologically complex than batch processing</li>
+</ol>
+<p>📌 <strong>Use Cases:</strong></p>
+<ul>
+<li><strong>High-Frequency Trading (HFT)</strong> – making stock market transaction decisions within milliseconds<br>
+</li>
+<li><strong>Autonomous Vehicles</strong> – real-time analysis of data streams from cameras and sensors<br>
+</li>
+<li><strong>Cybersecurity</strong> – detecting network attacks in fractions of a second<br>
+</li>
+<li><strong>IoT Analytics</strong> – instant anomaly detection in industrial sensor data</li>
+</ul>
+<p>📌 <strong>Example Technologies:</strong></p>
+<ul>
+<li>Apache Flink<br>
+</li>
+<li>Apache Storm<br>
+</li>
+<li>Google Dataflow</li>
+</ul>
+<p>🔎 <strong>Comparison:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Batch Processing</th>
+<th>Near Real-Time Analytics</th>
+<th>Real-Time Analytics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Latency</strong></td>
+<td>Minutes – hours – days</td>
+<td>Seconds – minutes</td>
+<td>Milliseconds – seconds</td>
+</tr>
+<tr class="even">
+<td><strong>Processing Type</strong></td>
+<td>Batch (offline)</td>
+<td>Streaming (but not fully immediate)</td>
+<td>Streaming (true real-time)</td>
+</tr>
+<tr class="odd">
+<td><strong>Infrastructure Cost</strong></td>
+<td>📉 Low</td>
+<td>📈 Medium</td>
+<td>📈📈 High</td>
+</tr>
+<tr class="even">
+<td><strong>Implementation Complexity</strong></td>
+<td>📉 Simple</td>
+<td>📈 Medium</td>
+<td>📈📈 Difficult</td>
+</tr>
+<tr class="odd">
+<td><strong>Use Cases</strong></td>
+<td>Reports, offline ML, historical analysis</td>
+<td>Transaction monitoring, dynamic ads</td>
+<td>HFT, IoT, real-time fraud detection</td>
+</tr>
+</tbody>
+</table>
+<p>📌 <strong>When to Use Batch Processing?</strong></p>
+<ol type="1">
+<li>✅ When immediate analysis is not required<br>
+</li>
+<li>✅ When handling large volumes of data processed periodically<br>
+</li>
+<li>✅ When aiming to reduce costs</li>
+</ol>
+<p>📌 <strong>When to Use Near Real-Time Analytics?</strong></p>
+<ol type="1">
+<li>✅ When analysis is needed within a short time (seconds – minutes)<br>
+</li>
+<li>✅ When fresher data is required but not full real-time processing<br>
+</li>
+<li>✅ When seeking a balance between performance and cost</li>
+</ol>
+<p>📌 <strong>When to Use Real-Time Analytics?</strong></p>
+<ol type="1">
+<li>✅ When every millisecond matters (e.g., stock trading, autonomous vehicles)<br>
+</li>
+<li>✅ When detecting fraud, anomalies, or incidents instantly<br>
+</li>
+<li>✅ When a system must respond to events immediately</li>
+</ol>
+<p>Real-time analytics is not always necessary—often, near real-time is sufficient and more cost-effective. The key is to understand business requirements before choosing the right solution.</p>
+</section>
+</section>
+<section id="why-is-real-time-analytics-important" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-real-time-analytics-important"><strong>Why is Real-Time Analytics Important?</strong></h2>
+<p>Real-time analytics is becoming increasingly crucial across various industries as it enables organizations to make immediate decisions based on up-to-date data. Here are some key reasons why real-time analytics matters:</p>
+<section id="faster-decision-making" class="level3">
+<h3 class="anchored" data-anchor-id="faster-decision-making"><strong>Faster Decision-Making</strong></h3>
+<p>Real-time analytics allows businesses to react to changes and events instantly. This is essential in dynamic environments such as:</p>
+<ul>
+<li><strong>Marketing:</strong> Ads can be adjusted in real time based on user behavior (e.g., personalized content recommendations).<br>
+</li>
+<li><strong>Finance:</strong> Fraud detection in real-time, where every minute counts in preventing financial losses.</li>
+</ul>
+</section>
+<section id="real-time-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-monitoring"><strong>Real-Time Monitoring</strong></h3>
+<p>Companies can continuously track key operational metrics. Examples:</p>
+<ul>
+<li><strong>IoT (Internet of Things):</strong> Monitoring the condition of machines and equipment in factories to detect failures and prevent downtime.<br>
+</li>
+<li><strong>Healthtech:</strong> Tracking patients’ vital signs and detecting anomalies, which can save lives.</li>
+</ul>
+</section>
+<section id="improved-operational-efficiency" class="level3">
+<h3 class="anchored" data-anchor-id="improved-operational-efficiency"><strong>Improved Operational Efficiency</strong></h3>
+<p>Real-time analytics helps identify and address operational issues before they escalate. Examples:</p>
+<ul>
+<li><strong>Logistics:</strong> Tracking shipments and monitoring transport status in real time to improve efficiency and reduce delays.<br>
+</li>
+<li><strong>Retail:</strong> Monitoring inventory levels in real-time and adjusting orders accordingly.</li>
+</ul>
+</section>
+<section id="competitive-advantage" class="level3">
+<h3 class="anchored" data-anchor-id="competitive-advantage"><strong>Competitive Advantage</strong></h3>
+<p>Organizations leveraging real-time analytics gain an edge by responding faster to market changes, customer needs, and crises. With real-time insights:</p>
+<ul>
+<li>Businesses can <strong>make proactive decisions</strong> ahead of competitors.<br>
+</li>
+<li>Companies can <strong>enhance customer relationships</strong> by responding instantly to their needs (e.g., adjusting offerings dynamically).</li>
+</ul>
+</section>
+<section id="enhanced-user-experience-customer-experience" class="level3">
+<h3 class="anchored" data-anchor-id="enhanced-user-experience-customer-experience"><strong>Enhanced User Experience (Customer Experience)</strong></h3>
+<p>Real-time data analysis enables personalized user interactions as they happen. Examples:</p>
+<ul>
+<li><strong>E-commerce:</strong> Analyzing shopping cart behavior in real time to offer discounts or remind users of abandoned items.<br>
+</li>
+<li><strong>Streaming Services:</strong> Optimizing video/streaming quality based on available bandwidth.</li>
+</ul>
+</section>
+<section id="anomaly-detection-and-threat-prevention" class="level3">
+<h3 class="anchored" data-anchor-id="anomaly-detection-and-threat-prevention"><strong>Anomaly Detection and Threat Prevention</strong></h3>
+<p>In today’s data-driven world, real-time anomaly detection is critical for security. Examples:</p>
+<ul>
+<li><strong>Cybersecurity:</strong> Detecting suspicious network activities and preventing attacks in real time (e.g., DDoS attacks, unauthorized logins).<br>
+</li>
+<li><strong>Fraud Prevention:</strong> Instant identification of suspicious transactions in banking and credit card systems.</li>
+</ul>
+</section>
+<section id="cost-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="cost-optimization"><strong>Cost Optimization</strong></h3>
+<p>Real-time analytics helps optimize resources and reduce costs. Examples:</p>
+<ul>
+<li><strong>Energy Management:</strong> Monitoring energy consumption in real time to optimize corporate energy expenses.<br>
+</li>
+<li><strong>Supply Chain Optimization:</strong> Tracking inventory and deliveries to reduce storage and transportation costs.</li>
+</ul>
+</section>
+<section id="predictive-capabilities" class="level3">
+<h3 class="anchored" data-anchor-id="predictive-capabilities"><strong>Predictive Capabilities</strong></h3>
+<p>Real-time analytics supports predictive processes that anticipate future behaviors or problems and address them before they occur. Examples:</p>
+<ul>
+<li><strong>Predictive Maintenance:</strong> Combining real-time data with predictive models to foresee machine failures.<br>
+</li>
+<li><strong>Demand Forecasting:</strong> Adjusting production or stock levels based on live market trends.</li>
+</ul>
+<p>Real-time analytics is not just about data analysis—it is a crucial element of business strategy in a world that demands agility, flexibility, and rapid adaptation. Companies that implement these technologies can significantly enhance their financial performance, customer service, operational efficiency, and competitive advantage.</p>
 
 
 </section>

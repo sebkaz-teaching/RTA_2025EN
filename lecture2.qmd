@@ -1,0 +1,629 @@
+---
+title: Lecture 2
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+⏳ Duration: 1.5h  
+*🎯 Lecture Objective*
+
+Understanding how data has evolved in different industries and the tools used for its analysis today.
+
+---
+
+In this lecture, we will present the evolution of data analysis, showing how technologies and approaches to data processing have changed over the years.  
+We will start with classical tabular structures, move through more advanced graph and text models, and finish with modern approaches to stream processing.
+
+# **Evolution of Data**
+
+## **1. Tabular Data (SQL Tables)**  
+Initially, data was stored in tables, where each table contained organized information in columns and rows (e.g., SQL databases).  
+Such models were perfect for **structured** data.
+
+### 📌 **Features:**  
+✅ Data divided into columns with a fixed structure.  
+✅ CRUD operations (Create, Read, Update, Delete) can be applied.  
+✅ Strict consistency and normalization rules.
+
+### 📌 **Examples:**  
+➡️ Banking systems, e-commerce, ERP, CRM systems.
+
+### 🖥️ **Example Python Code (SQLite):**  
+```python
+import sqlite3
+conn = sqlite3.connect(':memory:')
+cursor = conn.cursor()
+cursor.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)")
+cursor.execute("INSERT INTO users (name, age) VALUES ('Alice', 30)")
+cursor.execute("SELECT * FROM users")
+print(cursor.fetchall())
+conn.close()
+```
+---
+
+## **2. Graph Data**  
+
+As business needs grew, graph data emerged, where relationships between objects are represented as nodes and edges.
+
+### 📌 **Features:** 
+
+✅ Data describing relationships and connections.
+✅ Flexible structure (graphs instead of tables).
+✅ Allows analysis of connections (e.g., PageRank algorithms, centrality).
+
+### 📌 **Examples:** 
+
+➡️ Social networks (Facebook, LinkedIn), search engines (Google), recommendation systems (Netflix, Amazon).
+
+### 🖥️ **Example Python Code (Karate Graph - NetworkX) **:
+```{python}
+import networkx as nx
+G = nx.karate_club_graph()
+nx.draw(G, with_labels=True)
+```
+
+## **3. Semi-structured Data (JSON, XML, YAML)**  
+
+These data are not fully structured like in SQL databases, but they have some schema.
+
+### 📌 **Features:** 
+
+✅ Hierarchical structure (e.g., key-value pairs, nested objects).
+✅ No strict schema (possibility to add new fields).
+✅ Popular in NoSQL systems and APIs.
+
+### 📌 **Examples:** 
+
+➡️ Documents in MongoDB, configuration files, REST APIs, log files.
+
+### 🖥️ **Example Python Code (JSON)**:
+```{python}
+import json
+data = {'name': 'Alice', 'age': 30, 'city': 'New York'}
+json_str = json.dumps(data)
+print(json.loads(json_str))
+```
+
+## **4. Text Data (NLP)**
+
+
+Text has become a key source of information, especially in sentiment analysis, chatbots, and search engines.
+
+### 📌 **Features:** 
+
+✅ Unstructured data requiring transformation.
+✅ Use of embeddings (e.g., Word2Vec, BERT, GPT).
+✅ Widely used in sentiment analysis and chatbots.
+
+### 📌 **Examples:** 
+
+➡️ Social media, emails, chatbots, machine translation.
+
+### 🖥️ **Example Python Code **:
+
+
+```{python}
+import ollama
+
+# Przykładowe zdanie
+sentence = "Artificial intelligence is changing the world."
+response = ollama.embeddings(model='llama3.2', prompt=sentence)
+embedding = response['embedding']
+print(embedding[:4])
+```
+## **5. Multimedia Data (Images, Sound, Video)**
+
+Modern data analysis systems also use images and sound.
+
+### 📌 **Features:** 
+
+✅ Require significant computational power (AI, deep learning).
+✅ Processed by CNN models (images) and RNN/Transformers (sound).
+
+### 📌 **Examples:** 
+
+➡️ Face recognition, speech analysis, biometrics, video content analysis.
+
+### 🖥️ **Example Python Code  (Image - OpenCV)** :
+
+```python
+import cv2
+image = cv2.imread('cloud.jpeg')
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+# **6. Stream Data**
+
+Currently, streaming data analysis is rapidly evolving, where data is analyzed as it flows in real-time.
+
+### 📌 **Features:** 
+
+✅ Real-time processing.
+✅ Technologies such as Apache Kafka, Flink, Spark Streaming.
+
+### 📌 **Examples:** 
+
+➡️ Bank transactions (fraud detection), social media analysis, IoT.
+
+### 🖥️ **Example Python Code  (Streaming Bank Transactions)**:
+```{python}
+import time
+transactions = [{'id': 1, 'amount': 100}, {'id': 2, 'amount': 200}]
+for transaction in transactions:
+    print(f"Processing transaction: {transaction}")
+    time.sleep(1)
+```
+# **7. Sensor Data and IoT**
+
+Data from sensors and IoT devices is the next step in evolution.
+
+### 📌 **Features:** 
+
+✅ Often comes from billions of devices (big data).
+✅ Requires edge computing analysis.
+
+### 📌 **Examples:** 
+
+➡️ Smart homes, wearables, autonomous cars, industrial systems.
+
+🖥️ Example Python Code (Sensor - Temperature):
+```{python}
+import random
+def get_temperature():
+    return round(random.uniform(20.0, 25.0), 2)
+print(f"Current temperature: {get_temperature()}°C")
+```
+
+
+# The Real Process of Data Generation
+
+Data is generated in an unlimited manner—it appears as a result of continuous system operations.  
+Today, you have generated a lot of data on your phone (even during this lecture!).  
+Will you not generate data in the next session or tomorrow?
+
+> Data is always generated as a form of a data stream.
+
+📌 Systems handling data streams:
+
+- Data warehouses  
+- Device monitoring systems (IoT)  
+- Transactional systems  
+- Web analytics systems  
+- Online advertising  
+- Social media  
+- Logging systems  
+
+> A company is an organization that generates and responds to a continuous stream of data.
+
+In batch processing, the source (and also the result) of data processing is a **file**.  
+
+It is written once and can be referenced multiple times (multiple processes or tasks can operate on it).  
+
+The file name serves as an identifier for the set of records.  
+
+In the case of a stream, an event is generated only once by a so-called producer (also referred to as a sender or provider).  
+The generated event can be processed by multiple so-called consumers (receivers).  
+Streaming events are grouped into so-called **topics**.
+
+# Big Data  
+
+When should you make a business decision?  
+
+<img alt="Batch Processing" src="img/batch0.png" class="center" />  
+
+## **Hadoop Map-Reduce – Scaling Computation on Big Data**  
+
+When we talk about **scalable data processing**, the first association might be **Google**.  
+But what actually enables us to search for information in a fraction of a second while processing petabytes of data?  
+
+👉 **Did you know that the name "Google" comes from the word "Googol," which represents the number 10¹⁰⁰?**  
+That's more than the number of atoms in the known universe! 🌌  
+
+### **🔥 Challenge: Can you write out the number Googol by the end of this lecture?**  
+
+---  
+
+## **🔍 Why Are SQL and Traditional Algorithms Insufficient?**  
+
+Traditional **SQL databases** and **single-threaded algorithms** fail when data scales beyond a single computer.  
+This is where **MapReduce** comes in—a revolutionary computational model developed by Google.  
+
+### **🛠️ Google’s Solutions for Big Data:**  
+✅ **Google File System (GFS)** – a distributed file system.  
+✅ **Bigtable** – a system for storing massive amounts of structured data.  
+✅ **MapReduce** – an algorithm for distributing workloads across multiple machines. 
+
+## **🖼️ Graphical Representation of MapReduce**  
+
+### **1. Mapping Splits Tasks (Map)**  
+Each input is divided into smaller parts and processed in parallel.  
+
+🌍 Imagine you have a **phone book** and want to find all people with the last name "Nowak".  
+➡️ **Divide the book into sections and give each person one section to analyze.**  
+
+### **2. Reducing Gathers the Results (Reduce)**  
+All partial results are combined into one final answer.  
+
+🔄 **All students report their findings, and one student collects and summarizes the response.**  
+
+<img alt="MapReduce in action – distributing and aggregating data" src="img/mapreduce_flow.png" class="center" />  
+---
+
+## **💡 Classic Example: Counting Words in a Text**  
+Let's assume we have millions of books and we want to count how many times each word appears.  
+
+### **🖥️ MapReduce Code in Python (Using Multiprocessing)**  
+
+```python
+from multiprocessing import Pool
+from collections import Counter
+
+# Map function (splitting text into words)
+def map_function(text):
+    words = text.split()
+    return Counter(words)
+
+# Reduce function (summing up results)
+def reduce_function(counters):
+    total_count = Counter()
+    for counter in counters:
+        total_count.update(counter)
+    return total_count
+
+texts = [
+        "big data is amazing",
+        "data science and big data",
+        "big data is everywhere"
+    ]
+if __name__ == '__main__':    
+    with Pool() as pool:
+        mapped_results = pool.map(map_function, texts)
+    
+    final_result = reduce_function(mapped_results)
+    print(final_result)
+
+# Counter({'data': 4, 'big': 3, 'is': 2, 'amazing': 1, 'science': 1, 'and': 1, 'everywhere': 1})
+```
+### **🔹  What’s Happening Here?**  
+
+✅ Each text fragment is processed independently (map).
+✅ The results are collected and summed (reduce).
+✅ Outcome: We can process terabytes of text in parallel!
+
+<img alt="Batch Processing" src="img/batch3.png" class="center" />
+
+---  
+
+## **🎨 Visualization – Comparison of the Classic Approach and MapReduce**  
+
+📊 **Old Approach** – A single computer processes everything sequentially.  
+📊 **New Approach (MapReduce)** – Each machine processes a fragment, and the results are aggregated.  
+
+<img alt="MapReduce Processing" src="img/mapreduce_vs_classic.png" class="center" />  
+
+---  
+
+## **🚀 Challenge for You!**  
+
+🔹 **Find and run your own MapReduce algorithm in any programming language!**  
+🔹 **Can you implement your own MapReduce for a different task?** (e.g., log analysis, counting website clicks)  
+
+---
+
+## **Big Data**  
+
+Big Data systems can serve as a source for data warehouses (e.g., Data Lake, Enterprise Data Hub).  
+
+However, Data Warehouses are **not** Big Data systems!  
+
+### **1. Data Warehouses**  
+- Store highly structured data  
+- Focused on analytics and reporting processes  
+- **100% accuracy**  
+
+### **2. Big Data**  
+- Can handle data of any structure  
+- Used for various data-driven purposes (analytics, data science, etc.)  
+- **Less than 100% accuracy**  
+
+> _"Big Data is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so everyone claims they are doing it."_  
+> — Dan Ariely, Professor of Psychology and Behavioral Economics, Duke University
+
+### One, Two, ... Four V  
+
+1. **Volume** – The size of data produced worldwide is growing at an exponential rate.  
+2. **Velocity** – The speed at which data is generated, transmitted, and processed.  
+3. **Variety** – Traditional data is alphanumeric, consisting of letters and numbers. Today, we also deal with images, audio, video files, and IoT data streams.  
+4. **Veracity** – Are the data complete and accurate? Do they objectively reflect reality? Are they a reliable basis for decision-making?  
+5. **Value** – The actual worth of the data. Ultimately, it's about cost and benefits.  
+
+> _"The purpose of computing is insight, not numbers."_ – R.W. Hamming, 1962.  
+
+---
+
+## **Data Processing Models**  
+
+Data has always been processed in business.  
+Over the past decades, the amount of processed data has been steadily increasing, affecting the way data is prepared and handled.  
+
+### **A Bit of History**  
+
+- **1960s**: Data collections, databases  
+- **1970s**: Relational data models and their implementation in OLTP systems  
+- **1975**: First personal computers  
+- **1980s**: Advanced data models (extended-relational, object-oriented, application-oriented, etc.)  
+- **1983**: The beginning of the Internet  
+- **1990s**: Data mining, data warehouses, OLAP systems  
+- **Later**: NoSQL, Hadoop, SPARK, data lakes  
+- **2002**: AWS, **2005**: Hadoop, Cloud computing  
+
+---
+
+Most data is stored in databases or data warehouses.  
+Typically, data access is performed through applications by executing queries.  
+
+The method of utilizing and accessing a database is called the **data processing model**.  
+The two most commonly used implementations are:  
+
+### **Traditional Model**  
+
+The **traditional model** refers to **online transaction processing (OLTP)**,  
+which excels at handling real-time tasks such as customer service, order management, and sales processing.  
+It is commonly used in **Enterprise Resource Planning (ERP) systems, Customer Relationship Management (CRM) software, and web-based applications**.  
+
+![](img/baza1.png){.center}  
+
+This model provides efficient solutions for:  
+
+- Secure and efficient data storage  
+- Transactional data recovery after failures  
+- Optimized data access  
+- Concurrency management  
+- Event processing → read → write  
+
+However, what happens when we need to deal with:  
+
+- Aggregation of data from multiple systems (e.g., multiple stores)  
+- Reporting and data summarization  
+- Optimization of complex queries  
+- Business decision support  
+
+Research on these topics led to the formulation of a new **data processing model** and a new type of database – **Data Warehouses**.  
+
+### **OLAP Model**  
+
+**Online Analytical Processing (OLAP)**  
+
+OLAP supports **data analysis** and provides tools for **multidimensional analysis**  
+based on dimensions such as **time, location, and product**.  
+
+The process of extracting data from various systems into a single database is known as **Extract-Transform-Load (ETL)**,  
+which involves **normalization, encoding, and schema transformation**.  
+
+Analyzing data in a data warehouse mainly involves calculating **aggregates** (summaries) across different dimensions.  
+This process is **entirely user-driven**.  
+
+### **Example**  
+
+Imagine we have access to a data warehouse storing sales information from a supermarket.  
+How can we analyze queries such as:
+
+1. What is the total sales of products in the subsequent quarters, months, and weeks?
+2. What is the sales breakdown by product categories?
+3. What is the sales breakdown by supermarket branches?
+
+Answers to these questions help identify **bottlenecks** in product sales, plan inventory levels, and compare sales across different product groups and supermarket branches.
+
+In a **Data Warehouse**, two types of queries are most commonly executed (both in batch mode):
+
+1. Periodic queries that generate business statistics, such as reporting queries.
+2. Ad-hoc queries that support critical business decisions.
+
+![](img/baza2.png){.center}
+
+# Data Streams
+
+You might associate streaming with services that transmit video online. When you're watching your favorite TV series (just like in class now), the streaming platform continuously delivers to you the next "chunks" of video.
+
+A similar concept applies to streaming data. The chunks being transmitted don't have to be in video format – it all depends on the business goal. For instance, continuous measurements from sensors in factories, power plants, or other monitoring systems.
+
+The key here is that you're dealing with a continuous stream of data that needs to be processed in real-time. You can't wait for the production line to stop in order to conduct an analysis – any issues that arise should be logged immediately so that quick action can be taken.
+
+**Stream processing** refers to the continuous processing and analysis of large sets of data in motion.
+
+This can be compared to other aspects of Big Data. **Batch processing** is the opposite of stream processing – you first collect large amounts of data, and only then analyze them. Of course, you could download the entire video before watching it, but would that really make sense?
+
+There are situations where a batch approach is sufficient, but you can already see that stream processing can offer additional business value that is difficult to achieve with traditional batch processing.
+
+[Interesting Information](https://aws.amazon.com/streaming-data/)
+
+### Real-Time Data Analytics vs. Event Stream Processing
+
+It’s easy to confuse real-time analytics with stream analytics (or event stream processing). While stream analytics technologies enable real-time analysis, they are not the same thing!
+
+**Stream analytics** involves processing data in motion, while **real-time analytics** refers to any data processing method where the delay is short enough to meet the business requirements for "real-time."
+
+Typically, real-time analytics systems are divided into hard and soft real-time systems:
+- **Hard real-time systems** (e.g., flight control systems) require strict adherence to deadlines – any delay could have catastrophic consequences.
+- **Soft real-time systems** (e.g., weather stations) can tolerate some delays, although in extreme cases, it could lead to data loss.
+
+Moreover, while stream analytics assumes the presence of a dedicated streaming architecture, real-time analytics is not tied to any specific architecture.
+
+The key point is that real-time analytics means processing data within the time period that a business defines as "real-time" – this can range from a few milliseconds to a few seconds, depending on business needs.
+
+### Data Sources for Streaming Data Include:
+  • Equipment sensors,  
+  • Clickstreams,  
+  • Location tracking,  
+  • User interactions (e.g., user actions on your website),  
+  • Social media channels,  
+  • Stock market data,  
+  • App activity,  
+  • And more.
+
+Companies use stream analytics to detect and interpret patterns, create visualizations, generate insights and alerts, and trigger processes in real-time or near-real-time.
+
+### Business Justification
+
+Analytics helps identify significant patterns in data and discover new knowledge – both in streaming data and traditional analytics.
+
+However, in today's world, the nature of "finding meaningful patterns in data" has changed because the very nature of the data itself has changed. Its speed, volume, and variety have exploded.
+
+Twitter generates over 500 million tweets daily, and according to IDC forecasts, by 2025, IoT devices will be able to generate 79.4 zettabytes (ZB) of data. This trend is accelerating.
+
+### Example Business Applications
+
+1. IoT Sensor Data and Anomaly Detection  
+2. Stock Trading (Regression Problems) - Response time to changes and the timing of buying and selling stocks.  
+3. Clickstream for Websites (Classification Problem) - Tracking and analyzing visitors on a website - Personalization of the site and content.
+
+[8 Best Examples of Real-Time Data Analytics](https://www.linkedin.com/pulse/8-best-examples-real-time-data-analytics-bernard-marr/)  
+[Business Applications](https://www.forbes.com/sites/forbestechcouncil/2021/10/26/how-to-build-a-strong-business-case-for-streaming-analytics/?sh=eee8eaa465d0)
+
+## Definitions
+
+### Learn more about [streaming data](https://medium.com/cuelogic-technologies/analyzing-data-streaming-using-spark-vs-kafka-bcfdc33ac828)
+
+> **Definition 1** – *Event* is anything that can be observed at a specific point in time. It is generated as a direct result of an action.  
+>
+> **Definition 2** – In the context of data, an *event* is an **immutable** record in a data stream, encoded as JSON, XML, CSV, or in a binary format.  
+>
+> **Definition 3** – A *continuous event stream* is an infinite set of individual events ordered over time, such as logs from devices.  
+>
+> **Definition 4** – A *data stream* refers to data created incrementally over time, generated from static sources (e.g., database, file read lines) or dynamic sources (e.g., logs, sensors, functions).  
+>
+> **A business is an organization that generates and responds to a continuous stream of events.**
+
+### **Stream Analytics**
+
+**Stream Analytics** (also called **Event Stream Processing**) refers to processing large amounts of data as they are generated, in real-time.
+
+Regardless of the technology used, all data exists as a **continuous stream of events**, including:
+- User actions on websites,  
+- System logs,  
+- Sensor measurements.
+
+## Time in Real-Time Data Analysis
+
+In batch processing, we analyze historical data, and the timing of the process is unrelated to when the events actually occurred.
+
+In stream processing, there are two key concepts of time:
+1. **Event Time** – the actual moment the event occurred.
+2. **Processing Time** – the moment the system processes the event.
+
+### Ideal Data Processing
+
+In an ideal scenario, processing happens immediately after the event occurs:
+
+<img alt="Ideal Processing" src="img/rys2_1.png" class="center" />
+
+### Real Data Processing
+
+In reality, data processing always involves some delay, visible as points below the ideal processing line (below the diagonal in the chart):
+
+<img alt="Real Processing" src="img/rys2_2.png" class="center" />
+
+In stream processing applications, the difference between event time and processing time is crucial. Common causes of delays include:
+
+- Data transmission over the network,
+- Lack of communication between the device and the network.
+
+An example of this is tracking the location of a car via a GPS application – passing through a tunnel might cause temporary data loss.
+
+### Handling Delays in Stream Processing
+
+Delays in event processing can be managed in two main ways:
+1. **Monitoring the number of missed events** and triggering an alarm if the number of rejected events exceeds a threshold.
+2. **Applying correction using watermarking**, which is an additional mechanism that accounts for delayed events.
+
+The process of real-time event processing can be represented as a step function:
+
+<img alt="Event Processing" src="img/rys2_3.png" class="center" />
+
+Not all events contribute to the analysis – some may be discarded due to excessive delays.
+
+By using **watermarking**, additional time is allowed for the appearance of delayed events. This process includes all events above the dashed line. However, there might still be cases where some points are skipped.
+
+<img alt="Watermarking Event Processing" src="img/rys2_4.png" class="center" />
+
+The situations illustrated in the charts explicitly indicate why the concept of time is a critical factor and needs to be clearly defined at the business requirements level. 
+Assigning timestamps to data (events) is a complex task.
+
+## **Time Windows in Stream Analytics**
+
+In stream processing, **time windows** allow grouping data into time-limited segments, enabling event analysis within specific time intervals. Depending on the use case, various types of windows are applied, tailored to the characteristics of the data and analytical requirements.
+
+---
+
+### **1. Tumbling Window**  
+A tumbling window is a fixed-length window that **does not overlap** – each event belongs to only one window.  
+
+✅ **Characteristics:**  
+- Fixed window length  
+- No overlap between windows  
+- Ideal for dividing data into equal time segments  
+
+📌 **Example:** Analyzing the number of orders in an online store every 5 minutes.  
+
+<img alt="Tumbling Window" src="img/rys2_5.png" class="center" />  
+
+---
+
+### **2. Sliding Window**  
+A sliding window includes all events occurring within a specific time interval, where the window **slides continuously**.  
+
+✅ **Characteristics:**  
+- Each event can belong to multiple windows  
+- The window shifts by a specified interval  
+- Useful for detecting trends and anomalies  
+
+📌 **Example:** Tracking the average temperature over the last 10 minutes, updated every 2 minutes.  
+
+<img alt="Sliding Window" src="img/rys2_6.png" class="center" />  
+
+---
+
+### **3. Hopping Window**  
+A hopping window is similar to a tumbling window, but it allows **overlapping windows**, meaning one event can belong to multiple windows. It is used to smooth data.  
+
+✅ **Characteristics:**  
+- Fixed window length  
+- Overlapping windows  
+- Useful for noise reduction in data  
+
+📌 **Example:** Analyzing the number of website visitors every 10 minutes, but updated every 5 minutes to better capture trends.  
+
+<img alt="Hopping Window" src="img/rys2_7.png" class="center" />  
+
+---
+
+### **4. Session Window**  
+A session window groups events based on **activity periods** and closes after a specified period of inactivity.  
+
+✅ **Characteristics:**  
+- Dynamic window length  
+- Defined by user activity  
+- Used in user session analysis  
+
+📌 **Example:** Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.  
+---
+
+### **Summary**  
+Different types of time windows are applied depending on the data's characteristics and the analysis objectives. Choosing the right window impacts the accuracy of results and the efficiency of the analytical system.  
+
+| Window Type | Characteristics | Use Cases |
+|-------------|-----------------|-----------|
+| **Tumbling** | Fixed length, no overlap | Periodic reports |
+| **Sliding**  | Fixed length, overlapping windows | Trend detection, anomaly detection |
+| **Hopping**  | Fixed length, partial overlap | Data smoothing |
+| **Session**  | Dynamic length, activity-dependent | User session analysis |
+
+Each window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.
+
+
+In stream data analysis, interpreting time is a complex issue due to:
+1. Different systems having different clocks, leading to inconsistencies,
+2. Data arriving with delays, requiring watermarking and time window techniques,
+3. Different approaches to event time vs. processing time impacting result accuracy.

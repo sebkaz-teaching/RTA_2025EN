@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lecture 2 – Real-Time Analytics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Real-Time Analytics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture1.html"> 
+<span class="menu-text">Lecture 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./lecture2.html" aria-current="page"> 
+<span class="menu-text">Lecture 2</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./sylabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./info.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./books.html"> 
+<span class="menu-text">Books</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#evolution-of-data" id="toc-evolution-of-data" class="nav-link active" data-scroll-target="#evolution-of-data"><strong>Evolution of Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#tabular-data-sql-tables" id="toc-tabular-data-sql-tables" class="nav-link" data-scroll-target="#tabular-data-sql-tables"><strong>1. Tabular Data (SQL Tables)</strong></a>
+  <ul class="collapse">
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code-sqlite" id="toc-example-python-code-sqlite" class="nav-link" data-scroll-target="#example-python-code-sqlite">🖥️ <strong>Example Python Code (SQLite):</strong></a></li>
+  </ul></li>
+  <li><a href="#graph-data" id="toc-graph-data" class="nav-link" data-scroll-target="#graph-data"><strong>2. Graph Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-1" id="toc-features-1" class="nav-link" data-scroll-target="#features-1">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code-karate-graph---networkx" id="toc-example-python-code-karate-graph---networkx" class="nav-link" data-scroll-target="#example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</a></li>
+  </ul></li>
+  <li><a href="#semi-structured-data-json-xml-yaml" id="toc-semi-structured-data-json-xml-yaml" class="nav-link" data-scroll-target="#semi-structured-data-json-xml-yaml"><strong>3. Semi-structured Data (JSON, XML, YAML)</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-2" id="toc-features-2" class="nav-link" data-scroll-target="#features-2">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code-json" id="toc-example-python-code-json" class="nav-link" data-scroll-target="#example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</a></li>
+  </ul></li>
+  <li><a href="#text-data-nlp" id="toc-text-data-nlp" class="nav-link" data-scroll-target="#text-data-nlp"><strong>4. Text Data (NLP)</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-3" id="toc-features-3" class="nav-link" data-scroll-target="#features-3">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code" id="toc-example-python-code" class="nav-link" data-scroll-target="#example-python-code">🖥️ <strong>Example Python Code </strong>:</a></li>
+  </ul></li>
+  <li><a href="#multimedia-data-images-sound-video" id="toc-multimedia-data-images-sound-video" class="nav-link" data-scroll-target="#multimedia-data-images-sound-video"><strong>5. Multimedia Data (Images, Sound, Video)</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-4" id="toc-features-4" class="nav-link" data-scroll-target="#features-4">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-4" id="toc-examples-4" class="nav-link" data-scroll-target="#examples-4">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code-image---opencv" id="toc-example-python-code-image---opencv" class="nav-link" data-scroll-target="#example-python-code-image---opencv">🖥️ <strong>Example Python Code (Image - OpenCV)</strong> :</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#stream-data" id="toc-stream-data" class="nav-link" data-scroll-target="#stream-data"><strong>6. Stream Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-5" id="toc-features-5" class="nav-link" data-scroll-target="#features-5">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-5" id="toc-examples-5" class="nav-link" data-scroll-target="#examples-5">📌 <strong>Examples:</strong></a></li>
+  <li><a href="#example-python-code-streaming-bank-transactions" id="toc-example-python-code-streaming-bank-transactions" class="nav-link" data-scroll-target="#example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</a></li>
+  </ul></li>
+  <li><a href="#sensor-data-and-iot" id="toc-sensor-data-and-iot" class="nav-link" data-scroll-target="#sensor-data-and-iot"><strong>7. Sensor Data and IoT</strong></a>
+  <ul class="collapse">
+  <li><a href="#features-6" id="toc-features-6" class="nav-link" data-scroll-target="#features-6">📌 <strong>Features:</strong></a></li>
+  <li><a href="#examples-6" id="toc-examples-6" class="nav-link" data-scroll-target="#examples-6">📌 <strong>Examples:</strong></a></li>
+  </ul></li>
+  <li><a href="#the-real-process-of-data-generation" id="toc-the-real-process-of-data-generation" class="nav-link" data-scroll-target="#the-real-process-of-data-generation">The Real Process of Data Generation</a></li>
+  <li><a href="#big-data" id="toc-big-data" class="nav-link" data-scroll-target="#big-data">Big Data</a>
+  <ul class="collapse">
+  <li><a href="#hadoop-map-reduce-scaling-computation-on-big-data" id="toc-hadoop-map-reduce-scaling-computation-on-big-data" class="nav-link" data-scroll-target="#hadoop-map-reduce-scaling-computation-on-big-data"><strong>Hadoop Map-Reduce – Scaling Computation on Big Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture" id="toc-challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture" class="nav-link" data-scroll-target="#challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture"><strong>🔥 Challenge: Can you write out the number Googol by the end of this lecture?</strong></a></li>
+  </ul></li>
+  <li><a href="#why-are-sql-and-traditional-algorithms-insufficient" id="toc-why-are-sql-and-traditional-algorithms-insufficient" class="nav-link" data-scroll-target="#why-are-sql-and-traditional-algorithms-insufficient"><strong>🔍 Why Are SQL and Traditional Algorithms Insufficient?</strong></a>
+  <ul class="collapse">
+  <li><a href="#googles-solutions-for-big-data" id="toc-googles-solutions-for-big-data" class="nav-link" data-scroll-target="#googles-solutions-for-big-data"><strong>🛠️ Google’s Solutions for Big Data:</strong></a></li>
+  </ul></li>
+  <li><a href="#graphical-representation-of-mapreduce" id="toc-graphical-representation-of-mapreduce" class="nav-link" data-scroll-target="#graphical-representation-of-mapreduce"><strong>🖼️ Graphical Representation of MapReduce</strong></a>
+  <ul class="collapse">
+  <li><a href="#mapping-splits-tasks-map" id="toc-mapping-splits-tasks-map" class="nav-link" data-scroll-target="#mapping-splits-tasks-map"><strong>1. Mapping Splits Tasks (Map)</strong></a></li>
+  <li><a href="#reducing-gathers-the-results-reduce" id="toc-reducing-gathers-the-results-reduce" class="nav-link" data-scroll-target="#reducing-gathers-the-results-reduce"><strong>2. Reducing Gathers the Results (Reduce)</strong></a></li>
+  </ul></li>
+  <li><a href="#classic-example-counting-words-in-a-text" id="toc-classic-example-counting-words-in-a-text" class="nav-link" data-scroll-target="#classic-example-counting-words-in-a-text"><strong>💡 Classic Example: Counting Words in a Text</strong></a>
+  <ul class="collapse">
+  <li><a href="#mapreduce-code-in-python-using-multiprocessing" id="toc-mapreduce-code-in-python-using-multiprocessing" class="nav-link" data-scroll-target="#mapreduce-code-in-python-using-multiprocessing"><strong>🖥️ MapReduce Code in Python (Using Multiprocessing)</strong></a></li>
+  <li><a href="#whats-happening-here" id="toc-whats-happening-here" class="nav-link" data-scroll-target="#whats-happening-here"><strong>🔹 What’s Happening Here?</strong></a></li>
+  </ul></li>
+  <li><a href="#visualization-comparison-of-the-classic-approach-and-mapreduce" id="toc-visualization-comparison-of-the-classic-approach-and-mapreduce" class="nav-link" data-scroll-target="#visualization-comparison-of-the-classic-approach-and-mapreduce"><strong>🎨 Visualization – Comparison of the Classic Approach and MapReduce</strong></a></li>
+  <li><a href="#challenge-for-you" id="toc-challenge-for-you" class="nav-link" data-scroll-target="#challenge-for-you"><strong>🚀 Challenge for You!</strong></a></li>
+  <li><a href="#big-data-1" id="toc-big-data-1" class="nav-link" data-scroll-target="#big-data-1"><strong>Big Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#data-warehouses" id="toc-data-warehouses" class="nav-link" data-scroll-target="#data-warehouses"><strong>1. Data Warehouses</strong></a></li>
+  <li><a href="#big-data-2" id="toc-big-data-2" class="nav-link" data-scroll-target="#big-data-2"><strong>2. Big Data</strong></a></li>
+  <li><a href="#one-two-four-v" id="toc-one-two-four-v" class="nav-link" data-scroll-target="#one-two-four-v">One, Two, … Four V</a></li>
+  </ul></li>
+  <li><a href="#data-processing-models" id="toc-data-processing-models" class="nav-link" data-scroll-target="#data-processing-models"><strong>Data Processing Models</strong></a>
+  <ul class="collapse">
+  <li><a href="#a-bit-of-history" id="toc-a-bit-of-history" class="nav-link" data-scroll-target="#a-bit-of-history"><strong>A Bit of History</strong></a></li>
+  <li><a href="#traditional-model" id="toc-traditional-model" class="nav-link" data-scroll-target="#traditional-model"><strong>Traditional Model</strong></a></li>
+  <li><a href="#olap-model" id="toc-olap-model" class="nav-link" data-scroll-target="#olap-model"><strong>OLAP Model</strong></a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><strong>Example</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-streams" id="toc-data-streams" class="nav-link" data-scroll-target="#data-streams">Data Streams</a>
+  <ul class="collapse">
+  <li><a href="#real-time-data-analytics-vs.-event-stream-processing" id="toc-real-time-data-analytics-vs.-event-stream-processing" class="nav-link" data-scroll-target="#real-time-data-analytics-vs.-event-stream-processing">Real-Time Data Analytics vs.&nbsp;Event Stream Processing</a></li>
+  <li><a href="#data-sources-for-streaming-data-include" id="toc-data-sources-for-streaming-data-include" class="nav-link" data-scroll-target="#data-sources-for-streaming-data-include">Data Sources for Streaming Data Include:</a></li>
+  <li><a href="#business-justification" id="toc-business-justification" class="nav-link" data-scroll-target="#business-justification">Business Justification</a></li>
+  <li><a href="#example-business-applications" id="toc-example-business-applications" class="nav-link" data-scroll-target="#example-business-applications">Example Business Applications</a></li>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a>
+  <ul class="collapse">
+  <li><a href="#learn-more-about-streaming-data" id="toc-learn-more-about-streaming-data" class="nav-link" data-scroll-target="#learn-more-about-streaming-data">Learn more about streaming data</a></li>
+  <li><a href="#stream-analytics" id="toc-stream-analytics" class="nav-link" data-scroll-target="#stream-analytics"><strong>Stream Analytics</strong></a></li>
+  </ul></li>
+  <li><a href="#time-in-real-time-data-analysis" id="toc-time-in-real-time-data-analysis" class="nav-link" data-scroll-target="#time-in-real-time-data-analysis">Time in Real-Time Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#ideal-data-processing" id="toc-ideal-data-processing" class="nav-link" data-scroll-target="#ideal-data-processing">Ideal Data Processing</a></li>
+  <li><a href="#real-data-processing" id="toc-real-data-processing" class="nav-link" data-scroll-target="#real-data-processing">Real Data Processing</a></li>
+  <li><a href="#handling-delays-in-stream-processing" id="toc-handling-delays-in-stream-processing" class="nav-link" data-scroll-target="#handling-delays-in-stream-processing">Handling Delays in Stream Processing</a></li>
+  </ul></li>
+  <li><a href="#time-windows-in-stream-analytics" id="toc-time-windows-in-stream-analytics" class="nav-link" data-scroll-target="#time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></a>
+  <ul class="collapse">
+  <li><a href="#tumbling-window" id="toc-tumbling-window" class="nav-link" data-scroll-target="#tumbling-window"><strong>1. Tumbling Window</strong></a></li>
+  <li><a href="#sliding-window" id="toc-sliding-window" class="nav-link" data-scroll-target="#sliding-window"><strong>2. Sliding Window</strong></a></li>
+  <li><a href="#hopping-window" id="toc-hopping-window" class="nav-link" data-scroll-target="#hopping-window"><strong>3. Hopping Window</strong></a></li>
+  <li><a href="#session-window" id="toc-session-window" class="nav-link" data-scroll-target="#session-window"><strong>4. Session Window</strong></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lecture 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>⏳ Duration: 1.5h<br>
+<em>🎯 Lecture Objective</em></p>
+<p>Understanding how data has evolved in different industries and the tools used for its analysis today.</p>
+<hr>
+<p>In this lecture, we will present the evolution of data analysis, showing how technologies and approaches to data processing have changed over the years.<br>
+We will start with classical tabular structures, move through more advanced graph and text models, and finish with modern approaches to stream processing.</p>
+<section id="evolution-of-data" class="level1">
+<h1><strong>Evolution of Data</strong></h1>
+<section id="tabular-data-sql-tables" class="level2">
+<h2 class="anchored" data-anchor-id="tabular-data-sql-tables"><strong>1. Tabular Data (SQL Tables)</strong></h2>
+<p>Initially, data was stored in tables, where each table contained organized information in columns and rows (e.g., SQL databases).<br>
+Such models were perfect for <strong>structured</strong> data.</p>
+<section id="features" class="level3">
+<h3 class="anchored" data-anchor-id="features">📌 <strong>Features:</strong></h3>
+<p>✅ Data divided into columns with a fixed structure.<br>
+✅ CRUD operations (Create, Read, Update, Delete) can be applied.<br>
+✅ Strict consistency and normalization rules.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">📌 <strong>Examples:</strong></h3>
+<p>➡️ Banking systems, e-commerce, ERP, CRM systems.</p>
+</section>
+<section id="example-python-code-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code-sqlite">🖥️ <strong>Example Python Code (SQLite):</strong></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>conn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">':memory:'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> conn.cursor()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cursor.execute(<span class="st">"CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cursor.execute(<span class="st">"INSERT INTO users (name, age) VALUES ('Alice', 30)"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>cursor.execute(<span class="st">"SELECT * FROM users"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cursor.fetchall())</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>conn.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="graph-data" class="level2">
+<h2 class="anchored" data-anchor-id="graph-data"><strong>2. Graph Data</strong></h2>
+<p>As business needs grew, graph data emerged, where relationships between objects are represented as nodes and edges.</p>
+<section id="features-1" class="level3">
+<h3 class="anchored" data-anchor-id="features-1">📌 <strong>Features:</strong></h3>
+<p>✅ Data describing relationships and connections. ✅ Flexible structure (graphs instead of tables). ✅ Allows analysis of connections (e.g., PageRank algorithms, centrality).</p>
+</section>
+<section id="examples-1" class="level3">
+<h3 class="anchored" data-anchor-id="examples-1">📌 <strong>Examples:</strong></h3>
+<p>➡️ Social networks (Facebook, LinkedIn), search engines (Google), recommendation systems (Netflix, Amazon).</p>
+</section>
+<section id="example-python-code-karate-graph---networkx" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</h3>
+<div id="60a3a413" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lecture2_files/figure-html/cell-2-output-1.png" width="691" height="499" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="semi-structured-data-json-xml-yaml" class="level2">
+<h2 class="anchored" data-anchor-id="semi-structured-data-json-xml-yaml"><strong>3. Semi-structured Data (JSON, XML, YAML)</strong></h2>
+<p>These data are not fully structured like in SQL databases, but they have some schema.</p>
+<section id="features-2" class="level3">
+<h3 class="anchored" data-anchor-id="features-2">📌 <strong>Features:</strong></h3>
+<p>✅ Hierarchical structure (e.g., key-value pairs, nested objects). ✅ No strict schema (possibility to add new fields). ✅ Popular in NoSQL systems and APIs.</p>
+</section>
+<section id="examples-2" class="level3">
+<h3 class="anchored" data-anchor-id="examples-2">📌 <strong>Examples:</strong></h3>
+<p>➡️ Documents in MongoDB, configuration files, REST APIs, log files.</p>
+</section>
+<section id="example-python-code-json" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</h3>
+<div id="f229e43c" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'Alice'</span>, <span class="st">'age'</span>: <span class="dv">30</span>, <span class="st">'city'</span>: <span class="st">'New York'</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>json_str <span class="op">=</span> json.dumps(data)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.loads(json_str))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'name': 'Alice', 'age': 30, 'city': 'New York'}</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="text-data-nlp" class="level2">
+<h2 class="anchored" data-anchor-id="text-data-nlp"><strong>4. Text Data (NLP)</strong></h2>
+<p>Text has become a key source of information, especially in sentiment analysis, chatbots, and search engines.</p>
+<section id="features-3" class="level3">
+<h3 class="anchored" data-anchor-id="features-3">📌 <strong>Features:</strong></h3>
+<p>✅ Unstructured data requiring transformation. ✅ Use of embeddings (e.g., Word2Vec, BERT, GPT). ✅ Widely used in sentiment analysis and chatbots.</p>
+</section>
+<section id="examples-3" class="level3">
+<h3 class="anchored" data-anchor-id="examples-3">📌 <strong>Examples:</strong></h3>
+<p>➡️ Social media, emails, chatbots, machine translation.</p>
+</section>
+<section id="example-python-code" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code">🖥️ <strong>Example Python Code </strong>:</h3>
+<div id="8e21d218" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ollama</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Przykładowe zdanie</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="st">"Artificial intelligence is changing the world."</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> ollama.embeddings(model<span class="op">=</span><span class="st">'llama3.2'</span>, prompt<span class="op">=</span>sentence)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>embedding <span class="op">=</span> response[<span class="st">'embedding'</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(embedding[:<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[-2.022002935409546, 1.5602506399154663, -0.5359088182449341, -1.3182913064956665]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="multimedia-data-images-sound-video" class="level2">
+<h2 class="anchored" data-anchor-id="multimedia-data-images-sound-video"><strong>5. Multimedia Data (Images, Sound, Video)</strong></h2>
+<p>Modern data analysis systems also use images and sound.</p>
+<section id="features-4" class="level3">
+<h3 class="anchored" data-anchor-id="features-4">📌 <strong>Features:</strong></h3>
+<p>✅ Require significant computational power (AI, deep learning). ✅ Processed by CNN models (images) and RNN/Transformers (sound).</p>
+</section>
+<section id="examples-4" class="level3">
+<h3 class="anchored" data-anchor-id="examples-4">📌 <strong>Examples:</strong></h3>
+<p>➡️ Face recognition, speech analysis, biometrics, video content analysis.</p>
+</section>
+<section id="example-python-code-image---opencv" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code-image---opencv">🖥️ <strong>Example Python Code (Image - OpenCV)</strong> :</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> cv2.imread(<span class="st">'cloud.jpeg'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cv2.waitKey(<span class="dv">0</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cv2.destroyAllWindows()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="stream-data" class="level1">
+<h1><strong>6. Stream Data</strong></h1>
+<p>Currently, streaming data analysis is rapidly evolving, where data is analyzed as it flows in real-time.</p>
+<section id="features-5" class="level3">
+<h3 class="anchored" data-anchor-id="features-5">📌 <strong>Features:</strong></h3>
+<p>✅ Real-time processing. ✅ Technologies such as Apache Kafka, Flink, Spark Streaming.</p>
+</section>
+<section id="examples-5" class="level3">
+<h3 class="anchored" data-anchor-id="examples-5">📌 <strong>Examples:</strong></h3>
+<p>➡️ Bank transactions (fraud detection), social media analysis, IoT.</p>
+</section>
+<section id="example-python-code-streaming-bank-transactions" class="level3">
+<h3 class="anchored" data-anchor-id="example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</h3>
+<div id="e28a668e" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>transactions <span class="op">=</span> [{<span class="st">'id'</span>: <span class="dv">1</span>, <span class="st">'amount'</span>: <span class="dv">100</span>}, {<span class="st">'id'</span>: <span class="dv">2</span>, <span class="st">'amount'</span>: <span class="dv">200</span>}]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> transaction <span class="kw">in</span> transactions:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Processing transaction: </span><span class="sc">{</span>transaction<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Processing transaction: {'id': 1, 'amount': 100}
+Processing transaction: {'id': 2, 'amount': 200}</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sensor-data-and-iot" class="level1">
+<h1><strong>7. Sensor Data and IoT</strong></h1>
+<p>Data from sensors and IoT devices is the next step in evolution.</p>
+<section id="features-6" class="level3">
+<h3 class="anchored" data-anchor-id="features-6">📌 <strong>Features:</strong></h3>
+<p>✅ Often comes from billions of devices (big data). ✅ Requires edge computing analysis.</p>
+</section>
+<section id="examples-6" class="level3">
+<h3 class="anchored" data-anchor-id="examples-6">📌 <strong>Examples:</strong></h3>
+<p>➡️ Smart homes, wearables, autonomous cars, industrial systems.</p>
+<p>🖥️ Example Python Code (Sensor - Temperature):</p>
+<div id="26bf3640" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_temperature():</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(random.uniform(<span class="fl">20.0</span>, <span class="fl">25.0</span>), <span class="dv">2</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Current temperature: </span><span class="sc">{</span>get_temperature()<span class="sc">}</span><span class="ss">°C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Current temperature: 20.14°C</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="the-real-process-of-data-generation" class="level1">
+<h1>The Real Process of Data Generation</h1>
+<p>Data is generated in an unlimited manner—it appears as a result of continuous system operations.<br>
+Today, you have generated a lot of data on your phone (even during this lecture!).<br>
+Will you not generate data in the next session or tomorrow?</p>
+<blockquote class="blockquote">
+<p>Data is always generated as a form of a data stream.</p>
+</blockquote>
+<p>📌 Systems handling data streams:</p>
+<ul>
+<li>Data warehouses<br>
+</li>
+<li>Device monitoring systems (IoT)<br>
+</li>
+<li>Transactional systems<br>
+</li>
+<li>Web analytics systems<br>
+</li>
+<li>Online advertising<br>
+</li>
+<li>Social media<br>
+</li>
+<li>Logging systems</li>
+</ul>
+<blockquote class="blockquote">
+<p>A company is an organization that generates and responds to a continuous stream of data.</p>
+</blockquote>
+<p>In batch processing, the source (and also the result) of data processing is a <strong>file</strong>.</p>
+<p>It is written once and can be referenced multiple times (multiple processes or tasks can operate on it).</p>
+<p>The file name serves as an identifier for the set of records.</p>
+<p>In the case of a stream, an event is generated only once by a so-called producer (also referred to as a sender or provider).<br>
+The generated event can be processed by multiple so-called consumers (receivers).<br>
+Streaming events are grouped into so-called <strong>topics</strong>.</p>
+</section>
+<section id="big-data" class="level1">
+<h1>Big Data</h1>
+<p>When should you make a business decision?</p>
+<p><img alt="Batch Processing" src="img/batch0.png" class="center"></p>
+<section id="hadoop-map-reduce-scaling-computation-on-big-data" class="level2">
+<h2 class="anchored" data-anchor-id="hadoop-map-reduce-scaling-computation-on-big-data"><strong>Hadoop Map-Reduce – Scaling Computation on Big Data</strong></h2>
+<p>When we talk about <strong>scalable data processing</strong>, the first association might be <strong>Google</strong>.<br>
+But what actually enables us to search for information in a fraction of a second while processing petabytes of data?</p>
+<p>👉 <strong>Did you know that the name “Google” comes from the word “Googol,” which represents the number 10¹⁰⁰?</strong><br>
+That’s more than the number of atoms in the known universe! 🌌</p>
+<section id="challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture" class="level3">
+<h3 class="anchored" data-anchor-id="challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture"><strong>🔥 Challenge: Can you write out the number Googol by the end of this lecture?</strong></h3>
+<hr>
+</section>
+</section>
+<section id="why-are-sql-and-traditional-algorithms-insufficient" class="level2">
+<h2 class="anchored" data-anchor-id="why-are-sql-and-traditional-algorithms-insufficient"><strong>🔍 Why Are SQL and Traditional Algorithms Insufficient?</strong></h2>
+<p>Traditional <strong>SQL databases</strong> and <strong>single-threaded algorithms</strong> fail when data scales beyond a single computer.<br>
+This is where <strong>MapReduce</strong> comes in—a revolutionary computational model developed by Google.</p>
+<section id="googles-solutions-for-big-data" class="level3">
+<h3 class="anchored" data-anchor-id="googles-solutions-for-big-data"><strong>🛠️ Google’s Solutions for Big Data:</strong></h3>
+<p>✅ <strong>Google File System (GFS)</strong> – a distributed file system.<br>
+✅ <strong>Bigtable</strong> – a system for storing massive amounts of structured data.<br>
+✅ <strong>MapReduce</strong> – an algorithm for distributing workloads across multiple machines.</p>
+</section>
+</section>
+<section id="graphical-representation-of-mapreduce" class="level2">
+<h2 class="anchored" data-anchor-id="graphical-representation-of-mapreduce"><strong>🖼️ Graphical Representation of MapReduce</strong></h2>
+<section id="mapping-splits-tasks-map" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-splits-tasks-map"><strong>1. Mapping Splits Tasks (Map)</strong></h3>
+<p>Each input is divided into smaller parts and processed in parallel.</p>
+<p>🌍 Imagine you have a <strong>phone book</strong> and want to find all people with the last name “Nowak”.<br>
+➡️ <strong>Divide the book into sections and give each person one section to analyze.</strong></p>
+</section>
+<section id="reducing-gathers-the-results-reduce" class="level3">
+<h3 class="anchored" data-anchor-id="reducing-gathers-the-results-reduce"><strong>2. Reducing Gathers the Results (Reduce)</strong></h3>
+<p>All partial results are combined into one final answer.</p>
+<p>🔄 <strong>All students report their findings, and one student collects and summarizes the response.</strong></p>
+<p><img alt="MapReduce in action – distributing and aggregating data" src="img/mapreduce_flow.png" class="center"></p>
+<hr>
+</section>
+</section>
+<section id="classic-example-counting-words-in-a-text" class="level2">
+<h2 class="anchored" data-anchor-id="classic-example-counting-words-in-a-text"><strong>💡 Classic Example: Counting Words in a Text</strong></h2>
+<p>Let’s assume we have millions of books and we want to count how many times each word appears.</p>
+<section id="mapreduce-code-in-python-using-multiprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="mapreduce-code-in-python-using-multiprocessing"><strong>🖥️ MapReduce Code in Python (Using Multiprocessing)</strong></h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> multiprocessing <span class="im">import</span> Pool</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map function (splitting text into words)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_function(text):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> text.split()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Counter(words)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduce function (summing up results)</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reduce_function(counters):</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    total_count <span class="op">=</span> Counter()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> counter <span class="kw">in</span> counters:</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        total_count.update(counter)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> total_count</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>texts <span class="op">=</span> [</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"big data is amazing"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"data science and big data"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"big data is everywhere"</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:    </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> Pool() <span class="im">as</span> pool:</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        mapped_results <span class="op">=</span> pool.<span class="bu">map</span>(map_function, texts)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    final_result <span class="op">=</span> reduce_function(mapped_results)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(final_result)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Counter({'data': 4, 'big': 3, 'is': 2, 'amazing': 1, 'science': 1, 'and': 1, 'everywhere': 1})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="whats-happening-here" class="level3">
+<h3 class="anchored" data-anchor-id="whats-happening-here"><strong>🔹 What’s Happening Here?</strong></h3>
+<p>✅ Each text fragment is processed independently (map). ✅ The results are collected and summed (reduce). ✅ Outcome: We can process terabytes of text in parallel!</p>
+<p><img alt="Batch Processing" src="img/batch3.png" class="center"></p>
+<hr>
+</section>
+</section>
+<section id="visualization-comparison-of-the-classic-approach-and-mapreduce" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-comparison-of-the-classic-approach-and-mapreduce"><strong>🎨 Visualization – Comparison of the Classic Approach and MapReduce</strong></h2>
+<p>📊 <strong>Old Approach</strong> – A single computer processes everything sequentially.<br>
+📊 <strong>New Approach (MapReduce)</strong> – Each machine processes a fragment, and the results are aggregated.</p>
+<p><img alt="MapReduce Processing" src="img/mapreduce_vs_classic.png" class="center"></p>
+<hr>
+</section>
+<section id="challenge-for-you" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-for-you"><strong>🚀 Challenge for You!</strong></h2>
+<p>🔹 <strong>Find and run your own MapReduce algorithm in any programming language!</strong><br>
+🔹 <strong>Can you implement your own MapReduce for a different task?</strong> (e.g., log analysis, counting website clicks)</p>
+<hr>
+</section>
+<section id="big-data-1" class="level2">
+<h2 class="anchored" data-anchor-id="big-data-1"><strong>Big Data</strong></h2>
+<p>Big Data systems can serve as a source for data warehouses (e.g., Data Lake, Enterprise Data Hub).</p>
+<p>However, Data Warehouses are <strong>not</strong> Big Data systems!</p>
+<section id="data-warehouses" class="level3">
+<h3 class="anchored" data-anchor-id="data-warehouses"><strong>1. Data Warehouses</strong></h3>
+<ul>
+<li>Store highly structured data<br>
+</li>
+<li>Focused on analytics and reporting processes<br>
+</li>
+<li><strong>100% accuracy</strong></li>
+</ul>
+</section>
+<section id="big-data-2" class="level3">
+<h3 class="anchored" data-anchor-id="big-data-2"><strong>2. Big Data</strong></h3>
+<ul>
+<li>Can handle data of any structure<br>
+</li>
+<li>Used for various data-driven purposes (analytics, data science, etc.)<br>
+</li>
+<li><strong>Less than 100% accuracy</strong></li>
+</ul>
+<blockquote class="blockquote">
+<p><em>“Big Data is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so everyone claims they are doing it.”</em><br>
+— Dan Ariely, Professor of Psychology and Behavioral Economics, Duke University</p>
+</blockquote>
+</section>
+<section id="one-two-four-v" class="level3">
+<h3 class="anchored" data-anchor-id="one-two-four-v">One, Two, … Four V</h3>
+<ol type="1">
+<li><strong>Volume</strong> – The size of data produced worldwide is growing at an exponential rate.<br>
+</li>
+<li><strong>Velocity</strong> – The speed at which data is generated, transmitted, and processed.<br>
+</li>
+<li><strong>Variety</strong> – Traditional data is alphanumeric, consisting of letters and numbers. Today, we also deal with images, audio, video files, and IoT data streams.<br>
+</li>
+<li><strong>Veracity</strong> – Are the data complete and accurate? Do they objectively reflect reality? Are they a reliable basis for decision-making?<br>
+</li>
+<li><strong>Value</strong> – The actual worth of the data. Ultimately, it’s about cost and benefits.</li>
+</ol>
+<blockquote class="blockquote">
+<p><em>“The purpose of computing is insight, not numbers.”</em> – R.W. Hamming, 1962.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="data-processing-models" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing-models"><strong>Data Processing Models</strong></h2>
+<p>Data has always been processed in business.<br>
+Over the past decades, the amount of processed data has been steadily increasing, affecting the way data is prepared and handled.</p>
+<section id="a-bit-of-history" class="level3">
+<h3 class="anchored" data-anchor-id="a-bit-of-history"><strong>A Bit of History</strong></h3>
+<ul>
+<li><strong>1960s</strong>: Data collections, databases<br>
+</li>
+<li><strong>1970s</strong>: Relational data models and their implementation in OLTP systems<br>
+</li>
+<li><strong>1975</strong>: First personal computers<br>
+</li>
+<li><strong>1980s</strong>: Advanced data models (extended-relational, object-oriented, application-oriented, etc.)<br>
+</li>
+<li><strong>1983</strong>: The beginning of the Internet<br>
+</li>
+<li><strong>1990s</strong>: Data mining, data warehouses, OLAP systems<br>
+</li>
+<li><strong>Later</strong>: NoSQL, Hadoop, SPARK, data lakes<br>
+</li>
+<li><strong>2002</strong>: AWS, <strong>2005</strong>: Hadoop, Cloud computing</li>
+</ul>
+<hr>
+<p>Most data is stored in databases or data warehouses.<br>
+Typically, data access is performed through applications by executing queries.</p>
+<p>The method of utilizing and accessing a database is called the <strong>data processing model</strong>.<br>
+The two most commonly used implementations are:</p>
+</section>
+<section id="traditional-model" class="level3">
+<h3 class="anchored" data-anchor-id="traditional-model"><strong>Traditional Model</strong></h3>
+<p>The <strong>traditional model</strong> refers to <strong>online transaction processing (OLTP)</strong>,<br>
+which excels at handling real-time tasks such as customer service, order management, and sales processing.<br>
+It is commonly used in <strong>Enterprise Resource Planning (ERP) systems, Customer Relationship Management (CRM) software, and web-based applications</strong>.</p>
+<p><img src="img/baza1.png" class="center img-fluid"></p>
+<p>This model provides efficient solutions for:</p>
+<ul>
+<li>Secure and efficient data storage<br>
+</li>
+<li>Transactional data recovery after failures<br>
+</li>
+<li>Optimized data access<br>
+</li>
+<li>Concurrency management<br>
+</li>
+<li>Event processing → read → write</li>
+</ul>
+<p>However, what happens when we need to deal with:</p>
+<ul>
+<li>Aggregation of data from multiple systems (e.g., multiple stores)<br>
+</li>
+<li>Reporting and data summarization<br>
+</li>
+<li>Optimization of complex queries<br>
+</li>
+<li>Business decision support</li>
+</ul>
+<p>Research on these topics led to the formulation of a new <strong>data processing model</strong> and a new type of database – <strong>Data Warehouses</strong>.</p>
+</section>
+<section id="olap-model" class="level3">
+<h3 class="anchored" data-anchor-id="olap-model"><strong>OLAP Model</strong></h3>
+<p><strong>Online Analytical Processing (OLAP)</strong></p>
+<p>OLAP supports <strong>data analysis</strong> and provides tools for <strong>multidimensional analysis</strong><br>
+based on dimensions such as <strong>time, location, and product</strong>.</p>
+<p>The process of extracting data from various systems into a single database is known as <strong>Extract-Transform-Load (ETL)</strong>,<br>
+which involves <strong>normalization, encoding, and schema transformation</strong>.</p>
+<p>Analyzing data in a data warehouse mainly involves calculating <strong>aggregates</strong> (summaries) across different dimensions.<br>
+This process is <strong>entirely user-driven</strong>.</p>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example"><strong>Example</strong></h3>
+<p>Imagine we have access to a data warehouse storing sales information from a supermarket.<br>
+How can we analyze queries such as:</p>
+<ol type="1">
+<li>What is the total sales of products in the subsequent quarters, months, and weeks?</li>
+<li>What is the sales breakdown by product categories?</li>
+<li>What is the sales breakdown by supermarket branches?</li>
+</ol>
+<p>Answers to these questions help identify <strong>bottlenecks</strong> in product sales, plan inventory levels, and compare sales across different product groups and supermarket branches.</p>
+<p>In a <strong>Data Warehouse</strong>, two types of queries are most commonly executed (both in batch mode):</p>
+<ol type="1">
+<li>Periodic queries that generate business statistics, such as reporting queries.</li>
+<li>Ad-hoc queries that support critical business decisions.</li>
+</ol>
+<p><img src="img/baza2.png" class="center img-fluid"></p>
+</section>
+</section>
+</section>
+<section id="data-streams" class="level1">
+<h1>Data Streams</h1>
+<p>You might associate streaming with services that transmit video online. When you’re watching your favorite TV series (just like in class now), the streaming platform continuously delivers to you the next “chunks” of video.</p>
+<p>A similar concept applies to streaming data. The chunks being transmitted don’t have to be in video format – it all depends on the business goal. For instance, continuous measurements from sensors in factories, power plants, or other monitoring systems.</p>
+<p>The key here is that you’re dealing with a continuous stream of data that needs to be processed in real-time. You can’t wait for the production line to stop in order to conduct an analysis – any issues that arise should be logged immediately so that quick action can be taken.</p>
+<p><strong>Stream processing</strong> refers to the continuous processing and analysis of large sets of data in motion.</p>
+<p>This can be compared to other aspects of Big Data. <strong>Batch processing</strong> is the opposite of stream processing – you first collect large amounts of data, and only then analyze them. Of course, you could download the entire video before watching it, but would that really make sense?</p>
+<p>There are situations where a batch approach is sufficient, but you can already see that stream processing can offer additional business value that is difficult to achieve with traditional batch processing.</p>
+<p><a href="https://aws.amazon.com/streaming-data/">Interesting Information</a></p>
+<section id="real-time-data-analytics-vs.-event-stream-processing" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-data-analytics-vs.-event-stream-processing">Real-Time Data Analytics vs.&nbsp;Event Stream Processing</h3>
+<p>It’s easy to confuse real-time analytics with stream analytics (or event stream processing). While stream analytics technologies enable real-time analysis, they are not the same thing!</p>
+<p><strong>Stream analytics</strong> involves processing data in motion, while <strong>real-time analytics</strong> refers to any data processing method where the delay is short enough to meet the business requirements for “real-time.”</p>
+<p>Typically, real-time analytics systems are divided into hard and soft real-time systems: - <strong>Hard real-time systems</strong> (e.g., flight control systems) require strict adherence to deadlines – any delay could have catastrophic consequences. - <strong>Soft real-time systems</strong> (e.g., weather stations) can tolerate some delays, although in extreme cases, it could lead to data loss.</p>
+<p>Moreover, while stream analytics assumes the presence of a dedicated streaming architecture, real-time analytics is not tied to any specific architecture.</p>
+<p>The key point is that real-time analytics means processing data within the time period that a business defines as “real-time” – this can range from a few milliseconds to a few seconds, depending on business needs.</p>
+</section>
+<section id="data-sources-for-streaming-data-include" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources-for-streaming-data-include">Data Sources for Streaming Data Include:</h3>
+<p>• Equipment sensors,<br>
+• Clickstreams,<br>
+• Location tracking,<br>
+• User interactions (e.g., user actions on your website),<br>
+• Social media channels,<br>
+• Stock market data,<br>
+• App activity,<br>
+• And more.</p>
+<p>Companies use stream analytics to detect and interpret patterns, create visualizations, generate insights and alerts, and trigger processes in real-time or near-real-time.</p>
+</section>
+<section id="business-justification" class="level3">
+<h3 class="anchored" data-anchor-id="business-justification">Business Justification</h3>
+<p>Analytics helps identify significant patterns in data and discover new knowledge – both in streaming data and traditional analytics.</p>
+<p>However, in today’s world, the nature of “finding meaningful patterns in data” has changed because the very nature of the data itself has changed. Its speed, volume, and variety have exploded.</p>
+<p>Twitter generates over 500 million tweets daily, and according to IDC forecasts, by 2025, IoT devices will be able to generate 79.4 zettabytes (ZB) of data. This trend is accelerating.</p>
+</section>
+<section id="example-business-applications" class="level3">
+<h3 class="anchored" data-anchor-id="example-business-applications">Example Business Applications</h3>
+<ol type="1">
+<li>IoT Sensor Data and Anomaly Detection<br>
+</li>
+<li>Stock Trading (Regression Problems) - Response time to changes and the timing of buying and selling stocks.<br>
+</li>
+<li>Clickstream for Websites (Classification Problem) - Tracking and analyzing visitors on a website - Personalization of the site and content.</li>
+</ol>
+<p><a href="https://www.linkedin.com/pulse/8-best-examples-real-time-data-analytics-bernard-marr/">8 Best Examples of Real-Time Data Analytics</a><br>
+<a href="https://www.forbes.com/sites/forbestechcouncil/2021/10/26/how-to-build-a-strong-business-case-for-streaming-analytics/?sh=eee8eaa465d0">Business Applications</a></p>
+</section>
+<section id="definitions" class="level2">
+<h2 class="anchored" data-anchor-id="definitions">Definitions</h2>
+<section id="learn-more-about-streaming-data" class="level3">
+<h3 class="anchored" data-anchor-id="learn-more-about-streaming-data">Learn more about <a href="https://medium.com/cuelogic-technologies/analyzing-data-streaming-using-spark-vs-kafka-bcfdc33ac828">streaming data</a></h3>
+<blockquote class="blockquote">
+<p><strong>Definition 1</strong> – <em>Event</em> is anything that can be observed at a specific point in time. It is generated as a direct result of an action.</p>
+<p><strong>Definition 2</strong> – In the context of data, an <em>event</em> is an <strong>immutable</strong> record in a data stream, encoded as JSON, XML, CSV, or in a binary format.</p>
+<p><strong>Definition 3</strong> – A <em>continuous event stream</em> is an infinite set of individual events ordered over time, such as logs from devices.</p>
+<p><strong>Definition 4</strong> – A <em>data stream</em> refers to data created incrementally over time, generated from static sources (e.g., database, file read lines) or dynamic sources (e.g., logs, sensors, functions).</p>
+<p><strong>A business is an organization that generates and responds to a continuous stream of events.</strong></p>
+</blockquote>
+</section>
+<section id="stream-analytics" class="level3">
+<h3 class="anchored" data-anchor-id="stream-analytics"><strong>Stream Analytics</strong></h3>
+<p><strong>Stream Analytics</strong> (also called <strong>Event Stream Processing</strong>) refers to processing large amounts of data as they are generated, in real-time.</p>
+<p>Regardless of the technology used, all data exists as a <strong>continuous stream of events</strong>, including: - User actions on websites,<br>
+- System logs,<br>
+- Sensor measurements.</p>
+</section>
+</section>
+<section id="time-in-real-time-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="time-in-real-time-data-analysis">Time in Real-Time Data Analysis</h2>
+<p>In batch processing, we analyze historical data, and the timing of the process is unrelated to when the events actually occurred.</p>
+<p>In stream processing, there are two key concepts of time: 1. <strong>Event Time</strong> – the actual moment the event occurred. 2. <strong>Processing Time</strong> – the moment the system processes the event.</p>
+<section id="ideal-data-processing" class="level3">
+<h3 class="anchored" data-anchor-id="ideal-data-processing">Ideal Data Processing</h3>
+<p>In an ideal scenario, processing happens immediately after the event occurs:</p>
+<p><img alt="Ideal Processing" src="img/rys2_1.png" class="center"></p>
+</section>
+<section id="real-data-processing" class="level3">
+<h3 class="anchored" data-anchor-id="real-data-processing">Real Data Processing</h3>
+<p>In reality, data processing always involves some delay, visible as points below the ideal processing line (below the diagonal in the chart):</p>
+<p><img alt="Real Processing" src="img/rys2_2.png" class="center"></p>
+<p>In stream processing applications, the difference between event time and processing time is crucial. Common causes of delays include:</p>
+<ul>
+<li>Data transmission over the network,</li>
+<li>Lack of communication between the device and the network.</li>
+</ul>
+<p>An example of this is tracking the location of a car via a GPS application – passing through a tunnel might cause temporary data loss.</p>
+</section>
+<section id="handling-delays-in-stream-processing" class="level3">
+<h3 class="anchored" data-anchor-id="handling-delays-in-stream-processing">Handling Delays in Stream Processing</h3>
+<p>Delays in event processing can be managed in two main ways: 1. <strong>Monitoring the number of missed events</strong> and triggering an alarm if the number of rejected events exceeds a threshold. 2. <strong>Applying correction using watermarking</strong>, which is an additional mechanism that accounts for delayed events.</p>
+<p>The process of real-time event processing can be represented as a step function:</p>
+<p><img alt="Event Processing" src="img/rys2_3.png" class="center"></p>
+<p>Not all events contribute to the analysis – some may be discarded due to excessive delays.</p>
+<p>By using <strong>watermarking</strong>, additional time is allowed for the appearance of delayed events. This process includes all events above the dashed line. However, there might still be cases where some points are skipped.</p>
+<p><img alt="Watermarking Event Processing" src="img/rys2_4.png" class="center"></p>
+<p>The situations illustrated in the charts explicitly indicate why the concept of time is a critical factor and needs to be clearly defined at the business requirements level. Assigning timestamps to data (events) is a complex task.</p>
+</section>
+</section>
+<section id="time-windows-in-stream-analytics" class="level2">
+<h2 class="anchored" data-anchor-id="time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></h2>
+<p>In stream processing, <strong>time windows</strong> allow grouping data into time-limited segments, enabling event analysis within specific time intervals. Depending on the use case, various types of windows are applied, tailored to the characteristics of the data and analytical requirements.</p>
+<hr>
+<section id="tumbling-window" class="level3">
+<h3 class="anchored" data-anchor-id="tumbling-window"><strong>1. Tumbling Window</strong></h3>
+<p>A tumbling window is a fixed-length window that <strong>does not overlap</strong> – each event belongs to only one window.</p>
+<p>✅ <strong>Characteristics:</strong><br>
+- Fixed window length<br>
+- No overlap between windows<br>
+- Ideal for dividing data into equal time segments</p>
+<p>📌 <strong>Example:</strong> Analyzing the number of orders in an online store every 5 minutes.</p>
+<p><img alt="Tumbling Window" src="img/rys2_5.png" class="center"></p>
+<hr>
+</section>
+<section id="sliding-window" class="level3">
+<h3 class="anchored" data-anchor-id="sliding-window"><strong>2. Sliding Window</strong></h3>
+<p>A sliding window includes all events occurring within a specific time interval, where the window <strong>slides continuously</strong>.</p>
+<p>✅ <strong>Characteristics:</strong><br>
+- Each event can belong to multiple windows<br>
+- The window shifts by a specified interval<br>
+- Useful for detecting trends and anomalies</p>
+<p>📌 <strong>Example:</strong> Tracking the average temperature over the last 10 minutes, updated every 2 minutes.</p>
+<p><img alt="Sliding Window" src="img/rys2_6.png" class="center"></p>
+<hr>
+</section>
+<section id="hopping-window" class="level3">
+<h3 class="anchored" data-anchor-id="hopping-window"><strong>3. Hopping Window</strong></h3>
+<p>A hopping window is similar to a tumbling window, but it allows <strong>overlapping windows</strong>, meaning one event can belong to multiple windows. It is used to smooth data.</p>
+<p>✅ <strong>Characteristics:</strong><br>
+- Fixed window length<br>
+- Overlapping windows<br>
+- Useful for noise reduction in data</p>
+<p>📌 <strong>Example:</strong> Analyzing the number of website visitors every 10 minutes, but updated every 5 minutes to better capture trends.</p>
+<p><img alt="Hopping Window" src="img/rys2_7.png" class="center"></p>
+<hr>
+</section>
+<section id="session-window" class="level3">
+<h3 class="anchored" data-anchor-id="session-window"><strong>4. Session Window</strong></h3>
+<p>A session window groups events based on <strong>activity periods</strong> and closes after a specified period of inactivity.</p>
+<p>✅ <strong>Characteristics:</strong><br>
+- Dynamic window length<br>
+- Defined by user activity<br>
+- Used in user session analysis</p>
+<p>📌 <strong>Example:</strong> Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.</p>
+<hr>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary"><strong>Summary</strong></h3>
+<p>Different types of time windows are applied depending on the data’s characteristics and the analysis objectives. Choosing the right window impacts the accuracy of results and the efficiency of the analytical system.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 41%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Window Type</th>
+<th>Characteristics</th>
+<th>Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tumbling</strong></td>
+<td>Fixed length, no overlap</td>
+<td>Periodic reports</td>
+</tr>
+<tr class="even">
+<td><strong>Sliding</strong></td>
+<td>Fixed length, overlapping windows</td>
+<td>Trend detection, anomaly detection</td>
+</tr>
+<tr class="odd">
+<td><strong>Hopping</strong></td>
+<td>Fixed length, partial overlap</td>
+<td>Data smoothing</td>
+</tr>
+<tr class="even">
+<td><strong>Session</strong></td>
+<td>Dynamic length, activity-dependent</td>
+<td>User session analysis</td>
+</tr>
+</tbody>
+</table>
+<p>Each window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.</p>
+<p>In stream data analysis, interpreting time is a complex issue due to: 1. Different systems having different clocks, leading to inconsistencies, 2. Data arriving with delays, requiring watermarking and time window techniques, 3. Different approaches to event time vs.&nbsp;processing time impacting result accuracy.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

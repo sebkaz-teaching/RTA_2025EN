@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-45c9daaf6acd34b0420988892e8b8644.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-79108a0fc1995748cbd19a5b0e3e3e7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c4b40d80f3775827f3eec312850474a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,9 +102,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -158,7 +159,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong>Sections</strong></h2>
+   
+  <ul class="collapse">
+  <li><a href="#evolution-of-data" id="toc-evolution-of-data" class="nav-link active" data-scroll-target="#evolution-of-data"><strong>Evolution of Data</strong></a>
+  <ul class="collapse">
+  <li><a href="#tabular-data-sql-tables" id="toc-tabular-data-sql-tables" class="nav-link" data-scroll-target="#tabular-data-sql-tables"><strong>1. Tabular Data (SQL Tables)</strong></a></li>
+  <li><a href="#graph-data" id="toc-graph-data" class="nav-link" data-scroll-target="#graph-data"><strong>2. Graph Data</strong></a></li>
+  <li><a href="#semi-structured-data-json-xml-yaml" id="toc-semi-structured-data-json-xml-yaml" class="nav-link" data-scroll-target="#semi-structured-data-json-xml-yaml"><strong>3. Semi-structured Data (JSON, XML, YAML)</strong></a></li>
+  <li><a href="#text-data-nlp" id="toc-text-data-nlp" class="nav-link" data-scroll-target="#text-data-nlp"><strong>4. Text Data (NLP)</strong></a></li>
+  <li><a href="#multimedia-data-images-sound-video" id="toc-multimedia-data-images-sound-video" class="nav-link" data-scroll-target="#multimedia-data-images-sound-video"><strong>5. Multimedia Data (Images, Sound, Video)</strong></a></li>
+  </ul></li>
+  <li><a href="#stream-data" id="toc-stream-data" class="nav-link" data-scroll-target="#stream-data"><strong>6. Stream Data</strong></a></li>
+  <li><a href="#sensor-data-and-iot" id="toc-sensor-data-and-iot" class="nav-link" data-scroll-target="#sensor-data-and-iot"><strong>7. Sensor Data and IoT</strong></a></li>
+  <li><a href="#the-real-process-of-data-generation" id="toc-the-real-process-of-data-generation" class="nav-link" data-scroll-target="#the-real-process-of-data-generation">The Real Process of Data Generation</a></li>
+  <li><a href="#big-data" id="toc-big-data" class="nav-link" data-scroll-target="#big-data">Big Data</a>
+  <ul class="collapse">
+  <li><a href="#hadoop-map-reduce-scaling-computation-on-big-data" id="toc-hadoop-map-reduce-scaling-computation-on-big-data" class="nav-link" data-scroll-target="#hadoop-map-reduce-scaling-computation-on-big-data"><strong>Hadoop Map-Reduce – Scaling Computation on Big Data</strong></a></li>
+  <li><a href="#why-are-sql-and-traditional-algorithms-insufficient" id="toc-why-are-sql-and-traditional-algorithms-insufficient" class="nav-link" data-scroll-target="#why-are-sql-and-traditional-algorithms-insufficient"><strong>🔍 Why Are SQL and Traditional Algorithms Insufficient?</strong></a></li>
+  <li><a href="#graphical-representation-of-mapreduce" id="toc-graphical-representation-of-mapreduce" class="nav-link" data-scroll-target="#graphical-representation-of-mapreduce"><strong>🖼️ Graphical Representation of MapReduce</strong></a></li>
+  <li><a href="#classic-example-counting-words-in-a-text" id="toc-classic-example-counting-words-in-a-text" class="nav-link" data-scroll-target="#classic-example-counting-words-in-a-text"><strong>💡 Classic Example: Counting Words in a Text</strong></a></li>
+  <li><a href="#visualization-comparison-of-the-classic-approach-and-mapreduce" id="toc-visualization-comparison-of-the-classic-approach-and-mapreduce" class="nav-link" data-scroll-target="#visualization-comparison-of-the-classic-approach-and-mapreduce"><strong>🎨 Visualization – Comparison of the Classic Approach and MapReduce</strong></a></li>
+  <li><a href="#challenge-for-you" id="toc-challenge-for-you" class="nav-link" data-scroll-target="#challenge-for-you"><strong>🚀 Challenge for You!</strong></a></li>
+  <li><a href="#big-data-1" id="toc-big-data-1" class="nav-link" data-scroll-target="#big-data-1"><strong>Big Data</strong></a></li>
+  <li><a href="#data-processing-models" id="toc-data-processing-models" class="nav-link" data-scroll-target="#data-processing-models"><strong>Data Processing Models</strong></a></li>
+  </ul></li>
+  <li><a href="#data-streams" id="toc-data-streams" class="nav-link" data-scroll-target="#data-streams">Data Streams</a>
+  <ul class="collapse">
+  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a></li>
+  <li><a href="#time-in-real-time-data-analysis" id="toc-time-in-real-time-data-analysis" class="nav-link" data-scroll-target="#time-in-real-time-data-analysis">Time in Real-Time Data Analysis</a></li>
+  <li><a href="#time-windows-in-stream-analytics" id="toc-time-windows-in-stream-analytics" class="nav-link" data-scroll-target="#time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -229,7 +265,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-karate-graph---networkx" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</h3>
-<div id="76455fcb" class="cell" data-execution_count="1">
+<div id="05fa7df3" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -259,7 +295,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-json" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</h3>
-<div id="7cc905f5" class="cell" data-execution_count="2">
+<div id="649787a7" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -286,7 +322,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code">🖥️ <strong>Example Python Code </strong>:</h3>
-<div id="2fe7881f" class="cell" data-execution_count="3">
+<div id="fbc213fa" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ollama</span>
@@ -336,7 +372,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-streaming-bank-transactions" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</h3>
-<div id="a036b9f8" class="cell" data-execution_count="4">
+<div id="2cca70e7" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -363,7 +399,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <h3 class="anchored" data-anchor-id="examples-6">📌 <strong>Examples:</strong></h3>
 <p>➡️ Smart homes, wearables, autonomous cars, industrial systems.</p>
 <p>🖥️ Example Python Code (Sensor - Temperature):</p>
-<div id="95b3626d" class="cell" data-execution_count="5">
+<div id="5837d4fc" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
@@ -372,7 +408,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Current temperature: </span><span class="sc">{</span>get_temperature()<span class="sc">}</span><span class="ss">°C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current temperature: 20.4°C</code></pre>
+<pre><code>Current temperature: 23.78°C</code></pre>
 </div>
 </div>
 </section>
@@ -925,7 +961,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/sebkaz-teaching\.github\.io\/RTA_2025EN");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -939,6 +975,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         if (link.dataset.originalHref !== undefined) {
           link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {

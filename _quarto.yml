@@ -4,6 +4,8 @@ project:
 
 website: 
   title: Real-Time Analytics
+  description: "Lectures for SGH Warsaw School of Economics students"
+  site-url: https://sebkaz-teaching.github.io/RTA_2025EN
   navbar:
     left: 
           - href: index.qmd
@@ -20,8 +22,8 @@ website:
           - href: lecture2.qmd
             text: Lecture 2
   page-footer: "Copyright 2024, Sebastian Zajac"      
-
-html:
+format:
+  html:
     page-layout: article
     theme: minty
     css: style.css

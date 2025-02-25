@@ -8,25 +8,28 @@ website:
     left: 
           - href: index.qmd
             text: Home
-          - href: lecture1.qmd
-            text: Lecture 1
-          - href: lecture2.qmd
-            text: Lecture 2
-          # - href: lecture3.qmd
-          #   text: Lecture 3
-          # - href: lecture4.qmd
-          #   text: Lecture 4
           - href: sylabus.qmd
             text: Syllabus
           - href: info.qmd
             text: Tools
           - href: books.qmd
             text: Books
-          
+    right: 
+          - href: lecture1.qmd
+            text: Lecture 1
+          - href: lecture2.qmd
+            text: Lecture 2
+  page-footer: "Copyright 2024, Sebastian Zajac"      
 
-format:
-  html:
-    theme: cosmo
+html:
+    page-layout: article
+    theme: minty
     css: style.css
     toc: true
+    toc-depth: 2
+    toc-title: "**Sections**"
     self-contained-math: true
+    code-overflow: wrap
+    highlight-style: github-dark
+    code-block-background: true
+    link-external-newwindow: true

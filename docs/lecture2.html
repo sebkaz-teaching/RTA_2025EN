@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-79108a0fc1995748cbd19a5b0e3e3e7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -102,10 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -127,14 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lecture1.html"> 
-<span class="menu-text">Lecture 1</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./lecture2.html" aria-current="page"> 
-<span class="menu-text">Lecture 2</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./sylabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
@@ -147,6 +138,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Books</span></a>
   </li>  
 </ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture1.html"> 
+<span class="menu-text">Lecture 1</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./lecture2.html" aria-current="page"> 
+<span class="menu-text">Lecture 2</span></a>
+  </li>  
+</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
@@ -157,121 +158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#evolution-of-data" id="toc-evolution-of-data" class="nav-link active" data-scroll-target="#evolution-of-data"><strong>Evolution of Data</strong></a>
-  <ul class="collapse">
-  <li><a href="#tabular-data-sql-tables" id="toc-tabular-data-sql-tables" class="nav-link" data-scroll-target="#tabular-data-sql-tables"><strong>1. Tabular Data (SQL Tables)</strong></a>
-  <ul class="collapse">
-  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code-sqlite" id="toc-example-python-code-sqlite" class="nav-link" data-scroll-target="#example-python-code-sqlite">🖥️ <strong>Example Python Code (SQLite):</strong></a></li>
-  </ul></li>
-  <li><a href="#graph-data" id="toc-graph-data" class="nav-link" data-scroll-target="#graph-data"><strong>2. Graph Data</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-1" id="toc-features-1" class="nav-link" data-scroll-target="#features-1">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code-karate-graph---networkx" id="toc-example-python-code-karate-graph---networkx" class="nav-link" data-scroll-target="#example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</a></li>
-  </ul></li>
-  <li><a href="#semi-structured-data-json-xml-yaml" id="toc-semi-structured-data-json-xml-yaml" class="nav-link" data-scroll-target="#semi-structured-data-json-xml-yaml"><strong>3. Semi-structured Data (JSON, XML, YAML)</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-2" id="toc-features-2" class="nav-link" data-scroll-target="#features-2">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code-json" id="toc-example-python-code-json" class="nav-link" data-scroll-target="#example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</a></li>
-  </ul></li>
-  <li><a href="#text-data-nlp" id="toc-text-data-nlp" class="nav-link" data-scroll-target="#text-data-nlp"><strong>4. Text Data (NLP)</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-3" id="toc-features-3" class="nav-link" data-scroll-target="#features-3">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code" id="toc-example-python-code" class="nav-link" data-scroll-target="#example-python-code">🖥️ <strong>Example Python Code </strong>:</a></li>
-  </ul></li>
-  <li><a href="#multimedia-data-images-sound-video" id="toc-multimedia-data-images-sound-video" class="nav-link" data-scroll-target="#multimedia-data-images-sound-video"><strong>5. Multimedia Data (Images, Sound, Video)</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-4" id="toc-features-4" class="nav-link" data-scroll-target="#features-4">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-4" id="toc-examples-4" class="nav-link" data-scroll-target="#examples-4">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code-image---opencv" id="toc-example-python-code-image---opencv" class="nav-link" data-scroll-target="#example-python-code-image---opencv">🖥️ <strong>Example Python Code (Image - OpenCV)</strong> :</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#stream-data" id="toc-stream-data" class="nav-link" data-scroll-target="#stream-data"><strong>6. Stream Data</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-5" id="toc-features-5" class="nav-link" data-scroll-target="#features-5">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-5" id="toc-examples-5" class="nav-link" data-scroll-target="#examples-5">📌 <strong>Examples:</strong></a></li>
-  <li><a href="#example-python-code-streaming-bank-transactions" id="toc-example-python-code-streaming-bank-transactions" class="nav-link" data-scroll-target="#example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</a></li>
-  </ul></li>
-  <li><a href="#sensor-data-and-iot" id="toc-sensor-data-and-iot" class="nav-link" data-scroll-target="#sensor-data-and-iot"><strong>7. Sensor Data and IoT</strong></a>
-  <ul class="collapse">
-  <li><a href="#features-6" id="toc-features-6" class="nav-link" data-scroll-target="#features-6">📌 <strong>Features:</strong></a></li>
-  <li><a href="#examples-6" id="toc-examples-6" class="nav-link" data-scroll-target="#examples-6">📌 <strong>Examples:</strong></a></li>
-  </ul></li>
-  <li><a href="#the-real-process-of-data-generation" id="toc-the-real-process-of-data-generation" class="nav-link" data-scroll-target="#the-real-process-of-data-generation">The Real Process of Data Generation</a></li>
-  <li><a href="#big-data" id="toc-big-data" class="nav-link" data-scroll-target="#big-data">Big Data</a>
-  <ul class="collapse">
-  <li><a href="#hadoop-map-reduce-scaling-computation-on-big-data" id="toc-hadoop-map-reduce-scaling-computation-on-big-data" class="nav-link" data-scroll-target="#hadoop-map-reduce-scaling-computation-on-big-data"><strong>Hadoop Map-Reduce – Scaling Computation on Big Data</strong></a>
-  <ul class="collapse">
-  <li><a href="#challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture" id="toc-challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture" class="nav-link" data-scroll-target="#challenge-can-you-write-out-the-number-googol-by-the-end-of-this-lecture"><strong>🔥 Challenge: Can you write out the number Googol by the end of this lecture?</strong></a></li>
-  </ul></li>
-  <li><a href="#why-are-sql-and-traditional-algorithms-insufficient" id="toc-why-are-sql-and-traditional-algorithms-insufficient" class="nav-link" data-scroll-target="#why-are-sql-and-traditional-algorithms-insufficient"><strong>🔍 Why Are SQL and Traditional Algorithms Insufficient?</strong></a>
-  <ul class="collapse">
-  <li><a href="#googles-solutions-for-big-data" id="toc-googles-solutions-for-big-data" class="nav-link" data-scroll-target="#googles-solutions-for-big-data"><strong>🛠️ Google’s Solutions for Big Data:</strong></a></li>
-  </ul></li>
-  <li><a href="#graphical-representation-of-mapreduce" id="toc-graphical-representation-of-mapreduce" class="nav-link" data-scroll-target="#graphical-representation-of-mapreduce"><strong>🖼️ Graphical Representation of MapReduce</strong></a>
-  <ul class="collapse">
-  <li><a href="#mapping-splits-tasks-map" id="toc-mapping-splits-tasks-map" class="nav-link" data-scroll-target="#mapping-splits-tasks-map"><strong>1. Mapping Splits Tasks (Map)</strong></a></li>
-  <li><a href="#reducing-gathers-the-results-reduce" id="toc-reducing-gathers-the-results-reduce" class="nav-link" data-scroll-target="#reducing-gathers-the-results-reduce"><strong>2. Reducing Gathers the Results (Reduce)</strong></a></li>
-  </ul></li>
-  <li><a href="#classic-example-counting-words-in-a-text" id="toc-classic-example-counting-words-in-a-text" class="nav-link" data-scroll-target="#classic-example-counting-words-in-a-text"><strong>💡 Classic Example: Counting Words in a Text</strong></a>
-  <ul class="collapse">
-  <li><a href="#mapreduce-code-in-python-using-multiprocessing" id="toc-mapreduce-code-in-python-using-multiprocessing" class="nav-link" data-scroll-target="#mapreduce-code-in-python-using-multiprocessing"><strong>🖥️ MapReduce Code in Python (Using Multiprocessing)</strong></a></li>
-  <li><a href="#whats-happening-here" id="toc-whats-happening-here" class="nav-link" data-scroll-target="#whats-happening-here"><strong>🔹 What’s Happening Here?</strong></a></li>
-  </ul></li>
-  <li><a href="#visualization-comparison-of-the-classic-approach-and-mapreduce" id="toc-visualization-comparison-of-the-classic-approach-and-mapreduce" class="nav-link" data-scroll-target="#visualization-comparison-of-the-classic-approach-and-mapreduce"><strong>🎨 Visualization – Comparison of the Classic Approach and MapReduce</strong></a></li>
-  <li><a href="#challenge-for-you" id="toc-challenge-for-you" class="nav-link" data-scroll-target="#challenge-for-you"><strong>🚀 Challenge for You!</strong></a></li>
-  <li><a href="#big-data-1" id="toc-big-data-1" class="nav-link" data-scroll-target="#big-data-1"><strong>Big Data</strong></a>
-  <ul class="collapse">
-  <li><a href="#data-warehouses" id="toc-data-warehouses" class="nav-link" data-scroll-target="#data-warehouses"><strong>1. Data Warehouses</strong></a></li>
-  <li><a href="#big-data-2" id="toc-big-data-2" class="nav-link" data-scroll-target="#big-data-2"><strong>2. Big Data</strong></a></li>
-  <li><a href="#one-two-four-v" id="toc-one-two-four-v" class="nav-link" data-scroll-target="#one-two-four-v">One, Two, … Four V</a></li>
-  </ul></li>
-  <li><a href="#data-processing-models" id="toc-data-processing-models" class="nav-link" data-scroll-target="#data-processing-models"><strong>Data Processing Models</strong></a>
-  <ul class="collapse">
-  <li><a href="#a-bit-of-history" id="toc-a-bit-of-history" class="nav-link" data-scroll-target="#a-bit-of-history"><strong>A Bit of History</strong></a></li>
-  <li><a href="#traditional-model" id="toc-traditional-model" class="nav-link" data-scroll-target="#traditional-model"><strong>Traditional Model</strong></a></li>
-  <li><a href="#olap-model" id="toc-olap-model" class="nav-link" data-scroll-target="#olap-model"><strong>OLAP Model</strong></a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><strong>Example</strong></a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#data-streams" id="toc-data-streams" class="nav-link" data-scroll-target="#data-streams">Data Streams</a>
-  <ul class="collapse">
-  <li><a href="#real-time-data-analytics-vs.-event-stream-processing" id="toc-real-time-data-analytics-vs.-event-stream-processing" class="nav-link" data-scroll-target="#real-time-data-analytics-vs.-event-stream-processing">Real-Time Data Analytics vs.&nbsp;Event Stream Processing</a></li>
-  <li><a href="#data-sources-for-streaming-data-include" id="toc-data-sources-for-streaming-data-include" class="nav-link" data-scroll-target="#data-sources-for-streaming-data-include">Data Sources for Streaming Data Include:</a></li>
-  <li><a href="#business-justification" id="toc-business-justification" class="nav-link" data-scroll-target="#business-justification">Business Justification</a></li>
-  <li><a href="#example-business-applications" id="toc-example-business-applications" class="nav-link" data-scroll-target="#example-business-applications">Example Business Applications</a></li>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a>
-  <ul class="collapse">
-  <li><a href="#learn-more-about-streaming-data" id="toc-learn-more-about-streaming-data" class="nav-link" data-scroll-target="#learn-more-about-streaming-data">Learn more about streaming data</a></li>
-  <li><a href="#stream-analytics" id="toc-stream-analytics" class="nav-link" data-scroll-target="#stream-analytics"><strong>Stream Analytics</strong></a></li>
-  </ul></li>
-  <li><a href="#time-in-real-time-data-analysis" id="toc-time-in-real-time-data-analysis" class="nav-link" data-scroll-target="#time-in-real-time-data-analysis">Time in Real-Time Data Analysis</a>
-  <ul class="collapse">
-  <li><a href="#ideal-data-processing" id="toc-ideal-data-processing" class="nav-link" data-scroll-target="#ideal-data-processing">Ideal Data Processing</a></li>
-  <li><a href="#real-data-processing" id="toc-real-data-processing" class="nav-link" data-scroll-target="#real-data-processing">Real Data Processing</a></li>
-  <li><a href="#handling-delays-in-stream-processing" id="toc-handling-delays-in-stream-processing" class="nav-link" data-scroll-target="#handling-delays-in-stream-processing">Handling Delays in Stream Processing</a></li>
-  </ul></li>
-  <li><a href="#time-windows-in-stream-analytics" id="toc-time-windows-in-stream-analytics" class="nav-link" data-scroll-target="#time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></a>
-  <ul class="collapse">
-  <li><a href="#tumbling-window" id="toc-tumbling-window" class="nav-link" data-scroll-target="#tumbling-window"><strong>1. Tumbling Window</strong></a></li>
-  <li><a href="#sliding-window" id="toc-sliding-window" class="nav-link" data-scroll-target="#sliding-window"><strong>2. Sliding Window</strong></a></li>
-  <li><a href="#hopping-window" id="toc-hopping-window" class="nav-link" data-scroll-target="#hopping-window"><strong>3. Hopping Window</strong></a></li>
-  <li><a href="#session-window" id="toc-session-window" class="nav-link" data-scroll-target="#session-window"><strong>4. Session Window</strong></a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -342,7 +229,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-karate-graph---networkx" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</h3>
-<div id="60a3a413" class="cell" data-execution_count="1">
+<div id="76455fcb" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -372,7 +259,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-json" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</h3>
-<div id="f229e43c" class="cell" data-execution_count="2">
+<div id="7cc905f5" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -399,7 +286,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code">🖥️ <strong>Example Python Code </strong>:</h3>
-<div id="8e21d218" class="cell" data-execution_count="3">
+<div id="2fe7881f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ollama</span>
@@ -449,7 +336,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-streaming-bank-transactions" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</h3>
-<div id="e28a668e" class="cell" data-execution_count="4">
+<div id="a036b9f8" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -476,7 +363,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <h3 class="anchored" data-anchor-id="examples-6">📌 <strong>Examples:</strong></h3>
 <p>➡️ Smart homes, wearables, autonomous cars, industrial systems.</p>
 <p>🖥️ Example Python Code (Sensor - Temperature):</p>
-<div id="26bf3640" class="cell" data-execution_count="5">
+<div id="95b3626d" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
@@ -485,7 +372,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Current temperature: </span><span class="sc">{</span>get_temperature()<span class="sc">}</span><span class="ss">°C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current temperature: 20.14°C</code></pre>
+<pre><code>Current temperature: 20.4°C</code></pre>
 </div>
 </div>
 </section>
@@ -1366,6 +1253,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2024, Sebastian Zajac</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

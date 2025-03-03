@@ -21,8 +21,8 @@ The lectures are conducted in a hybrid mode.
 Attendance is optional, and in-person sessions take place in Aula VI, Building G.
 
 1. <del>18-02-2025 (Tuesday) 11:40-13:20 - Lecture 1</del>
-2. 25-02-2025 (Tuesday) 11:40-13:20 - Lecture 2
-3. 04-03-2025 (Tuesday) 11:40-13:20 - Lecture 3
+2. <del>25-02-2025 (Tuesday) 11:40-13:20 - Lecture 2</del>
+3. <del>04-03-2025 (Tuesday) 11:40-13:20 - Online Lecture 3</del>
 4. 11-03-2025 (Tuesday) 11:40-13:20 - Lecture 4
 5. 18-03-2025 (Tuesday) 11:40-13:20 - Lecture 5
 
@@ -33,7 +33,7 @@ Format: 20 questions | 30 minutes
 Platform: MS Teams
 
 
-### Exam
+### TEST
 
 Lectures will end with a test (last class).
 Positive evaluation of the test (above 13 points) entitles you to carry out the exercises.

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.41">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-45c9daaf6acd34b0420988892e8b8644.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-9a023c9ade86a60361e96e3e3f11bc54.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-c4b40d80f3775827f3eec312850474a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -148,6 +148,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./lecture2.html" aria-current="page"> 
 <span class="menu-text">Lecture 2</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture3.html"> 
+<span class="menu-text">Lecture 3</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -185,12 +189,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#challenge-for-you" id="toc-challenge-for-you" class="nav-link" data-scroll-target="#challenge-for-you"><strong>🚀 Challenge for You!</strong></a></li>
   <li><a href="#big-data-1" id="toc-big-data-1" class="nav-link" data-scroll-target="#big-data-1"><strong>Big Data</strong></a></li>
   <li><a href="#data-processing-models" id="toc-data-processing-models" class="nav-link" data-scroll-target="#data-processing-models"><strong>Data Processing Models</strong></a></li>
-  </ul></li>
-  <li><a href="#data-streams" id="toc-data-streams" class="nav-link" data-scroll-target="#data-streams">Data Streams</a>
-  <ul class="collapse">
-  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a></li>
-  <li><a href="#time-in-real-time-data-analysis" id="toc-time-in-real-time-data-analysis" class="nav-link" data-scroll-target="#time-in-real-time-data-analysis">Time in Real-Time Data Analysis</a></li>
-  <li><a href="#time-windows-in-stream-analytics" id="toc-time-windows-in-stream-analytics" class="nav-link" data-scroll-target="#time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -265,7 +263,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-karate-graph---networkx" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-karate-graph---networkx">🖥️ <strong>Example Python Code (Karate Graph - NetworkX) </strong>:</h3>
-<div id="bf9b79d0" class="cell" data-execution_count="1">
+<div id="69bc27e6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -295,7 +293,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-json" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-json">🖥️ <strong>Example Python Code (JSON)</strong>:</h3>
-<div id="733afd28" class="cell" data-execution_count="2">
+<div id="8f6333e1" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -322,7 +320,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code">🖥️ <strong>Example Python Code </strong>:</h3>
-<div id="5fc14292" class="cell" data-execution_count="3">
+<div id="55c0ccc5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ollama</span>
@@ -334,7 +332,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(embedding[:<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[-2.022002935409546, 1.5602506399154663, -0.5359088182449341, -1.3182913064956665]</code></pre>
+<pre><code>[-2.021953582763672, 1.5604140758514404, -0.5358548164367676, -1.3182345628738403]</code></pre>
 </div>
 </div>
 </section>
@@ -372,7 +370,7 @@ Such models were perfect for <strong>structured</strong> data.</p>
 </section>
 <section id="example-python-code-streaming-bank-transactions" class="level3">
 <h3 class="anchored" data-anchor-id="example-python-code-streaming-bank-transactions">🖥️ <strong>Example Python Code (Streaming Bank Transactions)</strong>:</h3>
-<div id="6b8880c0" class="cell" data-execution_count="4">
+<div id="b2971365" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -399,7 +397,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <h3 class="anchored" data-anchor-id="examples-6">📌 <strong>Examples:</strong></h3>
 <p>➡️ Smart homes, wearables, autonomous cars, industrial systems.</p>
 <p>🖥️ Example Python Code (Sensor - Temperature):</p>
-<div id="8e076f65" class="cell" data-execution_count="5">
+<div id="f9d92930" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
@@ -408,7 +406,7 @@ Processing transaction: {'id': 2, 'amount': 200}</code></pre>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Current temperature: </span><span class="sc">{</span>get_temperature()<span class="sc">}</span><span class="ss">°C"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current temperature: 24.69°C</code></pre>
+<pre><code>Current temperature: 23.78°C</code></pre>
 </div>
 </div>
 </section>
@@ -675,195 +673,6 @@ How can we analyze queries such as:</p>
 <li>Ad-hoc queries that support critical business decisions.</li>
 </ol>
 <p><img src="img/baza2.png" class="center img-fluid"></p>
-</section>
-</section>
-</section>
-<section id="data-streams" class="level1">
-<h1>Data Streams</h1>
-<p>You might associate streaming with services that transmit video online. When you’re watching your favorite TV series (just like in class now), the streaming platform continuously delivers to you the next “chunks” of video.</p>
-<p>A similar concept applies to streaming data. The chunks being transmitted don’t have to be in video format – it all depends on the business goal. For instance, continuous measurements from sensors in factories, power plants, or other monitoring systems.</p>
-<p>The key here is that you’re dealing with a continuous stream of data that needs to be processed in real-time. You can’t wait for the production line to stop in order to conduct an analysis – any issues that arise should be logged immediately so that quick action can be taken.</p>
-<p><strong>Stream processing</strong> refers to the continuous processing and analysis of large sets of data in motion.</p>
-<p>This can be compared to other aspects of Big Data. <strong>Batch processing</strong> is the opposite of stream processing – you first collect large amounts of data, and only then analyze them. Of course, you could download the entire video before watching it, but would that really make sense?</p>
-<p>There are situations where a batch approach is sufficient, but you can already see that stream processing can offer additional business value that is difficult to achieve with traditional batch processing.</p>
-<p><a href="https://aws.amazon.com/streaming-data/">Interesting Information</a></p>
-<section id="real-time-data-analytics-vs.-event-stream-processing" class="level3">
-<h3 class="anchored" data-anchor-id="real-time-data-analytics-vs.-event-stream-processing">Real-Time Data Analytics vs.&nbsp;Event Stream Processing</h3>
-<p>It’s easy to confuse real-time analytics with stream analytics (or event stream processing). While stream analytics technologies enable real-time analysis, they are not the same thing!</p>
-<p><strong>Stream analytics</strong> involves processing data in motion, while <strong>real-time analytics</strong> refers to any data processing method where the delay is short enough to meet the business requirements for “real-time.”</p>
-<p>Typically, real-time analytics systems are divided into hard and soft real-time systems: - <strong>Hard real-time systems</strong> (e.g., flight control systems) require strict adherence to deadlines – any delay could have catastrophic consequences. - <strong>Soft real-time systems</strong> (e.g., weather stations) can tolerate some delays, although in extreme cases, it could lead to data loss.</p>
-<p>Moreover, while stream analytics assumes the presence of a dedicated streaming architecture, real-time analytics is not tied to any specific architecture.</p>
-<p>The key point is that real-time analytics means processing data within the time period that a business defines as “real-time” – this can range from a few milliseconds to a few seconds, depending on business needs.</p>
-</section>
-<section id="data-sources-for-streaming-data-include" class="level3">
-<h3 class="anchored" data-anchor-id="data-sources-for-streaming-data-include">Data Sources for Streaming Data Include:</h3>
-<p>• Equipment sensors,<br>
-• Clickstreams,<br>
-• Location tracking,<br>
-• User interactions (e.g., user actions on your website),<br>
-• Social media channels,<br>
-• Stock market data,<br>
-• App activity,<br>
-• And more.</p>
-<p>Companies use stream analytics to detect and interpret patterns, create visualizations, generate insights and alerts, and trigger processes in real-time or near-real-time.</p>
-</section>
-<section id="business-justification" class="level3">
-<h3 class="anchored" data-anchor-id="business-justification">Business Justification</h3>
-<p>Analytics helps identify significant patterns in data and discover new knowledge – both in streaming data and traditional analytics.</p>
-<p>However, in today’s world, the nature of “finding meaningful patterns in data” has changed because the very nature of the data itself has changed. Its speed, volume, and variety have exploded.</p>
-<p>Twitter generates over 500 million tweets daily, and according to IDC forecasts, by 2025, IoT devices will be able to generate 79.4 zettabytes (ZB) of data. This trend is accelerating.</p>
-</section>
-<section id="example-business-applications" class="level3">
-<h3 class="anchored" data-anchor-id="example-business-applications">Example Business Applications</h3>
-<ol type="1">
-<li>IoT Sensor Data and Anomaly Detection<br>
-</li>
-<li>Stock Trading (Regression Problems) - Response time to changes and the timing of buying and selling stocks.<br>
-</li>
-<li>Clickstream for Websites (Classification Problem) - Tracking and analyzing visitors on a website - Personalization of the site and content.</li>
-</ol>
-<p><a href="https://www.linkedin.com/pulse/8-best-examples-real-time-data-analytics-bernard-marr/">8 Best Examples of Real-Time Data Analytics</a><br>
-<a href="https://www.forbes.com/sites/forbestechcouncil/2021/10/26/how-to-build-a-strong-business-case-for-streaming-analytics/?sh=eee8eaa465d0">Business Applications</a></p>
-</section>
-<section id="definitions" class="level2">
-<h2 class="anchored" data-anchor-id="definitions">Definitions</h2>
-<section id="learn-more-about-streaming-data" class="level3">
-<h3 class="anchored" data-anchor-id="learn-more-about-streaming-data">Learn more about <a href="https://medium.com/cuelogic-technologies/analyzing-data-streaming-using-spark-vs-kafka-bcfdc33ac828">streaming data</a></h3>
-<blockquote class="blockquote">
-<p><strong>Definition 1</strong> – <em>Event</em> is anything that can be observed at a specific point in time. It is generated as a direct result of an action.</p>
-<p><strong>Definition 2</strong> – In the context of data, an <em>event</em> is an <strong>immutable</strong> record in a data stream, encoded as JSON, XML, CSV, or in a binary format.</p>
-<p><strong>Definition 3</strong> – A <em>continuous event stream</em> is an infinite set of individual events ordered over time, such as logs from devices.</p>
-<p><strong>Definition 4</strong> – A <em>data stream</em> refers to data created incrementally over time, generated from static sources (e.g., database, file read lines) or dynamic sources (e.g., logs, sensors, functions).</p>
-<p><strong>A business is an organization that generates and responds to a continuous stream of events.</strong></p>
-</blockquote>
-</section>
-<section id="stream-analytics" class="level3">
-<h3 class="anchored" data-anchor-id="stream-analytics"><strong>Stream Analytics</strong></h3>
-<p><strong>Stream Analytics</strong> (also called <strong>Event Stream Processing</strong>) refers to processing large amounts of data as they are generated, in real-time.</p>
-<p>Regardless of the technology used, all data exists as a <strong>continuous stream of events</strong>, including: - User actions on websites,<br>
-- System logs,<br>
-- Sensor measurements.</p>
-</section>
-</section>
-<section id="time-in-real-time-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="time-in-real-time-data-analysis">Time in Real-Time Data Analysis</h2>
-<p>In batch processing, we analyze historical data, and the timing of the process is unrelated to when the events actually occurred.</p>
-<p>In stream processing, there are two key concepts of time: 1. <strong>Event Time</strong> – the actual moment the event occurred. 2. <strong>Processing Time</strong> – the moment the system processes the event.</p>
-<section id="ideal-data-processing" class="level3">
-<h3 class="anchored" data-anchor-id="ideal-data-processing">Ideal Data Processing</h3>
-<p>In an ideal scenario, processing happens immediately after the event occurs:</p>
-<p><img alt="Ideal Processing" src="img/rys2_1.png" class="center"></p>
-</section>
-<section id="real-data-processing" class="level3">
-<h3 class="anchored" data-anchor-id="real-data-processing">Real Data Processing</h3>
-<p>In reality, data processing always involves some delay, visible as points below the ideal processing line (below the diagonal in the chart):</p>
-<p><img alt="Real Processing" src="img/rys2_2.png" class="center"></p>
-<p>In stream processing applications, the difference between event time and processing time is crucial. Common causes of delays include:</p>
-<ul>
-<li>Data transmission over the network,</li>
-<li>Lack of communication between the device and the network.</li>
-</ul>
-<p>An example of this is tracking the location of a car via a GPS application – passing through a tunnel might cause temporary data loss.</p>
-</section>
-<section id="handling-delays-in-stream-processing" class="level3">
-<h3 class="anchored" data-anchor-id="handling-delays-in-stream-processing">Handling Delays in Stream Processing</h3>
-<p>Delays in event processing can be managed in two main ways: 1. <strong>Monitoring the number of missed events</strong> and triggering an alarm if the number of rejected events exceeds a threshold. 2. <strong>Applying correction using watermarking</strong>, which is an additional mechanism that accounts for delayed events.</p>
-<p>The process of real-time event processing can be represented as a step function:</p>
-<p><img alt="Event Processing" src="img/rys2_3.png" class="center"></p>
-<p>Not all events contribute to the analysis – some may be discarded due to excessive delays.</p>
-<p>By using <strong>watermarking</strong>, additional time is allowed for the appearance of delayed events. This process includes all events above the dashed line. However, there might still be cases where some points are skipped.</p>
-<p><img alt="Watermarking Event Processing" src="img/rys2_4.png" class="center"></p>
-<p>The situations illustrated in the charts explicitly indicate why the concept of time is a critical factor and needs to be clearly defined at the business requirements level. Assigning timestamps to data (events) is a complex task.</p>
-</section>
-</section>
-<section id="time-windows-in-stream-analytics" class="level2">
-<h2 class="anchored" data-anchor-id="time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></h2>
-<p>In stream processing, <strong>time windows</strong> allow grouping data into time-limited segments, enabling event analysis within specific time intervals. Depending on the use case, various types of windows are applied, tailored to the characteristics of the data and analytical requirements.</p>
-<hr>
-<section id="tumbling-window" class="level3">
-<h3 class="anchored" data-anchor-id="tumbling-window"><strong>1. Tumbling Window</strong></h3>
-<p>A tumbling window is a fixed-length window that <strong>does not overlap</strong> – each event belongs to only one window.</p>
-<p>✅ <strong>Characteristics:</strong><br>
-- Fixed window length<br>
-- No overlap between windows<br>
-- Ideal for dividing data into equal time segments</p>
-<p>📌 <strong>Example:</strong> Analyzing the number of orders in an online store every 5 minutes.</p>
-<p><img alt="Tumbling Window" src="img/rys2_5.png" class="center"></p>
-<hr>
-</section>
-<section id="sliding-window" class="level3">
-<h3 class="anchored" data-anchor-id="sliding-window"><strong>2. Sliding Window</strong></h3>
-<p>A sliding window includes all events occurring within a specific time interval, where the window <strong>slides continuously</strong>.</p>
-<p>✅ <strong>Characteristics:</strong><br>
-- Each event can belong to multiple windows<br>
-- The window shifts by a specified interval<br>
-- Useful for detecting trends and anomalies</p>
-<p>📌 <strong>Example:</strong> Tracking the average temperature over the last 10 minutes, updated every 2 minutes.</p>
-<p><img alt="Sliding Window" src="img/rys2_6.png" class="center"></p>
-<hr>
-</section>
-<section id="hopping-window" class="level3">
-<h3 class="anchored" data-anchor-id="hopping-window"><strong>3. Hopping Window</strong></h3>
-<p>A hopping window is similar to a tumbling window, but it allows <strong>overlapping windows</strong>, meaning one event can belong to multiple windows. It is used to smooth data.</p>
-<p>✅ <strong>Characteristics:</strong><br>
-- Fixed window length<br>
-- Overlapping windows<br>
-- Useful for noise reduction in data</p>
-<p>📌 <strong>Example:</strong> Analyzing the number of website visitors every 10 minutes, but updated every 5 minutes to better capture trends.</p>
-<p><img alt="Hopping Window" src="img/rys2_7.png" class="center"></p>
-<hr>
-</section>
-<section id="session-window" class="level3">
-<h3 class="anchored" data-anchor-id="session-window"><strong>4. Session Window</strong></h3>
-<p>A session window groups events based on <strong>activity periods</strong> and closes after a specified period of inactivity.</p>
-<p>✅ <strong>Characteristics:</strong><br>
-- Dynamic window length<br>
-- Defined by user activity<br>
-- Used in user session analysis</p>
-<p>📌 <strong>Example:</strong> Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.</p>
-<hr>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary"><strong>Summary</strong></h3>
-<p>Different types of time windows are applied depending on the data’s characteristics and the analysis objectives. Choosing the right window impacts the accuracy of results and the efficiency of the analytical system.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 41%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Window Type</th>
-<th>Characteristics</th>
-<th>Use Cases</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Tumbling</strong></td>
-<td>Fixed length, no overlap</td>
-<td>Periodic reports</td>
-</tr>
-<tr class="even">
-<td><strong>Sliding</strong></td>
-<td>Fixed length, overlapping windows</td>
-<td>Trend detection, anomaly detection</td>
-</tr>
-<tr class="odd">
-<td><strong>Hopping</strong></td>
-<td>Fixed length, partial overlap</td>
-<td>Data smoothing</td>
-</tr>
-<tr class="even">
-<td><strong>Session</strong></td>
-<td>Dynamic length, activity-dependent</td>
-<td>User session analysis</td>
-</tr>
-</tbody>
-</table>
-<p>Each window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.</p>
-<p>In stream data analysis, interpreting time is a complex issue due to: 1. Different systems having different clocks, leading to inconsistencies, 2. Data arriving with delays, requiring watermarking and time window techniques, 3. Different approaches to event time vs.&nbsp;processing time impacting result accuracy.</p>
 
 
 </section>

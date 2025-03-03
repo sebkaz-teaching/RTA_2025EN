@@ -21,6 +21,8 @@ website:
             text: Lecture 1
           - href: lecture2.qmd
             text: Lecture 2
+          - href: lecture3.qmd
+            text: Lecture 3
   page-footer: "Copyright 2024, Sebastian Zajac"      
 format:
   html:

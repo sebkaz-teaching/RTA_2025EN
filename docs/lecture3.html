@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -152,6 +118,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./lecture3.html" aria-current="page"> 
 <span class="menu-text">Lecture 3</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./lecture4.html"> 
+<span class="menu-text">Lecture 4</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -168,13 +138,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title"><strong>Sections</strong></h2>
    
   <ul class="collapse">
-  <li><a href="#data-streams" id="toc-data-streams" class="nav-link active" data-scroll-target="#data-streams">Data Streams</a>
+  <li><a href="#data-streams-understanding-the-flow-of-real-time-information" id="toc-data-streams-understanding-the-flow-of-real-time-information" class="nav-link active" data-scroll-target="#data-streams-understanding-the-flow-of-real-time-information">Data Streams: Understanding the Flow of Real-Time Information</a>
   <ul class="collapse">
   <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a></li>
   <li><a href="#time-in-real-time-data-analysis" id="toc-time-in-real-time-data-analysis" class="nav-link" data-scroll-target="#time-in-real-time-data-analysis">Time in Real-Time Data Analysis</a></li>
   <li><a href="#time-windows-in-stream-analytics" id="toc-time-windows-in-stream-analytics" class="nav-link" data-scroll-target="#time-windows-in-stream-analytics"><strong>Time Windows in Stream Analytics</strong></a></li>
   </ul></li>
-  <li><a href="#microservices-architecture" id="toc-microservices-architecture" class="nav-link" data-scroll-target="#microservices-architecture">Microservices architecture</a></li>
   </ul>
 </nav>
     </div>
@@ -203,49 +172,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>⏳ Duration: 1.5h</p>
 <p><em>🎯 Lecture Goal</em></p>
 <p>Introducing students to the fundamentals of real-time analytics.</p>
-<section id="data-streams" class="level1">
-<h1>Data Streams</h1>
-<p>You might associate streaming with services that transmit video online. When you’re watching your favorite TV series (just like in class now), the streaming platform continuously delivers to you the next “chunks” of video.</p>
-<p>A similar concept applies to streaming data. The chunks being transmitted don’t have to be in video format – it all depends on the business goal. For instance, continuous measurements from sensors in factories, power plants, or other monitoring systems.</p>
-<p>The key here is that you’re dealing with a continuous stream of data that needs to be processed in real-time. You can’t wait for the production line to stop in order to conduct an analysis – any issues that arise should be logged immediately so that quick action can be taken.</p>
+<section id="data-streams-understanding-the-flow-of-real-time-information" class="level1">
+<h1>Data Streams: Understanding the Flow of Real-Time Information</h1>
+<p>You might associate <code>streaming</code> with platforms that deliver video content online, such as Netflix or YT. When you’re watching your favorite TV show, for example, the streaming service continuously sends you <code>chunks</code> of video, allowing you to watch without waiting for the entire video to download.</p>
+<p>This concept of continuous, real-time delivery applies to streaming data. However, the “chunks” of data don’t have to be video. Instead, they could represent a wide range of information, such as continuous measurements from sensors in factories, power plants, or even monitoring systems in healthcare.</p>
+<p>The key idea here is that streaming data is generated continuously and needs to be processed in real time. Unlike traditional batch processing (where large datasets are collected and analyzed later), stream processing works with live data, making it possible to detect issues, identify patterns, and make decisions in the moment.</p>
+<p>For instance, you can’t afford to wait for a production line to stop in order to analyze its data. If a sensor detects an anomaly or failure, it needs to be logged immediately so that corrective action can be taken without delay. This is the essence of stream processing—the continuous analysis of data as it flows.</p>
 <p><strong>Stream processing</strong> refers to the continuous processing and analysis of large sets of data in motion.</p>
 <p>This can be compared to other aspects of Big Data. <strong>Batch processing</strong> is the opposite of stream processing – you first collect large amounts of data, and only then analyze them. Of course, you could download the entire video before watching it, but would that really make sense?</p>
 <p>There are situations where a batch approach is sufficient, but you can already see that stream processing can offer additional business value that is difficult to achieve with traditional batch processing.</p>
 <p><a href="https://aws.amazon.com/streaming-data/">Interesting Information</a></p>
 <section id="real-time-data-analytics-vs.-event-stream-processing" class="level3">
 <h3 class="anchored" data-anchor-id="real-time-data-analytics-vs.-event-stream-processing">Real-Time Data Analytics vs.&nbsp;Event Stream Processing</h3>
+<p>While both real-time data analytics and event stream processing involve the analysis of data with minimal delay, they are not the same thing.</p>
 <p>It’s easy to confuse real-time analytics with stream analytics (or event stream processing). While stream analytics technologies enable real-time analysis, they are not the same thing!</p>
-<p><strong>Stream analytics</strong> involves processing data in motion, while <strong>real-time analytics</strong> refers to any data processing method where the delay is short enough to meet the business requirements for “real-time.”</p>
+<p><strong>Stream Analytics</strong> (or event stream processing) involves analyzing a continuous stream of data, usually tied to a dedicated architecture. It focuses on events that occur over time—things like sensor readings, clicks on a website, or changes in stock prices.</p>
 <p>Typically, real-time analytics systems are divided into hard and soft real-time systems: - <strong>Hard real-time systems</strong> (e.g., flight control systems) require strict adherence to deadlines – any delay could have catastrophic consequences. - <strong>Soft real-time systems</strong> (e.g., weather stations) can tolerate some delays, although in extreme cases, it could lead to data loss.</p>
 <p>Moreover, while stream analytics assumes the presence of a dedicated streaming architecture, real-time analytics is not tied to any specific architecture.</p>
 <p>The key point is that real-time analytics means processing data within the time period that a business defines as “real-time” – this can range from a few milliseconds to a few seconds, depending on business needs.</p>
 </section>
-<section id="data-sources-for-streaming-data-include" class="level3">
-<h3 class="anchored" data-anchor-id="data-sources-for-streaming-data-include">Data Sources for Streaming Data Include:</h3>
-<p>• Equipment sensors,<br>
-• Clickstreams,<br>
-• Location tracking,<br>
-• User interactions (e.g., user actions on your website),<br>
-• Social media channels,<br>
-• Stock market data,<br>
-• App activity,<br>
-• And more.</p>
-<p>Companies use stream analytics to detect and interpret patterns, create visualizations, generate insights and alerts, and trigger processes in real-time or near-real-time.</p>
+<section id="data-sources-for-streaming" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources-for-streaming">Data Sources for Streaming:</h3>
+<p>The variety of data sources that can feed into streaming systems is vast and spans several industries. Examples include:</p>
+<ul>
+<li>IoT devices, equipment sensors,<br>
+</li>
+<li>clickstreams,<br>
+</li>
+<li>geolocation tracking,<br>
+</li>
+<li>user interactions (e.g., user actions on your website),<br>
+</li>
+<li>social media channels,<br>
+</li>
+<li>stock market data,<br>
+</li>
+<li>app activity.</li>
+</ul>
+<p>This real-time data is used by businesses to detect patterns, create visualizations, trigger alerts, and take immediate action.</p>
 </section>
-<section id="business-justification" class="level3">
-<h3 class="anchored" data-anchor-id="business-justification">Business Justification</h3>
-<p>Analytics helps identify significant patterns in data and discover new knowledge – both in streaming data and traditional analytics.</p>
-<p>However, in today’s world, the nature of “finding meaningful patterns in data” has changed because the very nature of the data itself has changed. Its speed, volume, and variety have exploded.</p>
-<p>Twitter generates over 500 million tweets daily, and according to IDC forecasts, by 2025, IoT devices will be able to generate 79.4 zettabytes (ZB) of data. This trend is accelerating.</p>
+<section id="business-justification-the-need-for-streaming-data" class="level3">
+<h3 class="anchored" data-anchor-id="business-justification-the-need-for-streaming-data">Business Justification: The Need for Streaming Data</h3>
+<p>The sheer volume and speed of modern data are unprecedented. In 2025, IoT devices are expected to generate a staggering 79.4 zettabytes (ZB) of data. Similarly, Twitter processes over 500 million tweets every day.</p>
+<p>The speed at which this data is generated means traditional batch processing is no longer enough. Stream analytics is necessary for businesses to unlock insights from this massive flow of real-time information.</p>
+<p>For example, IoT sensors can detect anomalies in equipment performance, allowing maintenance teams to take proactive action. In stock trading, real-time regression models can help traders make split-second decisions about buying and selling based on the latest market data.</p>
 </section>
 <section id="example-business-applications" class="level3">
 <h3 class="anchored" data-anchor-id="example-business-applications">Example Business Applications</h3>
 <ol type="1">
-<li>IoT Sensor Data and Anomaly Detection<br>
+<li>IoT Sensor Data and Anomaly Detection - Sensors in factories or on machinery can generate continuous data streams. Stream analytics can detect anomalies in real-time, allowing immediate maintenance or corrective actions to prevent costly downtime or equipment failure.</li>
+<li>Stock Trading, Real-time regression models analyze price movements and help traders identify trends. Timely processing of streaming data can trigger trades in response to market changes—potentially within milliseconds.<br>
 </li>
-<li>Stock Trading (Regression Problems) - Response time to changes and the timing of buying and selling stocks.<br>
-</li>
-<li>Clickstream for Websites (Classification Problem) - Tracking and analyzing visitors on a website - Personalization of the site and content.</li>
+<li>Clickstream Analytics for Websites. Real-time analytics of website visitors’ actions can personalize the user experience, adjust content dynamically, or trigger targeted ads based on live user behavior.</li>
 </ol>
 <p><a href="https://www.linkedin.com/pulse/8-best-examples-real-time-data-analytics-bernard-marr/">8 Best Examples of Real-Time Data Analytics</a><br>
 <a href="https://www.forbes.com/sites/forbestechcouncil/2021/10/26/how-to-build-a-strong-business-case-for-streaming-analytics/?sh=eee8eaa465d0">Business Applications</a></p>
@@ -255,10 +233,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="learn-more-about-streaming-data" class="level3">
 <h3 class="anchored" data-anchor-id="learn-more-about-streaming-data">Learn more about <a href="https://medium.com/cuelogic-technologies/analyzing-data-streaming-using-spark-vs-kafka-bcfdc33ac828">streaming data</a></h3>
 <blockquote class="blockquote">
-<p><strong>Definition 1</strong> – <em>Event</em> is anything that can be observed at a specific point in time. It is generated as a direct result of an action.</p>
-<p><strong>Definition 2</strong> – In the context of data, an <em>event</em> is an <strong>immutable</strong> record in a data stream, encoded as JSON, XML, CSV, or in a binary format.</p>
-<p><strong>Definition 3</strong> – A <em>continuous event stream</em> is an infinite set of individual events ordered over time, such as logs from devices.</p>
-<p><strong>Definition 4</strong> – A <em>data stream</em> refers to data created incrementally over time, generated from static sources (e.g., database, file read lines) or dynamic sources (e.g., logs, sensors, functions).</p>
+<p><strong>Definition 1</strong> – <strong>Event</strong>: Any observable occurrence at a specific point in time. In data streams, events are immutable records that represent a specific action.</p>
+<p><strong>Definition 2</strong> – In the context of data, an <em>event</em> is encoded as JSON, XML, CSV, or in a binary format.</p>
+<p><strong>Definition 3</strong> – <strong>Continuous Event Stream</strong>: An ongoing sequence of events that happen over time, such as logs from servers, sensor readings, or user activity.</p>
+<p><strong>Definition 4</strong> – <strong>Data Stream</strong>: A continuous flow of data from dynamic sources like sensor readings or log entries. These streams can be generated in real-time or derived from static sources like databases or files.</p>
 <p><strong>A business is an organization that generates and responds to a continuous stream of events.</strong></p>
 </blockquote>
 </section>
@@ -389,83 +367,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>Each window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.</p>
 <p>In stream data analysis, interpreting time is a complex issue due to: 1. Different systems having different clocks, leading to inconsistencies, 2. Data arriving with delays, requiring watermarking and time window techniques, 3. Different approaches to event time vs.&nbsp;processing time impacting result accuracy.</p>
-</section>
-</section>
-</section>
-<section id="microservices-architecture" class="level1">
-<h1>Microservices architecture</h1>
-<p>The concept of microservices is essential to understand when working on architectures. Although there are other ways to architecture software projects, <code>microservices</code> are famous for a good reason. They help teams be flexible and effective and help to keep software loose and structured.</p>
-<p>The idea behind microservices is in the name: of software is represented as many small services that operate individually. When looking at the overall architecture, each of the microservices is inside a small black box with clearly defined inputs and outputs.</p>
-<p>An often-chosen solution is to use Application Programming Interfaces ( <strong>API</strong>) to allow different microservices to communicate</p>
-<section id="communication-through-api" class="level3">
-<h3 class="anchored" data-anchor-id="communication-through-api">Communication through API</h3>
-<p>A central component in microservice architectures is the use of APIs. An API is a part that allows you to connect two microservices. APIs are much like websites. Like a website, the server sends You the code that represents the website. Your internet browser then interprets this code and shows you a web page.</p>
-<p>Let’s take a business case with the ML model as a service. Let’s assume you work for a company that sells apartments in Boston. We want to increase our sales and offer better quality services to our customers with a new mobile application which can be used even by 1 000 000 people simultaneously. We can realize this by serving a prediction of house value when the user requests for pricing over the web.</p>
-<section id="serving-a-model" class="level4">
-<h4 class="anchored" data-anchor-id="serving-a-model">Serving a Model</h4>
-<ul>
-<li>Training a good ML model is ONLY the first part: You do need to make your model available to your end-users You do this by either providing access to the model on your server.</li>
-<li>When serving ML Model You need: a model, an interpreter, input data.</li>
-<li>Important Metrics:</li>
-</ul>
-<ol type="1">
-<li>Latency,</li>
-<li>Cost,</li>
-<li>Throughput (number of requests served per unit time)</li>
-</ol>
-<blockquote class="blockquote">
-<p>Sharing data between two or more systems has always been a fundamental requirement of software development – DevOps vs MLOps.</p>
-</blockquote>
-<p>When you call an API, the API will receive your request. The request triggers your code to be run on the server and generates a response sent back to you. If something goes wrong, you may not receive any reply or receive an error code as an HTTP status code.</p>
-<blockquote class="blockquote">
-<p>Client-Server: Client (system A) requests to a URL hosted by system B, which returns a response. It’s identical to how a web browser works. A browser requests for a specific URL. The request is routed to a web server that returns an HTML (text) page.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Stateless: The client request should contain all the information necessary to respond.</p>
-</blockquote>
-<p>You can call APIs with a lot of different tools. Sometimes, you can even use your web browser. Otherwise, tools such as CURL do the job on the command line. You can use tools such as Postman for calling APIs with the user interface.</p>
-<blockquote class="blockquote">
-<p>All communication is covered in fixed rules and practices, which are called the HTTP protocol.</p>
-</blockquote>
-</section>
-<section id="request" class="level4">
-<h4 class="anchored" data-anchor-id="request">Request</h4>
-<ol type="1">
-<li>An Endpoint URL a domain, port, path, query string - http://mydomain:8000/getapi?&amp;val1=43&amp;val2=3</li>
-<li>The HTTP methods - GET, POST</li>
-<li>HTTP headers contain authentication information, cookies metadata - Content-Type: application/json, text … Accept: application/json, Authorization: Basic abase64string, Tokens etc</li>
-<li>Request body</li>
-</ol>
-<p>The most common format for interaction between services is the <code>JavaScript Object Notation</code> format. it is a data type that very strongly resembles the dictionary format in Python - key-value object.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">"RAD"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">"PTRATIO"</span><span class="fu">:</span> <span class="fl">15.3</span><span class="fu">,</span> <span class="dt">"INDUS"</span><span class="fu">:</span> <span class="fl">2.31</span><span class="fu">,</span> <span class="dt">"B"</span><span class="fu">:</span> <span class="fl">396.9</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">"ZN"</span><span class="fu">:</span> <span class="dv">18</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">"DIS"</span><span class="fu">:</span> <span class="fl">4.09</span><span class="fu">,</span> <span class="dt">"CRIM"</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.00632</span><span class="fu">,</span> <span class="dt">"RM"</span><span class="fu">:</span> <span class="fl">6.575</span><span class="fu">,</span> <span class="dt">"AGE"</span><span class="fu">:</span> <span class="fl">65.2</span><span class="fu">,</span> <span class="dt">"CHAS"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"NOX"</span><span class="fu">:</span> <span class="dv">0</span><span class="er">.</span><span class="dv">538</span><span class="fu">,</span> <span class="dt">"TAX"</span><span class="fu">:</span> <span class="dv">296</span><span class="fu">,</span> <span class="dt">"LSTAT"</span><span class="fu">:</span> <span class="fl">4.98</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="response" class="level4">
-<h4 class="anchored" data-anchor-id="response">Response</h4>
-<ol type="1">
-<li>The response payload is defined in the response header:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">200</span> OK</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Content-Encoding:</span> gzip</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Content-Type:</span> text/html<span class="kw">;</span> <span class="va">charset</span><span class="op">=</span>utf-8</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Date:</span> Mon, 18 Jul 2016 16:06:00 GMT Server: Apache</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">Path</span><span class="op">=</span>/<span class="kw">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="2" type="1">
-<li><p>Header example: “Content-Type” =&gt; “application/json; charset=utf-8”, “Server” =&gt; “Genie/Julia/1.8.5</p></li>
-<li><p>Body example:</p></li>
-</ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">":input"</span><span class="fu">:{</span><span class="dt">"RAD"</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span><span class="dt">"PTRATIO"</span><span class="fu">:</span><span class="fl">15.3</span><span class="fu">,</span><span class="dt">"INDUS"</span><span class="fu">:</span><span class="fl">2.31</span><span class="fu">,</span><span class="er">.....</span><span class="fu">}}</span><span class="er">,</span> <span class="fu">{</span><span class="dt">":prediction"</span><span class="fu">:</span><span class="ot">[</span><span class="fl">29.919737211857683</span><span class="ot">]</span><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="4" type="1">
-<li>HTTP status code: • 200 OK is used for successful requests, • 40X Access Denied • 50X Internal server error</li>
-</ol>
-</section>
-<section id="rest-api" class="level4">
-<h4 class="anchored" data-anchor-id="rest-api">REST API</h4>
-<p>The Representational State Transfer (REST) API works just like other APIs, but it follows a certain set of style rules that make it reconizable as a REST API: - Client-server architecture - Statelessnes - Cacheability - Layered system - Uniform Interface</p>
 
 
 </section>

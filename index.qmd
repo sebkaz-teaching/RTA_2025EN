@@ -17,17 +17,17 @@ Recommended reading is available in the [books](/books) section.
 ## Schedule
 
 ### Lectures
-The lectures are conducted in a hybrid mode.
-Attendance is optional, and in-person sessions take place in Aula VI, Building G.
+Lectures are conducted in a hybrid format. 
+Attendance is optional, with in-person sessions held in Aula VI, Building G.
 
-1. <del>18-02-2025 (Tuesday) 11:40-13:20 - Lecture 1</del>
-2. <del>25-02-2025 (Tuesday) 11:40-13:20 - Lecture 2</del>
-3. <del>04-03-2025 (Tuesday) 11:40-13:20 - Online Lecture 3</del>
+1. 18-02-2025 (Tuesday) 11:40-13:20 - Lecture 1
+2. 25-02-2025 (Tuesday) 11:40-13:20 - Lecture 2
+3. 04-03-2025 (Tuesday) 11:40-13:20 - Online Lecture 3
 4. 11-03-2025 (Tuesday) 11:40-13:20 - Lecture 4
 5. 18-03-2025 (Tuesday) 11:40-13:20 - Lecture 5
 
 
-The lecture 5 concludes with a TEST.
+Lecture 5 concludes with a test.
 
 Format: 20 questions | 30 minutes
 Platform: MS Teams
@@ -35,25 +35,24 @@ Platform: MS Teams
 
 ### TEST
 
-Lectures will end with a test (last class).
-Positive evaluation of the test (above 13 points) entitles you to carry out the exercises.
+Lectures conclude with a test during the final class. 
+Achieving a score above 13 points qualifies you to participate in the exercises.
 
-After the exercises, homework will be carried out via the MS teams' platform.
-Passing all exercises and tasks entitles you to complete the project.
+After completing the exercises, homework assignments will be submitted via the MS Teams platform
 
 The project should be carried out in groups of no more than 5 people.
 
 Project requirements:
 
-- The project should present a BUSINESS PROBLEM that can be implemented using the information provided online. (This does not mean that you cannot use batch processing, e.g. to generate a model).
-- Data should be sent to Apache Kafka and further processed and analyzed from there.
-- The programming language is free - applies to each component of the project.
-- BI tools can be used
-- Data sources can be a table, artificially generated data, IoT, etc.
+- The project should address a business problem that can be implemented using publicly available data.
+- Data should be ingested into Apache Kafka and subsequently processed and analyzed.
+- You may choose any programming language for each component of the project.
+- Business Intelligence (BI) tools may be utilized.
+- Data sources may include tables, synthetically generated data, IoT devices, etc.
 
 ## Technology
 
-Participating in the classes, you must know and at least use the following information technologies:
+To participate in the classes, you should be familiar with and utilize the following technologies:
 
 1. [GIT](https://sebkaz-teaching.github.io/RTA_2023EN/info/) 
 2. Python, Jupyter notebook, Jupyter lab, Colab

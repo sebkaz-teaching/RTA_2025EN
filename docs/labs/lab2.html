@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Creating an API with Flask – Introduction – Real-Time Analytics</title>
+<title>API with Flask Excercises – Real-Time Analytics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><strong>Creating an API with Flask – Introduction</strong></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Labs</li><li class="breadcrumb-item"><a href="../labs/lab1.html">Python codes</a></li><li class="breadcrumb-item"><a href="../labs/lab2.html">API with Flask Excercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -159,6 +159,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Info</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../lectures/lecture5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 5</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Apache Kafka</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kafka_codes/kafka1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kafka_codes/kafka2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kafka Producer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kafka_codes/kafka3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kafka Consumer</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Python codes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">REST API with Flask</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">API with Flask Excercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structured data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -167,21 +287,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title"><strong>Sections</strong></h2>
    
   <ul class="collapse">
-  <li><a href="#creating-a-basic-api" id="toc-creating-a-basic-api" class="nav-link active" data-scroll-target="#creating-a-basic-api"><strong>1️⃣ Creating a Basic API</strong></a></li>
-  <li><a href="#adding-a-new-subpage" id="toc-adding-a-new-subpage" class="nav-link" data-scroll-target="#adding-a-new-subpage"><strong>2️⃣ Adding a New Subpage</strong></a></li>
-  <li><a href="#automatically-starting-the-server-from-jupyter-notebook" id="toc-automatically-starting-the-server-from-jupyter-notebook" class="nav-link" data-scroll-target="#automatically-starting-the-server-from-jupyter-notebook">**3️⃣ Automatically Starting the Server from Jupyter Notebook</a></li>
-  <li><a href="#handling-parameters-in-the-url" id="toc-handling-parameters-in-the-url" class="nav-link" data-scroll-target="#handling-parameters-in-the-url"><strong>4️⃣ Handling Parameters in the URL</strong></a></li>
-  <li><a href="#creating-an-api-with-a-simple-ml-model" id="toc-creating-an-api-with-a-simple-ml-model" class="nav-link" data-scroll-target="#creating-an-api-with-a-simple-ml-model">**5️⃣ Creating an API with a Simple ML Model</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a></li>
+  <li><a href="#creating-a-basic-api" id="toc-creating-a-basic-api" class="nav-link active" data-scroll-target="#creating-a-basic-api">1️⃣ Creating a Basic API</a></li>
+  <li><a href="#adding-a-new-subpage" id="toc-adding-a-new-subpage" class="nav-link" data-scroll-target="#adding-a-new-subpage">2️⃣ Adding a New Subpage</a></li>
+  <li><a href="#automatically-starting-the-server-from-jupyter-notebook" id="toc-automatically-starting-the-server-from-jupyter-notebook" class="nav-link" data-scroll-target="#automatically-starting-the-server-from-jupyter-notebook">3️⃣ Automatically Starting the Server from Jupyter Notebook</a></li>
+  <li><a href="#handling-parameters-in-the-url" id="toc-handling-parameters-in-the-url" class="nav-link" data-scroll-target="#handling-parameters-in-the-url">4️⃣ Handling Parameters in the URL</a></li>
+  <li><a href="#creating-an-api-with-a-simple-ml-model" id="toc-creating-an-api-with-a-simple-ml-model" class="nav-link" data-scroll-target="#creating-an-api-with-a-simple-ml-model">5️⃣ Creating an API with a Simple ML Model</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Labs</li><li class="breadcrumb-item"><a href="../labs/lab1.html">Python codes</a></li><li class="breadcrumb-item"><a href="../labs/lab2.html">API with Flask Excercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><strong>Creating an API with Flask – Introduction</strong></h1>
+<h1 class="title">API with Flask Excercises</h1>
 </div>
 
 
@@ -200,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>In this exercise, you will learn how to create a simple API in Flask, run it, send requests to it, and use a decision model based on a basic logical rule.</p>
 <section id="creating-a-basic-api" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-basic-api"><strong>1️⃣ Creating a Basic API</strong></h2>
+<h2 class="anchored" data-anchor-id="creating-a-basic-api">1️⃣ Creating a Basic API</h2>
 <p>First, we will create a basic Flask application.</p>
 <section id="saving-the-api-code-to-a-file" class="level3">
 <h3 class="anchored" data-anchor-id="saving-the-api-code-to-a-file">Saving the API Code to a File</h3>
@@ -231,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="adding-a-new-subpage" class="level2">
-<h2 class="anchored" data-anchor-id="adding-a-new-subpage"><strong>2️⃣ Adding a New Subpage</strong></h2>
+<h2 class="anchored" data-anchor-id="adding-a-new-subpage">2️⃣ Adding a New Subpage</h2>
 <p>Let’s add a new subpage <code>mypage</code> that will return the message <code>This is my page!</code>.</p>
 <div id="901da667-f30f-4520-88e2-981c3cd07845" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span><span class="bu">file</span> app.py</span>
@@ -247,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="automatically-starting-the-server-from-jupyter-notebook" class="level2">
-<h2 class="anchored" data-anchor-id="automatically-starting-the-server-from-jupyter-notebook">**3️⃣ Automatically Starting the Server from Jupyter Notebook</h2>
+<h2 class="anchored" data-anchor-id="automatically-starting-the-server-from-jupyter-notebook">3️⃣ Automatically Starting the Server from Jupyter Notebook</h2>
 <p>Close the previously started server (<code>Ctrl+C</code> in the terminal) and restart it directly from Jupyter Notebook using <code>subprocess.Popen</code>:</p>
 <div id="b5aef41b-f747-4949-a676-a8b49de88c7f" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
@@ -260,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="handling-parameters-in-the-url" class="level2">
-<h2 class="anchored" data-anchor-id="handling-parameters-in-the-url"><strong>4️⃣ Handling Parameters in the URL</strong></h2>
+<h2 class="anchored" data-anchor-id="handling-parameters-in-the-url">4️⃣ Handling Parameters in the URL</h2>
 <p>Let’s add a new subpage /hello that will accept a name parameter.</p>
 <p>Edit app.py by adding the appropriate code.</p>
 <div id="9e42700e-e83a-4a2b-b4e8-164827a6994f" class="cell">
@@ -278,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="creating-an-api-with-a-simple-ml-model" class="level2">
-<h2 class="anchored" data-anchor-id="creating-an-api-with-a-simple-ml-model">**5️⃣ Creating an API with a Simple ML Model</h2>
+<h2 class="anchored" data-anchor-id="creating-an-api-with-a-simple-ml-model">5️⃣ Creating an API with a Simple ML Model</h2>
 <p>We will create a new subpage /api/v1.0/predict, which accepts two numbers and returns the result of a decision rule: - If the sum of the two numbers is greater than 5.8, it returns 1. - Otherwise, it returns 0.</p>
 <p>Verify API</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> requests.get(<span class="st">"http://127.0.0.1:5000/api/v1.0/predict?num1=3&amp;num2=4"</span>)</span>
@@ -286,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary"><strong>Summary</strong></h2>
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>After completing this exercise, students will be able to: ✅ Create a basic API in Flask. ✅ Add subpages and handle URL parameters. ✅ Send GET requests and analyze responses. ✅ Automatically start the server from Jupyter Notebook. ✅ Implement a simple decision model in the API.</p>
 <p>Ready for the next challenges? 🚀</p>
 

@@ -1,4 +1,4 @@
-# Apache Kafka - Introduction
+# Introduction
 
 Apache Kafka is a stream processing system (event streaming) that acts as a distributed message broker.
 It enables real-time data transmission and processing.

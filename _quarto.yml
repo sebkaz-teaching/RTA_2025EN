@@ -3,20 +3,20 @@ project:
   output-dir: docs
 
 website: 
-  title: Real-Time Analytics
+  title: "Real-Time Analytics"
   description: "Lectures for SGH Warsaw School of Economics students"
   site-url: https://sebkaz-teaching.github.io/RTA_2025EN
   sidebar:
     style: "docked"
-    contensts:
+    contents:
       - index.qmd
       - section: "Lectures"
         contents:
-        - lectures/lecture1.qmd
-        - lectures/lecture2.qmd
-        - lectures/lecture3.qmd
-        - lectures/lecture4.qmd
-        - lectures/lecture5.qmd
+        - href: lectures/lecture1.qmd
+        - href: lectures/lecture2.qmd
+        - href: lectures/lecture3.qmd
+        - href: lectures/lecture4.qmd
+        - href: lectures/lecture5.qmd
       - section: "Labs"
         contents:
         - section: "Apache Kafka"

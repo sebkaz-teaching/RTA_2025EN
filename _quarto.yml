@@ -51,7 +51,7 @@ format:
     css: style.css
     toc: true
     toc-depth: 2
-    toc-title: "**Sections**"
+    toc-title: "Sections"
     self-contained-math: true
     code-overflow: wrap
     highlight-style: github-dark

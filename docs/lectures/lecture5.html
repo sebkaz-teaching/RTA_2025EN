@@ -316,7 +316,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title"><strong>Sections</strong></h2>
+    <h2 id="toc-title">Sections</h2>
    
   <ul class="collapse">
   <li><a href="#algorithms" id="toc-algorithms" class="nav-link active" data-scroll-target="#algorithms">Algorithms</a></li>
@@ -416,7 +416,7 @@ window.Quarto = {
 <p>The ability of an algorithm to indicate the mechanisms generating its results is called explainability. Ethical analysis is a standard part of the algorithm validation process.</p>
 <p>Achieving high explainability is particularly challenging for machine learning (ML) and deep learning (DL) algorithms. For instance, banks using algorithms for credit decision-making must ensure transparency and justify their decisions.</p>
 <p>One method for improving algorithm explainability is LIME (Local Interpretable Model-Agnostic Explanations), published in 2016. This method introduces small changes to input data and analyzes their impact on the output, allowing the identification of local decision-making rules within the model.</p>
-<div id="152a87f5" class="cell" data-execution_count="1">
+<div id="2e3f455b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -37540,25 +37540,25 @@ window.Quarto = {
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script>
-        <div class="lime top_div" id="top_div4S0JLGIW33QCQLN"></div>
+        <div class="lime top_div" id="top_divHVJ5URVGKTWQT3A"></div>
         
         <script>
-        var top_div = d3.select('#top_div4S0JLGIW33QCQLN').classed('lime top_div', true);
+        var top_div = d3.select('#top_divHVJ5URVGKTWQT3A').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["setosa", "versicolor", "virginica"], [1.0, 0.0, 0.0]);
+            var pp = new lime.PredictProba(pp_svg, ["setosa", "versicolor", "virginica"], [0.0, 0.86, 0.14]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["setosa", "versicolor", "virginica"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["1.50 < petal length (cm) <= 4.25", 0.1896610148555104], ["petal width (cm) <= 0.30", -0.188380817217676], ["sepal length (cm) <= 5.10", -0.04805549480485341], ["3.00 < sepal width (cm) <= 3.40", 0.01481532812786051]], 1, exp_div);
+                exp.show([["4.25 < petal length (cm) <= 5.10", 0.20342285588111814], ["1.30 < petal width (cm) <= 1.80", 0.20292940563352777], ["5.75 < sepal length (cm) <= 6.40", 0.018886476592700544], ["sepal width (cm) <= 2.80", -0.01529017206165559]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["petal length (cm)", "1.60", 0.1896610148555104], ["petal width (cm)", "0.20", -0.188380817217676], ["sepal length (cm)", "4.80", -0.04805549480485341], ["sepal width (cm)", "3.10", 0.01481532812786051]], 1, raw_div);
+            exp.show_raw_tabular([["petal length (cm)", "4.50", 0.20342285588111814], ["petal width (cm)", "1.50", 0.20292940563352777], ["sepal length (cm)", "6.20", 0.018886476592700544], ["sepal width (cm)", "2.20", -0.01529017206165559]], 1, raw_div);
         
         </script>
         
@@ -37654,7 +37654,7 @@ window.Quarto = {
 <p>To determine whether a given observation is an anomaly, we can use the probability <span class="math inline">\(p(x)\)</span>: - If <span class="math inline">\(p(x) &lt; \epsilon\)</span>, we consider the value as an outlier. - In practice, we assume the data follows a <strong>normal distribution</strong> <span class="math inline">\(N(\mu, \sigma)\)</span>. - We estimate the parameters <span class="math inline">\(\mu\)</span> (mean) and <span class="math inline">\(\sigma^2\)</span> (variance) based on a sample. - Then, for each value, we calculate the probability of its occurrence and compare it with .</p>
 <p>Example: Salary Analysis in a Company</p>
 <p>We detect whether there are individuals in the company whose salaries significantly deviate from the average.</p>
-<div id="8ed7b511" class="cell" data-execution_count="2">
+<div id="44028c6d" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -37698,7 +37698,7 @@ window.Quarto = {
 <p><a href="https://scikit-learn.org/0.20/auto_examples/plot_anomaly_comparison.html">Anomaly Detection Methods in sklearn</a></p>
 <p><strong>Example: Detecting Credit Card Fraud</strong></p>
 <p>A bank analyzes credit card transactions and detects those that may be unauthorized.</p>
-<div id="30fca6d1" class="cell" data-execution_count="3">
+<div id="83bf27c1" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

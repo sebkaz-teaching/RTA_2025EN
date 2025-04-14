@@ -20,10 +20,16 @@ website:
       - section: "Labs"
         contents:
         - section: "Apache Kafka"
-          contenst:
+          contents:
+            - href: kafka_codes/kafka1.md
+            - href: kafka_codes/kafka2.ipynb
+            - href: kafka_codes/kafka3.md
           
         - section: "Python codes"
           contents:
+            - href: labs/lab1.ipynb
+            - href: labs/lab2.ipynb
+            - href: labs/lab3.ipynb
 
 
   navbar:

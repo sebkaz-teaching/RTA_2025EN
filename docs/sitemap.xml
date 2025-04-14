@@ -1,39 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture4.html</loc>
-    <lastmod>2025-03-10T23:33:35.728Z</lastmod>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/kafka_codes/kafka2.html</loc>
+    <lastmod>2025-04-14T20:17:24.219Z</lastmod>
   </url>
   <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture2.html</loc>
-    <lastmod>2025-03-03T20:52:01.241Z</lastmod>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/kafka_codes/kafka3.html</loc>
+    <lastmod>2025-04-14T20:18:39.318Z</lastmod>
   </url>
   <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture1.html</loc>
-    <lastmod>2025-03-03T20:57:25.887Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/info.html</loc>
-    <lastmod>2025-01-23T18:14:59.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/books.html</loc>
-    <lastmod>2025-01-23T18:14:59.711Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/sylabus.html</loc>
-    <lastmod>2025-01-23T18:14:59.755Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/index.html</loc>
-    <lastmod>2025-04-13T09:23:04.696Z</lastmod>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture5.html</loc>
+    <lastmod>2025-03-18T09:46:27.038Z</lastmod>
   </url>
   <url>
     <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture3.html</loc>
     <lastmod>2025-03-10T22:34:08.104Z</lastmod>
   </url>
   <url>
-    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture5.html</loc>
-    <lastmod>2025-03-18T09:46:27.038Z</lastmod>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/index.html</loc>
+    <lastmod>2025-04-13T09:23:04.696Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/sylabus.html</loc>
+    <lastmod>2025-01-23T18:14:59.755Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/labs/lab1.html</loc>
+    <lastmod>2025-04-14T20:20:00.922Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/labs/lab2.html</loc>
+    <lastmod>2025-04-14T20:20:21.827Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/labs/lab3.html</loc>
+    <lastmod>2025-04-14T20:20:47.107Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/books.html</loc>
+    <lastmod>2025-01-23T18:14:59.711Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/info.html</loc>
+    <lastmod>2025-01-23T18:14:59.755Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture1.html</loc>
+    <lastmod>2025-03-03T20:57:25.887Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture2.html</loc>
+    <lastmod>2025-03-03T20:52:01.241Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/lectures/lecture4.html</loc>
+    <lastmod>2025-03-10T23:33:35.728Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sebkaz-teaching.github.io/RTA_2025EN/kafka_codes/kafka1.html</loc>
+    <lastmod>2025-04-14T20:16:00.700Z</lastmod>
   </url>
 </urlset>

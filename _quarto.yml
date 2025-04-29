@@ -30,8 +30,8 @@ website:
             - href: labs/lab1.ipynb
             - href: labs/lab2.ipynb
             - href: labs/lab3.ipynb
-
-
+            - href: labs/lab4.ipynb
+            - href: labs/lab5.ipynb
   navbar:
     left: 
       - href: index.qmd

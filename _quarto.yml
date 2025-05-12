@@ -34,7 +34,9 @@ website:
             - href: labs/lab5.ipynb
         - section: "Apache Spark"
           contents:
-            #- href: labs/lab6.ipynb
+            - href: labs/lab6.ipynb
+            - href: labs/lab7.ipynb
+            
   navbar:
     left: 
       - href: index.qmd

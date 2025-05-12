@@ -449,6 +449,45 @@
     ]
   },
   {
+    "objectID": "labs/lab6.html",
+    "href": "labs/lab6.html",
+    "title": "Intorduction to Apache Spark",
+    "section": "",
+    "text": "from pyspark.sql import SparkSession\nspark = SparkSession.builder.appName(\"Lab6\").getOrCreate()",
+    "crumbs": [
+      "Home",
+      "Labs",
+      "Apache Spark",
+      "Intorduction to Apache Spark"
+    ]
+  },
+  {
+    "objectID": "labs/lab6.html#example-1---time-series-as-batch-processing",
+    "href": "labs/lab6.html#example-1---time-series-as-batch-processing",
+    "title": "Intorduction to Apache Spark",
+    "section": "Example 1 - time series as batch processing",
+    "text": "Example 1 - time series as batch processing\ntemp = ((12.5, \"2019-01-02 12:00:00\"),\n(17.6, \"2019-01-02 12:00:20\"),\n(14.6,  \"2019-01-02 12:00:30\"),\n(22.9,  \"2019-01-02 12:01:15\"),\n(17.4,  \"2019-01-02 12:01:30\"),\n(25.8,  \"2019-01-02 12:03:25\"),\n(27.1,  \"2019-01-02 12:02:40\"),\n)\nTo create a Spark DataFrame ypu can use a createDataFrame method on spark object. In the Spark DataFrame we can specify the schema of the data.\nLet’s defined our schema as follows:\nfrom pyspark.sql.functions import to_timestamp\nfrom pyspark.sql.types import StructType, StructField, StringType, DoubleType\n\nschema = StructType([\n    StructField(\"temp\", DoubleType(), True),\n    StructField(\"time\", StringType(), True),\n])\nAs you can see all elements beyond the column name and True parameter are considered as python objects.\ndf = (spark.createDataFrame(temp, schema=schema)\n      .withColumn(\"time\", to_timestamp(\"time\")))\nLet’s see how it looks like now.\ndf.printSchema()\n\nroot\n |-- temperatura: double (nullable = true)\n |-- czas: timestamp (nullable = true)\n\nNext, let’s see the data:\nprint(\"Schema:\")\ndf.show()\n+-----------+-------------------+\n|temperatura|               czas|\n+-----------+-------------------+\n|       12.5|2019-01-02 12:00:00|\n|       17.6|2019-01-02 12:00:20|\n|       14.6|2019-01-02 12:00:30|\n|       22.9|2019-01-02 12:01:15|\n|       17.4|2019-01-02 12:01:30|\n|       25.8|2019-01-02 12:03:25|\n|       27.1|2019-01-02 12:02:40|\n+-----------+-------------------+\n\nSpark as SQL\nIn Spark we can use SQL queries to get data from our DataFrame.\ndf.createOrReplaceTempView(\"df\")\nspark.sql(\"SELECT * FROM df where temp &gt; 21\").show()\n+-------------------+-----------+\n|               czas|temperatura|\n+-------------------+-----------+\n|2019-01-02 12:01:15|       22.9|\n|2019-01-02 12:03:25|       25.8|\n|2019-01-02 12:02:40|       27.1|\n+-------------------+-----------+\n\n\nData gruping\nStandard groupby on data from a time series will give us a result with a number of rows in each group. Because the time variables have different values, the number of groups obtained will be equal to the number of rows in the table.\ndf2 = df.groupBy(\"time\").count()\ndf2.show()\nYou can use the window function to group data by time intervals. For example, we can group data by 30-second intervals.\n# Thumbling window\n\nimport pyspark.sql.functions as F\n\ndf2 = df.groupBy(F.window(\"time\",\"30 seconds\")).count()\ndf2.show(truncate=False)\n\n+------------------------------------------+-----+\n|window                                    |count|\n+------------------------------------------+-----+\n|{2019-01-02 12:00:00, 2019-01-02 12:00:30}|2    |\n|{2019-01-02 12:00:30, 2019-01-02 12:01:00}|1    |\n|{2019-01-02 12:01:00, 2019-01-02 12:01:30}|1    |\n|{2019-01-02 12:01:30, 2019-01-02 12:02:00}|1    |\n|{2019-01-02 12:03:00, 2019-01-02 12:03:30}|1    |\n|{2019-01-02 12:02:30, 2019-01-02 12:03:00}|1    |\n+------------------------------------------+-----+\nLet’s check the schema of the resulting DataFrame\ndf2.printSchema()\nroot\n |-- window: struct (nullable = false)\n |    |-- start: timestamp (nullable = true)\n |    |-- end: timestamp (nullable = true)\n |-- count: long (nullable = false)\nThe main difference between pandas dataframes and spark dataframes is that in spark dataframes you can use complex types - for example struct.",
+    "crumbs": [
+      "Home",
+      "Labs",
+      "Apache Spark",
+      "Intorduction to Apache Spark"
+    ]
+  },
+  {
+    "objectID": "labs/lab6.html#rate-only-for-testing",
+    "href": "labs/lab6.html#rate-only-for-testing",
+    "title": "Intorduction to Apache Spark",
+    "section": "✅ rate — only for testing",
+    "text": "✅ rate — only for testing\n\nin each dataframe we have the following columns:\ntimestamp\nvalue – count numbers (0, 1, 2, …).\n\ndf = spark.readStream.format(\"rate\").option(\"rowsPerSecond\", 1).load()\n\n📡 Stream sources:\nSocket (only for testing: nc -lk 9999): Read stream from a socket.\nFiles: connect to a directory and read files as streaming data. Can be used with the following file formats: CSV, JSON, ORC or Parquet (np. .csv, .json, .parquet).\nKafka: Read data stream from Apache Kafka.\nLet’s create a stream from the rate source:\n%%file streamrate.py\n## run with spark-submit streamrate.py\n\nfrom pyspark.sql import SparkSession\nspark = SparkSession.builder.appName(\"StreamingDemo\").getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndf = (spark.readStream\n      .format(\"rate\")\n      .option(\"rowsPerSecond\", 1)\n      .load()\n)\n\n\nquery = (df.writeStream \n    .format(\"console\") \n    .outputMode(\"append\") \n    .option(\"truncate\", False) \n    .start()\n) \n\nquery.awaitTermination()\nBut, You can run it also on jupyter notebook:\nfrom pyspark.sql import SparkSession\nspark = SparkSession.builder.appName(\"StreamingDemo\").getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndef process_batch(df, batch_id, tstop=5):\n    print(f\"Batch ID: {batch_id}\")\n    df.show(truncate=False)\n    if batch_id == tstop:\n        df.stop()\n\n\ndf = (spark.readStream\n      .format(\"rate\")\n      .option(\"rowsPerSecond\", 1)\n      .load()\n)\n\nquery = (df.writeStream \n    .format(\"console\") \n    .outputMode(\"append\")\n    .foreachBatch(process_batch)\n    .option(\"truncate\", False) \n    .start()\n)",
+    "crumbs": [
+      "Home",
+      "Labs",
+      "Apache Spark",
+      "Intorduction to Apache Spark"
+    ]
+  },
+  {
     "objectID": "labs/lab2.html",
     "href": "labs/lab2.html",
     "title": "API with Flask Excercises",

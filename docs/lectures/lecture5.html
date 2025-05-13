@@ -334,6 +334,24 @@ window.Quarto = {
  <span class="menu-text">Intorduction to Apache Spark</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarzadzanie zrodlami danych strumieniowych i segmentacja klientow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Apache Spark on RDD data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../labs/lab9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Apache Spark EDA</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -445,7 +463,7 @@ window.Quarto = {
 <p>The ability of an algorithm to indicate the mechanisms generating its results is called explainability. Ethical analysis is a standard part of the algorithm validation process.</p>
 <p>Achieving high explainability is particularly challenging for machine learning (ML) and deep learning (DL) algorithms. For instance, banks using algorithms for credit decision-making must ensure transparency and justify their decisions.</p>
 <p>One method for improving algorithm explainability is LIME (Local Interpretable Model-Agnostic Explanations), published in 2016. This method introduces small changes to input data and analyzes their impact on the output, allowing the identification of local decision-making rules within the model.</p>
-<div id="42091ac2" class="cell" data-execution_count="1">
+<div id="13943ea5" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -37569,25 +37587,25 @@ window.Quarto = {
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script>
-        <div class="lime top_div" id="top_divMCWEREFKJVUYJNS"></div>
+        <div class="lime top_div" id="top_divU8RUGNZUKUW0DJT"></div>
         
         <script>
-        var top_div = d3.select('#top_divMCWEREFKJVUYJNS').classed('lime top_div', true);
+        var top_div = d3.select('#top_divU8RUGNZUKUW0DJT').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["setosa", "versicolor", "virginica"], [0.0, 0.99, 0.01]);
+            var pp = new lime.PredictProba(pp_svg, ["setosa", "versicolor", "virginica"], [0.0, 1.0, 0.0]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["setosa", "versicolor", "virginica"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["4.25 < petal length (cm) <= 5.10", 0.20908165409660792], ["0.30 < petal width (cm) <= 1.30", 0.1713545994006864], ["5.75 < sepal length (cm) <= 6.40", 0.01821460099424458], ["sepal width (cm) <= 2.80", -0.009069516373028077]], 1, exp_div);
+                exp.show([["4.25 < petal length (cm) <= 5.10", 0.21630649648350006], ["1.30 < petal width (cm) <= 1.80", 0.2121852312290443], ["2.80 < sepal width (cm) <= 3.00", -0.01366133100731574], ["5.75 < sepal length (cm) <= 6.40", 0.012702438354976146]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["petal length (cm)", "4.70", 0.20908165409660792], ["petal width (cm)", "1.20", 0.1713545994006864], ["sepal length (cm)", "6.10", 0.01821460099424458], ["sepal width (cm)", "2.80", -0.009069516373028077]], 1, raw_div);
+            exp.show_raw_tabular([["petal length (cm)", "4.50", 0.21630649648350006], ["petal width (cm)", "1.50", 0.2121852312290443], ["sepal width (cm)", "2.90", -0.01366133100731574], ["sepal length (cm)", "6.00", 0.012702438354976146]], 1, raw_div);
         
         </script>
         
@@ -37683,7 +37701,7 @@ window.Quarto = {
 <p>To determine whether a given observation is an anomaly, we can use the probability <span class="math inline">\(p(x)\)</span>: - If <span class="math inline">\(p(x) &lt; \epsilon\)</span>, we consider the value as an outlier. - In practice, we assume the data follows a <strong>normal distribution</strong> <span class="math inline">\(N(\mu, \sigma)\)</span>. - We estimate the parameters <span class="math inline">\(\mu\)</span> (mean) and <span class="math inline">\(\sigma^2\)</span> (variance) based on a sample. - Then, for each value, we calculate the probability of its occurrence and compare it with .</p>
 <p>Example: Salary Analysis in a Company</p>
 <p>We detect whether there are individuals in the company whose salaries significantly deviate from the average.</p>
-<div id="96a7f298" class="cell" data-execution_count="2">
+<div id="8671c4aa" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -37727,7 +37745,7 @@ window.Quarto = {
 <p><a href="https://scikit-learn.org/0.20/auto_examples/plot_anomaly_comparison.html">Anomaly Detection Methods in sklearn</a></p>
 <p><strong>Example: Detecting Credit Card Fraud</strong></p>
 <p>A bank analyzes credit card transactions and detects those that may be unauthorized.</p>
-<div id="05bbb687" class="cell" data-execution_count="3">
+<div id="067d145e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

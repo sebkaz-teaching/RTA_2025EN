@@ -36,7 +36,8 @@ website:
           contents:
             - href: labs/lab6.ipynb
             - href: labs/lab7.ipynb
-            
+            - href: labs/lab8.ipynb
+            - href: labs/lab9.ipynb
   navbar:
     left: 
       - href: index.qmd

@@ -7,21 +7,26 @@ The default address of our broker is `broker:9092`.
 
 In Apache Kafka, data is stored in structures called topics, which serve as communication queues.
 
-Kafka management is performed using scripts. In our case, these will be .sh scripts.
+Kafka management is performed using scripts. 
+In our case, these will be `*.sh` scripts.
+
+Before we start, navigate to the home directory:
+```bash
+cd ~
+```
 
 ## 1️⃣ Check the list of topics
 
-Remember to navigate to the home directory:
-```sh
-cd ~
+```bash
 kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092
 ```
 
-## 2️⃣ Create a new topic named mytopic
-```sh
+## 2️⃣ Create a new topic
+
+```bash
 kafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092
 ```
-## 3️⃣ Create a producer
+## 3️⃣ Create a kafka console producer
 
 This script allows you to manually enter events via the terminal. The `--property` options are additional and used for analysis in this example.
 
@@ -49,12 +54,14 @@ df = (spark.readStream.format("kafka")
       .load()
      )
 
-df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") \
- .writeStream \
- .format("console") \
- .outputMode("append") \
- .start() \
- .awaitTermination()
+priv = (df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)"))
+
+query = (priv.writeStream
+        .format("console")
+        .outputMode("append")
+        .start()
+        .awaitTermination()
+        )
 ```
 Note that Apache Spark does not have a built-in Kafka connector, so run the process using spark-submit and download the appropriate Scala package:
 

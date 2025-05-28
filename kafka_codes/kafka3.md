@@ -1,22 +1,31 @@
 # Kafka Consumer
-## 1️⃣ Check topic list
-Go to the home directory:
-```sh
+
+Befor we start go to the home directory
+```bash
 cd ~
+```
+
+## 1️⃣ Check topic list
+
+
+```bash
 kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092
 ```
 
 ## 2️⃣ Create new topis with name `mytopic`
-```sh
+```bash
 kafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092
 ```
 
-## 3 Recheck topic list
-```sh
+## 3️⃣ Recheck topic list
+```bash
 kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092 | grep mytopic
 ```
 
-## Kafka producer 
+## Kafka Consumer code
+
+Kafka consumer - check if transaction value is $ > 80$.
+
 ```python
 from kafka import KafkaConsumer
 import json  
@@ -24,7 +33,7 @@ import json
 SERVER = "broker:9092"
 TOPIC  = "mytopic"
 
-# Konsumer do pobierania danych z Kafka
+# Consumer config
 consumer = KafkaConsumer(
     TOPIC,
     bootstrap_servers=SERVER,
@@ -32,7 +41,6 @@ consumer = KafkaConsumer(
     value_deserializer=lambda x: json.loads(x.decode('utf-8'))
 )
 
-# Pobieranie transakcji w niemal real-time i analiza
 for message in consumer:
     transaction = message.value
     if transaction["values"] > 80:

@@ -26,11 +26,11 @@
     ]
   },
   {
-    "objectID": "kafka_codes/kafka2.html#checking-the-list-of-topics",
-    "href": "kafka_codes/kafka2.html#checking-the-list-of-topics",
+    "objectID": "kafka_codes/kafka2.html#check-the-list-of-topics",
+    "href": "kafka_codes/kafka2.html#check-the-list-of-topics",
     "title": "Kafka Producer",
-    "section": "2️⃣ Checking the List of Topics",
-    "text": "2️⃣ Checking the List of Topics\nRun the following command to check the list of topics on the Kafka server:\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
+    "section": "2️⃣ Check the List of Topics",
+    "text": "2️⃣ Check the List of Topics\nRun the following command to check the list of topics on the Kafka server:\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
     "crumbs": [
       "Home",
       "Labs",
@@ -56,7 +56,7 @@
     "href": "kafka_codes/kafka2.html#creating-a-new-python-producer-script",
     "title": "Kafka Producer",
     "section": "4️⃣ Creating a New Python Producer script",
-    "text": "4️⃣ Creating a New Python Producer script\nIn a new terminal, create a file named stream.py and paste the following code:\n\n%%file stream.py\nimport json\nimport random\nimport sys\nfrom datetime import datetime, timedelta\nfrom time import sleep\n\nfrom kafka import KafkaProducer\n\nSERVER = \"broker:9092\"\nTOPIC = \"streaming\"\n\nif __name__ == \"__main__\":\n    \n    \n    producer = KafkaProducer(\n        bootstrap_servers=[SERVER],\n        value_serializer=lambda x: json.dumps(x).encode(\"utf-8\")\n    )\n    \n    try:\n        while True:\n            \n            message = {\n                # Your Code Here\n            }\n            producer.send(TOPIC, value=message)\n            sleep(1)\n    except KeyboardInterrupt:\n        producer.close()\n\nWriting stream.py",
+    "text": "4️⃣ Creating a New Python Producer script\nIn a new terminal, create a file named stream.py and paste the following code:\n\n%%file stream.py\nimport json\nimport random\nimport sys\nfrom datetime import datetime, timedelta\nfrom time import sleep\n\nfrom kafka import KafkaProducer\n\nSERVER = \"broker:9092\"\nTOPIC = \"streaming\"\n\n\ndef message_gen():\n    message = {\n                \"time\": str(datetime.now()),\n                \"id\": random.choice(['a','b','c','d']),\n                \"value\": random.randint(0,100)\n              }\n    return message\n\nif __name__ == \"__main__\":\n    \n    \n    producer = KafkaProducer(\n        bootstrap_servers=[SERVER],\n        value_serializer=lambda x: json.dumps(x).encode(\"utf-8\")\n    )\n    \n    try:\n        while True:\n            \n            message = message_gen()\n            \n            producer.send(TOPIC, value=message)\n            sleep(1)\n    except KeyboardInterrupt:\n        producer.close()\n\nWriting stream.py",
     "crumbs": [
       "Home",
       "Labs",
@@ -95,7 +95,7 @@
     "href": "kafka_codes/kafka3.html",
     "title": "Kafka Consumer",
     "section": "",
-    "text": "Go to the home directory:\ncd ~\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092 | grep mytopic\n\n\n\nfrom kafka import KafkaConsumer\nimport json  \n\nSERVER = \"broker:9092\"\nTOPIC  = \"mytopic\"\n\n# Konsumer do pobierania danych z Kafka\nconsumer = KafkaConsumer(\n    TOPIC,\n    bootstrap_servers=SERVER,\n    auto_offset_reset='earliest',\n    value_deserializer=lambda x: json.loads(x.decode('utf-8'))\n)\n\n# Pobieranie transakcji w niemal real-time i analiza\nfor message in consumer:\n    transaction = message.value\n    if transaction[\"values\"] &gt; 80:\n        print(f\"🚨 BAD TRANSACTION: {transaction}\")",
+    "text": "Befor we start go to the home directory\ncd ~\n\n\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092 | grep mytopic\n\n\n\nKafka consumer - check if transaction value is $ &gt; 80$.\nfrom kafka import KafkaConsumer\nimport json  \n\nSERVER = \"broker:9092\"\nTOPIC  = \"mytopic\"\n\n# Consumer config\nconsumer = KafkaConsumer(\n    TOPIC,\n    bootstrap_servers=SERVER,\n    auto_offset_reset='earliest',\n    value_deserializer=lambda x: json.loads(x.decode('utf-8'))\n)\n\nfor message in consumer:\n    transaction = message.value\n    if transaction[\"values\"] &gt; 80:\n        print(f\"🚨 BAD TRANSACTION: {transaction}\")",
     "crumbs": [
       "Home",
       "Labs",
@@ -108,7 +108,7 @@
     "href": "kafka_codes/kafka3.html#check-topic-list",
     "title": "Kafka Consumer",
     "section": "",
-    "text": "Go to the home directory:\ncd ~\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
+    "text": "kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
     "crumbs": [
       "Home",
       "Labs",
@@ -143,11 +143,11 @@
     ]
   },
   {
-    "objectID": "kafka_codes/kafka3.html#kafka-producer",
-    "href": "kafka_codes/kafka3.html#kafka-producer",
+    "objectID": "kafka_codes/kafka3.html#kafka-consumer-code",
+    "href": "kafka_codes/kafka3.html#kafka-consumer-code",
     "title": "Kafka Consumer",
     "section": "",
-    "text": "from kafka import KafkaConsumer\nimport json  \n\nSERVER = \"broker:9092\"\nTOPIC  = \"mytopic\"\n\n# Konsumer do pobierania danych z Kafka\nconsumer = KafkaConsumer(\n    TOPIC,\n    bootstrap_servers=SERVER,\n    auto_offset_reset='earliest',\n    value_deserializer=lambda x: json.loads(x.decode('utf-8'))\n)\n\n# Pobieranie transakcji w niemal real-time i analiza\nfor message in consumer:\n    transaction = message.value\n    if transaction[\"values\"] &gt; 80:\n        print(f\"🚨 BAD TRANSACTION: {transaction}\")",
+    "text": "Kafka consumer - check if transaction value is $ &gt; 80$.\nfrom kafka import KafkaConsumer\nimport json  \n\nSERVER = \"broker:9092\"\nTOPIC  = \"mytopic\"\n\n# Consumer config\nconsumer = KafkaConsumer(\n    TOPIC,\n    bootstrap_servers=SERVER,\n    auto_offset_reset='earliest',\n    value_deserializer=lambda x: json.loads(x.decode('utf-8'))\n)\n\nfor message in consumer:\n    transaction = message.value\n    if transaction[\"values\"] &gt; 80:\n        print(f\"🚨 BAD TRANSACTION: {transaction}\")",
     "crumbs": [
       "Home",
       "Labs",
@@ -232,7 +232,19 @@
     "href": "lectures/lecture3.html#time-windows-in-stream-analytics",
     "title": "Lecture 3",
     "section": "Time Windows in Stream Analytics",
-    "text": "Time Windows in Stream Analytics\nIn stream processing, time windows allow grouping data into time-limited segments, enabling event analysis within specific time intervals. Depending on the use case, various types of windows are applied, tailored to the characteristics of the data and analytical requirements.\n\n\n1. Tumbling Window\nA tumbling window is a fixed-length window that does not overlap – each event belongs to only one window.\n✅ Characteristics:\n- Fixed window length\n- No overlap between windows\n- Ideal for dividing data into equal time segments\n📌 Example: Analyzing the number of orders in an online store every 5 minutes.\n\n\n\n\n2. Sliding Window\nA sliding window includes all events occurring within a specific time interval, where the window slides continuously.\n✅ Characteristics:\n- Each event can belong to multiple windows\n- The window shifts by a specified interval\n- Useful for detecting trends and anomalies\n📌 Example: Tracking the average temperature over the last 10 minutes, updated every 2 minutes.\n\n\n\n\n3. Hopping Window\nA hopping window is similar to a tumbling window, but it allows overlapping windows, meaning one event can belong to multiple windows. It is used to smooth data.\n✅ Characteristics:\n- Fixed window length\n- Overlapping windows\n- Useful for noise reduction in data\n📌 Example: Analyzing the number of website visitors every 10 minutes, but updated every 5 minutes to better capture trends.\n\n\n\n\n4. Session Window\nA session window groups events based on activity periods and closes after a specified period of inactivity.\n✅ Characteristics:\n- Dynamic window length\n- Defined by user activity\n- Used in user session analysis\n📌 Example: Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.\n\n\n\nSummary\nDifferent types of time windows are applied depending on the data’s characteristics and the analysis objectives. Choosing the right window impacts the accuracy of results and the efficiency of the analytical system.\n\n\n\n\n\n\n\n\nWindow Type\nCharacteristics\nUse Cases\n\n\n\n\nTumbling\nFixed length, no overlap\nPeriodic reports\n\n\nSliding\nFixed length, overlapping windows\nTrend detection, anomaly detection\n\n\nHopping\nFixed length, partial overlap\nData smoothing\n\n\nSession\nDynamic length, activity-dependent\nUser session analysis\n\n\n\nEach window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.\nIn stream data analysis, interpreting time is a complex issue due to: 1. Different systems having different clocks, leading to inconsistencies, 2. Data arriving with delays, requiring watermarking and time window techniques, 3. Different approaches to event time vs. processing time impacting result accuracy.",
+    "text": "Time Windows in Stream Analytics\nIn stream processing, time windows allow grouping data into time-limited segments, enabling event analysis within specific time intervals. Depending on the use case, various types of windows are applied, tailored to the characteristics of the data and analytical requirements.\n\n\n1. Tumbling Window\nA tumbling window is a fixed-length window that does not overlap – each event belongs to only one window.\n✅ Characteristics:\n- Fixed window length\n- No overlap between windows\n- Ideal for dividing data into equal time segments\n📌 Example: Analyzing the number of orders in an online store every 5 minutes.\n\n\n\n\n2. Sliding Window\nA sliding window includes all events occurring within a specific time interval, where the window slides continuously.\n✅ Characteristics:\n- Each event can belong to multiple windows\n- The window shifts by a specified interval\n- Useful for detecting trends and anomalies\n📌 Example: Tracking the average temperature over the last 10 minutes, updated every 2 minutes.\n\n\n\n\n3. Hopping Window\nA hopping window is similar to a tumbling window, but it allows overlapping windows, meaning one event can belong to multiple windows. It is used to smooth data.\n✅ Characteristics:\n- Fixed window length\n- Overlapping windows\n- Useful for noise reduction in data\n📌 Example: Analyzing the number of website visitors every 10 minutes, but updated every 5 minutes to better capture trends.\n\n\n\n\n4. Session Window\nA session window groups events based on activity periods and closes after a specified period of inactivity.\n✅ Characteristics:\n- Dynamic window length\n- Defined by user activity\n- Used in user session analysis",
+    "crumbs": [
+      "Home",
+      "Lectures",
+      "Lecture 3"
+    ]
+  },
+  {
+    "objectID": "lectures/lecture3.html#example-analyzing-user-sessions-on-a-website-the-session-lasts-as-long-as-the-user-is-active-but-ends-after-15-minutes-of-inactivity.",
+    "href": "lectures/lecture3.html#example-analyzing-user-sessions-on-a-website-the-session-lasts-as-long-as-the-user-is-active-but-ends-after-15-minutes-of-inactivity.",
+    "title": "Lecture 3",
+    "section": "📌 Example: Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.",
+    "text": "📌 Example: Analyzing user sessions on a website – the session lasts as long as the user is active, but ends after 15 minutes of inactivity.\n\nSummary\nDifferent types of time windows are applied depending on the data’s characteristics and the analysis objectives. Choosing the right window impacts the accuracy of results and the efficiency of the analytical system.\n\n\n\n\n\n\n\n\nWindow Type\nCharacteristics\nUse Cases\n\n\n\n\nTumbling\nFixed length, no overlap\nPeriodic reports\n\n\nSliding\nFixed length, overlapping windows\nTrend detection, anomaly detection\n\n\nHopping\nFixed length, partial overlap\nData smoothing\n\n\nSession\nDynamic length, activity-dependent\nUser session analysis\n\n\n\nEach window type has its unique use cases and helps with better interpretation of streaming data. The choice of method depends on business needs and the nature of the analyzed data.\nIn stream data analysis, interpreting time is a complex issue due to: 1. Different systems having different clocks, leading to inconsistencies, 2. Data arriving with delays, requiring watermarking and time window techniques, 3. Different approaches to event time vs. processing time impacting result accuracy.",
     "crumbs": [
       "Home",
       "Lectures",
@@ -453,7 +465,7 @@
     "href": "labs/lab1.html",
     "title": "REST API with Flask",
     "section": "",
-    "text": "Client-Serwer\nThe Flask library handles adding subpages and communication with the server using functions wrapped with a decorator. Example of a decorator:\n# CODE\nimport subprocess\nimport requests\n%%file app1.py\n\nfrom flask import Flask\n\n# Create a flask\napp = Flask(__name__)\n\n# Create an API end point\n@app.route('/hello')\ndef say_hello():\n    return \"Hello World\"\n\n@app.route('/')\ndef say_he():\n    return \"Hello from main site\"\n\nif __name__ == '__main__':\n    app.run()\np = subprocess.Popen([\"python\", \"app1.py\"])\nadres_url = \"http://127.0.0.1:5000/hello\"\nresponse = requests.get(adres_url)\n# take content field from response object\n# YOUR CODE\n# take bad adress\n\nadres_url = \" \"\n\nresponse = requests.get(adres_url)\n\n# Check if status_code field is 200\n# YOUR CODE\nrun kill() method for p object\n# YOUR CODE\nCheck any request and raspone whe your serwer is down\n# YOUR CODE\nresponse = ...",
+    "text": "The goal of the lab is to introduce students to developing REST API applications in Python using the Flask library and containerizing them with Docker.\nYou will learn:\nimport subprocess\nimport requests\n%%file app1.py\n\nfrom flask import Flask\n\n# Create a flask\napp = Flask(__name__)\n\n# Create an API end point\n@app.route('/hello')\ndef say_hello():\n    return \"Hello World\"\n\n@app.route('/')\ndef say_he():\n    return \"Hello from main site\"\n\nif __name__ == '__main__':\n    app.run()\np = subprocess.Popen([\"python\", \"app1.py\"])\nadres_url = \"http://127.0.0.1:5000/hello\"\nresponse = requests.get(adres_url)\n# take content field from response object\n# YOUR CODE\n# take bad adress\n\nadres_url = \" \"\n\nresponse = requests.get(adres_url)\n\n# Check if status_code field is 200\n# YOUR CODE\nrun kill() method for p object\n# YOUR CODE\nCheck any request and raspone whe your serwer is down\n# YOUR CODE\nresponse = ...",
     "crumbs": [
       "Home",
       "Labs",
@@ -583,7 +595,20 @@
     "href": "labs/lab2.html#creating-a-basic-api",
     "title": "API with Flask Excercises",
     "section": "1️⃣ Creating a Basic API",
-    "text": "1️⃣ Creating a Basic API\nFirst, we will create a basic Flask application.\n\nSaving the API Code to a File\nIn Jupyter Notebook, use the magic command %%file to save the basic Flask application code to a file named app.py. You can find the code at lab1.\nFor the main page text, use Welcome to my API!.\n\n%%file app.py\n###\n# YOUR CODE HERE\n###\n\nWriting app.py\n\n\nNow, start the API in the terminal by typing:\npython app.py\nFlask will start the server locally at http://127.0.0.1:5000/.\n\n\nChecking API Functionality\nIn Jupyter Notebook, perform a GET request to the homepage. Based on the status_code field, write a conditional expression that will display the response content (from the content field) if the status_code is 200.\n\nimport requests\nresponse = #YOUR CODE\n\nIf everything is working correctly, you will see the message Welcome to my API!.",
+    "text": "1️⃣ Creating a Basic API\nFirst, we will create a basic Flask application.\n\nSaving the API Code to a File\nIn Jupyter Notebook, use the magic command %%file to save the basic Flask application code to a file named app.py. You can find the code at lab1.\nFor the main page text, use Welcome to my API!.\n\n%%file app.py\n###\n# YOUR CODE HERE\n###\n\nWriting app.py\n\n\nNow, start the API in the terminal by typing:\npython app.py\nFlask will start the server locally at http://127.0.0.1:5000/.\n\n\nChecking API Functionality\nIn Jupyter Notebook, perform a GET request to the homepage. Based on the status_code field, write a conditional expression that will display the response content (from the content field) if the status_code is 200.\n\nimport requests\nresponse = #YOUR CODE",
+    "crumbs": [
+      "Home",
+      "Labs",
+      "Python codes",
+      "API with Flask Excercises"
+    ]
+  },
+  {
+    "objectID": "labs/lab2.html#if-everything-is-working-correctly-you-will-see-the-message-welcome-to-my-api.",
+    "href": "labs/lab2.html#if-everything-is-working-correctly-you-will-see-the-message-welcome-to-my-api.",
+    "title": "API with Flask Excercises",
+    "section": "If everything is working correctly, you will see the message Welcome to my API!.",
+    "text": "If everything is working correctly, you will see the message Welcome to my API!.",
     "crumbs": [
       "Home",
       "Labs",
@@ -661,7 +686,7 @@
     "href": "labs/lab9.html",
     "title": "Apache Spark EDA",
     "section": "",
-    "text": "from pyspark.sql import SparkSession\nspark = SparkSession.builder.getOrCreate()\nspark\n\n\n            \n                SparkSession - in-memory\n                \n        \n            SparkContext\n\n            Spark UI\n\n            \n              Version\n                v3.4.1\n              Master\n                local[*]\n              AppName\n                pyspark-shell",
+    "text": "from pyspark.sql import SparkSession\nspark = SparkSession.builder.getOrCreate()\nspark",
     "crumbs": [
       "Home",
       "Labs",
@@ -670,11 +695,11 @@
     ]
   },
   {
-    "objectID": "labs/lab9.html#create-data",
-    "href": "labs/lab9.html#create-data",
+    "objectID": "labs/lab9.html#load-datasets",
+    "href": "labs/lab9.html#load-datasets",
     "title": "Apache Spark EDA",
-    "section": "Create Data",
-    "text": "Create Data\nmkdir data\ncd data\ncurl -L -o donation.zip http://bit.ly/1Aoywaq\nunzip donation.zip\nunzip 'block_*.zip'\n\n# create dataframe \nprev = spark.read.csv(\"data/block*.csv\")\n\n\nprev\n\n\nprev.show(2)\n\n\nprev.show()\n\n\n# dodatkowe opcje z header i wartości null \nparsed = spark.read.option(\"header\", \"true\")\\\n.option(\"nullValue\", \"?\")\\\n.option(\"inferSchema\", \"true\")\\\n.csv(\"data/block*.csv\")\n\n\nparsed.show(5)\n\n\nparsed.printSchema()\n\n\nother formats\n\nparquet\norc\njson\njdbc\navro\nyrxy\nimage\nlibsvm\nbinary\nxml\n\n\nparsed.write.format(\"parquet\").save(\"data/block2.parquet\")\n\n\nt = spark.read.format(\"parquet\").load(\"data/block.parquet\")\n\n\nt.show(2)\n\n\nspark.stop()\n\n\n\ndata schema\n\nfrom pyspark.sql.types import StructType, StructField, StringType, DoubleType, IntegerType\n\nschema = StructType([\n  StructField(\"Date\", StringType(), True),\n  StructField(\"Open\", DoubleType(), True),\n  StructField(\"High\", DoubleType(), True),\n  StructField(\"Low\", DoubleType(), True),\n  StructField(\"Close\", DoubleType(), True),\n  StructField(\"Volume\", IntegerType(), True),\n  StructField(\"Name\", StringType(), True)\n])\n\n\nddlSchemaStr = \"\"\"Date STRING, Open FLOAT, High FLOAT, \nLow FLOAT, Close FLOAT, Voulme INT, Name String \n\"\"\"\n\n\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder.getOrCreate()\n\ndf = spark.read.option(\"header\", True)\\\n.csv(\"data/stocks/AAPL_2006-01-01_to_2018-01-01.csv\", schema=ddlSchemaStr)\n\ndf.show(5)",
+    "section": "Load datasets",
+    "text": "Load datasets\nOpen new terminal\nmkdir data\ncd data\ncurl -L -o donation.zip http://bit.ly/1Aoywaq\nunzip donation.zip\nunzip 'block_*.zip'\nrm donation.zip block*.zip \nnow we can download not only one file (as in pandas) but all files with our data.\n\nprev = spark.read.csv(\"data/block*.csv\")\n\n\nprev\n\n\nprev.show(2)\n\n\nprev.show()\n\n\nparsed = (\n    spark.read\n    .option(\"header\", \"true\")\n    .option(\"nullValue\", \"?\")\n    .option(\"inferSchema\", \"true\")\n    .csv(\"data/block*.csv\")\n)\n\n\nfind info about .format() method in Apache Spark\n\n\nparsed.show(5)\n\n\nparsed.printSchema()\n\n\nother formats\n\nparquet\norc\njson\njdbc\navro\nyrxy\nimage\nlibsvm\nbinary\nxml\n\n\nparsed.write.format(\"parquet\").save(\"data/block.parquet\")\n\n\nt = spark.read.format(\"parquet\").load(\"data/block.parquet\")\n\n\nt.show(2)\n\n\nspark.stop()\n\n\n\ndata schema\n\nfrom pyspark.sql.types import StructType, StructField, StringType, DoubleType, IntegerType\n\nschema = StructType([\n  StructField(\"Date\", StringType(), True),\n  StructField(\"Open\", DoubleType(), True),\n  StructField(\"High\", DoubleType(), True),\n  StructField(\"Low\", DoubleType(), True),\n  StructField(\"Close\", DoubleType(), True),\n  StructField(\"Volume\", IntegerType(), True),\n  StructField(\"Name\", StringType(), True)\n])\n\n\nddlSchemaStr = \"\"\"Date STRING, Open FLOAT, High FLOAT, \nLow FLOAT, Close FLOAT, Voulme INT, Name String \n\"\"\"\n\n\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder.getOrCreate()\n\ndf = spark.read.option(\"header\", True)\\\n.csv(\"data/stocks/AAPL_2006-01-01_to_2018-01-01.csv\", schema=ddlSchemaStr)\n\ndf.show(5)",
     "crumbs": [
       "Home",
       "Labs",
@@ -700,7 +725,7 @@
     "href": "labs/lab9.html#eda",
     "title": "Apache Spark EDA",
     "section": "EDA",
-    "text": "EDA\n\n# zweryfikuj schemat danych\nparsed.printSchema()\n\n\n# sprawdz wartosci dla pierwszego rzedu\nparsed.first()\n\n\n# ile przypadkow \nparsed.count()\n\n\n# zapisz do pamieci na klastrze (1 maszyna) \nparsed.cache()\n\n\n# target \"is_match\" liczba zgodnych i niezgodnych rekordow\nfrom pyspark.sql.functions import col\n\nparsed.groupBy(\"is_match\").count().orderBy(col(\"count\").desc()).show()\n\n\n# inne agregaty agg\nfrom pyspark.sql.functions import avg, stddev, stddev_pop\n\nparsed.agg(avg(\"cmp_sex\"), stddev(\"cmp_sex\"), stddev_pop(\"cmp_sex\")).show()\n\n\n# polecenia sql - przypisanie nazwy dla silnika sql - tabela przejsciowa\nparsed.createOrReplaceTempView(\"dane\")\n\n\nspark.sql(\"\"\" SELECT is_match, COUNT(*) cnt FROM dane group by is_match order by cnt DESC\"\"\").show()\n\n\n# zbiorcze statystyki \nsummary = parsed.describe()\nsummary.show()\n\n\nsummary.select(\"summary\", \"cmp_fname_c1\", \"cmp_fname_c2\").show()\n\n\nwhich feature you will choose c1 or c2\n\n\n# statystyki dla poszczegolnych klas\n\n# filtrowanie sql\nmatches = parsed.where(\"is_match = true\")\n# filtrowanie pyspark\nmisses = parsed.filter(col(\"is_match\") == False)\n\nmatch_summary = matches.describe()\nmiss_summary = misses.describe()\n\n\nmatch_summary.show()\n\n\nmiss_summary.show()",
+    "text": "EDA\n\nfrom pyspark.sql import SparkSession\nspark = SparkSession.builder.getOrCreate()\n\nparsed = (\n    spark.read\n    .option(\"header\", \"true\")\n    .option(\"nullValue\", \"?\")\n    .option(\"inferSchema\", \"true\")\n    .csv(\"data/block*.csv\")\n)\n\n\nparsed.printSchema()\n\n\nparsed.first()\n\n\nWhat is the Row() object? What is basic object for a pandas DataFrame?\n\n\nparsed.count()\n\nLet’s check info about our Target\n\nfrom pyspark.sql.functions import col\n\nparsed.groupBy(\"is_match\").count().orderBy(col(\"count\").desc()).show()\n\nYou can find aggregations about other features\n\nfrom pyspark.sql.functions import avg, stddev, stddev_pop\n\nparsed.agg(avg(\"cmp_sex\"), stddev(\"cmp_sex\"), stddev_pop(\"cmp_sex\")).show()\n\nYou can also do everything on SQL\n\nparsed.createOrReplaceTempView(\"dane\")\n\n\nspark.sql(\"\"\" SELECT is_match, COUNT(*) cnt FROM dane group by is_match order by cnt DESC\"\"\").show()\n\n\nsummary = parsed.describe()\nsummary.show()\n\n\nsummary.select(\"summary\", \"cmp_fname_c1\", \"cmp_fname_c2\").show()\n\n\nHow we can filter our data with rows and columns?\n\n\n# like in sql\nmatches = parsed.where(\"is_match = true\")\n# like in spark\nmisses = parsed.filter(col(\"is_match\") == False)\n\nmatch_summary = matches.describe()\nmiss_summary = misses.describe()\n\n\nmatch_summary.show()\n\n\nmiss_summary.show()",
     "crumbs": [
       "Home",
       "Labs",
@@ -709,11 +734,11 @@
     ]
   },
   {
-    "objectID": "labs/lab9.html#pandas-data-frame",
-    "href": "labs/lab9.html#pandas-data-frame",
+    "objectID": "labs/lab9.html#go-to-pandas-data-frame",
+    "href": "labs/lab9.html#go-to-pandas-data-frame",
     "title": "Apache Spark EDA",
-    "section": "Pandas data frame",
-    "text": "Pandas data frame\n\nsummary_p = summary.toPandas()\n\n\nsummary_p.head()\n\n\nsummary_p.shape\n\n\nsummary_p = summary_p.set_index('summary').transpose().reset_index()\nsummary_p = summary_p.rename(columns={'index':'field'})\nsummary_p = summary_p.rename_axis(None, axis=1)\n\n\nsummaryT = spark.createDataFrame(summary_p)\nsummaryT.show()\n\n\nsummaryT.printSchema() # czy dobre typy danych ?? \n\n\nfrom pyspark.sql.types import DoubleType\n\nfor c in summaryT.columns:\n    if c == 'field':\n        continue\n    summaryT = summaryT.withColumn(c, summaryT[c].cast(DoubleType()))\n\n\nsummaryT.printSchema() # teraz lepiej\n\n\n# wykonaj to samo dla tabel match i miss\n\n\ndef pivot_summary(desc):\n    desc_p = desc.toPandas()\n    desc_p = desc_p.set_index('summary').transpose().reset_index()\n    desc_p = desc_p.rename(columns={'index':'field'})\n    desc_p = desc_p.rename_axis(None, axis=1)\n    descT = spark.createDataFrame(desc_p)\n    for c in descT.columns:\n        if c == 'field':\n            continue\n        else:\n            descT = descT.withColumn(c, descT[c].cast(DoubleType()))\n    return descT\n\n\nmatch_summaryT = pivot_summary(match_summary)\nmiss_summaryT = pivot_summary(miss_summary)",
+    "section": "Go to pandas data frame",
+    "text": "Go to pandas data frame\n\nsummary_p = summary.toPandas()\n\n\nsummary_p.head()\n\n\nsummary_p.shape\n\n\nsummary_p = summary_p.set_index('summary').transpose().reset_index()\nsummary_p = summary_p.rename(columns={'index':'field'})\nsummary_p = summary_p.rename_axis(None, axis=1)\n\n\nsummaryT = spark.createDataFrame(summary_p)\nsummaryT.show()\n\n\nCheck our schema\n\n\nsummaryT.printSchema() \n\n\nfrom pyspark.sql.types import DoubleType\n\nfor c in summaryT.columns:\n    if c == 'field':\n        continue\n    summaryT = summaryT.withColumn(c, summaryT[c].cast(DoubleType()))\n\n\nsummaryT.printSchema()\n\n\ndef pivot_summary(desc):\n    desc_p = desc.toPandas()\n    desc_p = desc_p.set_index('summary').transpose().reset_index()\n    desc_p = desc_p.rename(columns={'index':'field'})\n    desc_p = desc_p.rename_axis(None, axis=1)\n    descT = spark.createDataFrame(desc_p)\n    for c in descT.columns:\n        if c == 'field':\n            continue\n        else:\n            descT = descT.withColumn(c, descT[c].cast(DoubleType()))\n    return descT\n\n\nmatch_summaryT = pivot_summary(match_summary)\nmiss_summaryT = pivot_summary(miss_summary)",
     "crumbs": [
       "Home",
       "Labs",
@@ -726,7 +751,7 @@
     "href": "labs/lab9.html#joins",
     "title": "Apache Spark EDA",
     "section": "joins",
-    "text": "joins\n\nmatch_summaryT.createOrReplaceTempView(\"match_s\")\nmiss_summaryT.createOrReplaceTempView(\"miss_s\")\n\n\nspark.sql(\"\"\"\nSelect a.field, a.count + b.count total, a.mean - b.mean delta\nfrom match_s a inner join miss_s b on a.field = b.field \nwhere a.field not in (\"id_1\", \"id_2\")\norder by delta DESC, total DESC\n\"\"\").show()\n\n\ndo modelu : cmp_plz, cmp_by, cmp_bd, cmp_lname_c1, cmp_bm\n\n\n## score = suma zmiennych\nzmienne = ['cmp_plz','cmp_by','cmp_bd','cmp_lname_c1','cmp_bm']\nsuma = \" + \".join(zmienne)\n\n\nsuma\n\n\nfrom pyspark.sql.functions import expr\n\n\nscored = parsed.fillna(0, subset=zmienne)\\\n.withColumn('score', expr(suma))\\\n.select('score','is_match')\n\n\nscored.show()\n\n\n# ocena wartosci progowej\ndef crossTabs(scored, t):\n    return scored.selectExpr(f\"score &gt;= {t} as above\", \"is_match\")\\\n    .groupBy(\"above\").pivot(\"is_match\",(\"true\",\"false\"))\\\n    .count()\n\n\ncrossTabs(scored, 4.0).show()\n\n\ncrossTabs(scored, 2.0).show()",
+    "text": "joins\n\nmatch_summaryT.createOrReplaceTempView(\"match_s\")\nmiss_summaryT.createOrReplaceTempView(\"miss_s\")\n\n\nspark.sql(\"\"\"\nSelect a.field, a.count + b.count total, a.mean - b.mean delta\nfrom match_s a inner join miss_s b on a.field = b.field \nwhere a.field not in (\"id_1\", \"id_2\")\norder by delta DESC, total DESC\n\"\"\").show()\n\n\ndo modelu : cmp_plz, cmp_by, cmp_bd, cmp_lname_c1, cmp_bm\n\n\n## score = sum of features\nfeatures = ['cmp_plz','cmp_by','cmp_bd','cmp_lname_c1','cmp_bm']\nscore = \" + \".join(features)\n\n\nscore\n\n\nfrom pyspark.sql.functions import expr\n\n\nscored = parsed.fillna(0, subset=features)\\\n.withColumn('score', expr(score))\\\n.select('score','is_match')\n\n\nscored.show()\n\n\n# ocena wartosci progowej\ndef crossTabs(scored, t):\n    return scored.selectExpr(f\"score &gt;= {t} as above\", \"is_match\")\\\n    .groupBy(\"above\").pivot(\"is_match\",(\"true\",\"false\"))\\\n    .count()\n\n\ncrossTabs(scored, 4.0).show()\n\n\ncrossTabs(scored, 2.0).show()",
     "crumbs": [
       "Home",
       "Labs",
@@ -1381,7 +1406,7 @@
     "href": "kafka_codes/kafka1.html",
     "title": "Introduction",
     "section": "",
-    "text": "Apache Kafka is a stream processing system (event streaming) that acts as a distributed message broker. It enables real-time data transmission and processing.\nThe default address of our broker is broker:9092.\nIn Apache Kafka, data is stored in structures called topics, which serve as communication queues.\nKafka management is performed using scripts. In our case, these will be .sh scripts.\n\n\nRemember to navigate to the home directory:\ncd ~\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092\n\n\n\nThis script allows you to manually enter events via the terminal. The --property options are additional and used for analysis in this example.\nkafka/bin/kafka-console-producer.sh --bootstrap-server broker:9092 --topic mytopic --property \"parse.key=true\" --property \"key.separator=:\"\n\n\n\nOpen a new terminal in the directory where the test_key_value.py file is located and run the Consumer program in Spark.\nfrom pyspark.sql import SparkSession\n\nKAFKA_BROKER = 'broker:9092'\nKAFKA_TOPIC = 'mytopic'\n\nspark = SparkSession.builder.getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndf = (spark.readStream.format(\"kafka\")\n      .option(\"kafka.bootstrap.servers\", KAFKA_BROKER)\n      .option(\"subscribe\", KAFKA_TOPIC)\n      .option(\"startingOffsets\", \"earliest\")\n      .load()\n     )\n\ndf.selectExpr(\"CAST(key AS STRING)\", \"CAST(value AS STRING)\") \\\n .writeStream \\\n .format(\"console\") \\\n .outputMode(\"append\") \\\n .start() \\\n .awaitTermination()\nNote that Apache Spark does not have a built-in Kafka connector, so run the process using spark-submit and download the appropriate Scala package:\nspark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 test_key_value.py\n\n\n\nIn the terminal with the running producer, enter text in the following format:\njan:45\nalicja:20\nCheck what appears in the Consumer application window.\n\n\n\nAfter completing the demonstration, use Ctrl+C to close both the producer window and the Spark application.\n\nDone! Now you have a basic Apache Kafka and Spark setup for stream processing. 🎉",
+    "text": "Apache Kafka is a stream processing system (event streaming) that acts as a distributed message broker. It enables real-time data transmission and processing.\nThe default address of our broker is broker:9092.\nIn Apache Kafka, data is stored in structures called topics, which serve as communication queues.\nKafka management is performed using scripts. In our case, these will be *.sh scripts.\nBefore we start, navigate to the home directory:\ncd ~\n\n\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092\n\n\n\nkafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092\n\n\n\nThis script allows you to manually enter events via the terminal. The --property options are additional and used for analysis in this example.\nkafka/bin/kafka-console-producer.sh --bootstrap-server broker:9092 --topic mytopic --property \"parse.key=true\" --property \"key.separator=:\"\n\n\n\nOpen a new terminal in the directory where the test_key_value.py file is located and run the Consumer program in Spark.\nfrom pyspark.sql import SparkSession\n\nKAFKA_BROKER = 'broker:9092'\nKAFKA_TOPIC = 'mytopic'\n\nspark = SparkSession.builder.getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndf = (spark.readStream.format(\"kafka\")\n      .option(\"kafka.bootstrap.servers\", KAFKA_BROKER)\n      .option(\"subscribe\", KAFKA_TOPIC)\n      .option(\"startingOffsets\", \"earliest\")\n      .load()\n     )\n\npriv = (df.selectExpr(\"CAST(key AS STRING)\", \"CAST(value AS STRING)\"))\n\nquery = (priv.writeStream\n        .format(\"console\")\n        .outputMode(\"append\")\n        .start()\n        .awaitTermination()\n        )\nNote that Apache Spark does not have a built-in Kafka connector, so run the process using spark-submit and download the appropriate Scala package:\nspark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 test_key_value.py\n\n\n\nIn the terminal with the running producer, enter text in the following format:\njan:45\nalicja:20\nCheck what appears in the Consumer application window.\n\n\n\nAfter completing the demonstration, use Ctrl+C to close both the producer window and the Spark application.\n\nDone! Now you have a basic Apache Kafka and Spark setup for stream processing. 🎉",
     "crumbs": [
       "Home",
       "Labs",
@@ -1394,7 +1419,7 @@
     "href": "kafka_codes/kafka1.html#check-the-list-of-topics",
     "title": "Introduction",
     "section": "",
-    "text": "Remember to navigate to the home directory:\ncd ~\nkafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
+    "text": "kafka/bin/kafka-topics.sh --list --bootstrap-server broker:9092",
     "crumbs": [
       "Home",
       "Labs",
@@ -1403,8 +1428,8 @@
     ]
   },
   {
-    "objectID": "kafka_codes/kafka1.html#create-a-new-topic-named-mytopic",
-    "href": "kafka_codes/kafka1.html#create-a-new-topic-named-mytopic",
+    "objectID": "kafka_codes/kafka1.html#create-a-new-topic",
+    "href": "kafka_codes/kafka1.html#create-a-new-topic",
     "title": "Introduction",
     "section": "",
     "text": "kafka/bin/kafka-topics.sh --create --topic mytopic --bootstrap-server broker:9092",
@@ -1416,8 +1441,8 @@
     ]
   },
   {
-    "objectID": "kafka_codes/kafka1.html#create-a-producer",
-    "href": "kafka_codes/kafka1.html#create-a-producer",
+    "objectID": "kafka_codes/kafka1.html#create-a-kafka-console-producer",
+    "href": "kafka_codes/kafka1.html#create-a-kafka-console-producer",
     "title": "Introduction",
     "section": "",
     "text": "This script allows you to manually enter events via the terminal. The --property options are additional and used for analysis in this example.\nkafka/bin/kafka-console-producer.sh --bootstrap-server broker:9092 --topic mytopic --property \"parse.key=true\" --property \"key.separator=:\"",
@@ -1433,7 +1458,7 @@
     "href": "kafka_codes/kafka1.html#consumer-in-spark",
     "title": "Introduction",
     "section": "",
-    "text": "Open a new terminal in the directory where the test_key_value.py file is located and run the Consumer program in Spark.\nfrom pyspark.sql import SparkSession\n\nKAFKA_BROKER = 'broker:9092'\nKAFKA_TOPIC = 'mytopic'\n\nspark = SparkSession.builder.getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndf = (spark.readStream.format(\"kafka\")\n      .option(\"kafka.bootstrap.servers\", KAFKA_BROKER)\n      .option(\"subscribe\", KAFKA_TOPIC)\n      .option(\"startingOffsets\", \"earliest\")\n      .load()\n     )\n\ndf.selectExpr(\"CAST(key AS STRING)\", \"CAST(value AS STRING)\") \\\n .writeStream \\\n .format(\"console\") \\\n .outputMode(\"append\") \\\n .start() \\\n .awaitTermination()\nNote that Apache Spark does not have a built-in Kafka connector, so run the process using spark-submit and download the appropriate Scala package:\nspark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 test_key_value.py",
+    "text": "Open a new terminal in the directory where the test_key_value.py file is located and run the Consumer program in Spark.\nfrom pyspark.sql import SparkSession\n\nKAFKA_BROKER = 'broker:9092'\nKAFKA_TOPIC = 'mytopic'\n\nspark = SparkSession.builder.getOrCreate()\nspark.sparkContext.setLogLevel(\"WARN\")\n\ndf = (spark.readStream.format(\"kafka\")\n      .option(\"kafka.bootstrap.servers\", KAFKA_BROKER)\n      .option(\"subscribe\", KAFKA_TOPIC)\n      .option(\"startingOffsets\", \"earliest\")\n      .load()\n     )\n\npriv = (df.selectExpr(\"CAST(key AS STRING)\", \"CAST(value AS STRING)\"))\n\nquery = (priv.writeStream\n        .format(\"console\")\n        .outputMode(\"append\")\n        .start()\n        .awaitTermination()\n        )\nNote that Apache Spark does not have a built-in Kafka connector, so run the process using spark-submit and download the appropriate Scala package:\nspark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 test_key_value.py",
     "crumbs": [
       "Home",
       "Labs",
